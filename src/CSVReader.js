@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 import Papa from 'papaparse';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 
 const CSVReader = () => {
   const [dataForRecharts, setDataForRecharts] = useState([]);
@@ -8,13 +8,21 @@ const CSVReader = () => {
   const handleFileChosen = (file) => {
     Papa.parse(file, {
       complete: (results) => {
-        const formattedData = results.data.slice(1).map((item) => ({
-          nome: item.nome,
-          valor: item.valor
-        }));
+        const formattedData = results.data.map((item) => {
+          const formattedItem = { name: item.Informação };
+          for (let key in item) {
+            if (key !== 'Informação' && item[key]) {
+              formattedItem[key] = Number(item[key]);
+            }
+          }
+          return formattedItem;
+        });
         setDataForRecharts(formattedData);
       },
       header: true,
+      dynamicTyping: true,
+      skipEmptyLines: true,
+      delimiter: ',',
     });
   };
 
@@ -31,12 +39,22 @@ const CSVReader = () => {
   }, []);
 
   return (
-    <BarChart width={600} height={600} data={dataForRecharts}>
-      <Bar dataKey="valor" fill="purple" />
-      <CartesianGrid stroke="#ccc" />
-      <XAxis dataKey="nome" />
-      <YAxis />
-    </BarChart>
+    <div>
+      <h2>Upload do arquivo CSV</h2>
+      <BarChart width={800} height={400} data={dataForRecharts}>
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis dataKey="name" />
+        <YAxis />
+        <Tooltip />
+        <Legend />
+        {Object.keys(dataForRecharts[0] || {}).map((key, index) => {
+          if (key !== 'name') {
+            return <Bar key={index} dataKey={key} fill={`#${Math.floor(Math.random() * 16777215).toString(16)}`} />;
+          }
+          return null;
+        })}
+      </BarChart>
+    </div>
   );
 };
 

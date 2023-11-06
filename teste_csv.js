@@ -8,5 +8,5 @@ const line = readline.createInterface({
 line.on("line", (data) => {
     let csv = data.split(";");
 
-    console.log(`CPF: ${csv[0]} - Nome: ${csv[1]} - Email: ${csv[2]} - Endereco: ${csv[3]}`);
+    console.log(`Nome: ${csv[0]} - Valor: ${csv[1]}`);
 })
