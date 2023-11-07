@@ -4,6 +4,7 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'rec
 
 const CSVReader = () => {
   const [dataForRecharts, setDataForRecharts] = useState([]);
+  const [selectedKey, setSelectedKey] = useState('Discente - Mestrado - MATRICULADO');
 
   const handleFileChosen = (file) => {
     Papa.parse(file, {
@@ -26,6 +27,10 @@ const CSVReader = () => {
     });
   };
 
+  const handleSelectChange = (event) => {
+    setSelectedKey(event.target.value);
+  };
+
   useEffect(() => {
     const input = document.createElement('input');
     input.type = 'file';
@@ -41,18 +46,21 @@ const CSVReader = () => {
   return (
     <div>
       <h2>Upload do arquivo CSV</h2>
+      <select value={selectedKey} onChange={handleSelectChange}>
+        {dataForRecharts.length > 0 &&
+          Object.keys(dataForRecharts[0]).map((key, index) => (
+            <option key={index} value={key}>
+              {key}
+            </option>
+          ))}
+      </select>
       <BarChart width={800} height={400} data={dataForRecharts}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="name" />
         <YAxis />
         <Tooltip />
         <Legend />
-        {Object.keys(dataForRecharts[0] || {}).map((key, index) => {
-          if (key !== 'name') {
-            return <Bar key={index} dataKey={key} fill={`#${Math.floor(Math.random() * 16777215).toString(16)}`} />;
-          }
-          return null;
-        })}
+        <Bar dataKey={selectedKey} fill="#8884d8" />
       </BarChart>
     </div>
   );
