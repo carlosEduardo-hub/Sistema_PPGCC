@@ -15,7 +15,7 @@ const CSVReader = () => {
   const handleFileChosen = (file) => {
     Papa.parse(file, {
       complete: (results) => {
-        const infoHeaders = results.meta.fields.filter((header) => header !== 'Informação');
+        const infoHeaders = results.meta.fields.filter((header) => header !== 'Informação' && header !== 'obs');
         setInfoData(infoHeaders);
 
         const colors = randomColor({ count: infoHeaders.length, format: 'rgba' });
@@ -55,6 +55,38 @@ const CSVReader = () => {
       document.body.removeChild(input);
     };
   }, []);
+
+  return (
+    <div>
+      <h2>Informação Headers:</h2>
+      <pre>{infoData.join(', ')}</pre>
+
+      {infoData.length > 0 && (
+        <select value={selectedInfo} onChange={(e) => handleInfoChange(e.target.value)}>
+          {dataForRecharts.map((item) => (
+            <option key={item.nome} value={item.nome}>
+              {item.nome}
+            </option>
+          ))}
+        </select>
+      )}
+
+      <BarChart width={1200} height={600} data={dataForRecharts.filter((item) => item.nome === selectedInfo)}>
+        <CartesianGrid stroke="#ccc" />
+        <XAxis dataKey="nome" />
+        <YAxis />
+        <Tooltip />
+        <Legend />
+        {infoData
+          .filter((header) => header !== 'nome') // Excluir a coluna 'nome' dos anos
+          .map((year) => (
+            <Bar key={year} dataKey={year} fill={dataColors[year]} />
+          ))}
+      </BarChart>
+    </div>
+  );
+};
+
 
   // useEffect(() => {
   //   const input = document.createElement('input');
@@ -106,32 +138,32 @@ const CSVReader = () => {
   // );
         
 
-  return (
-    <div>
-      <h2>Informação Headers:</h2>
-      <pre>{infoData.join(', ')}</pre>
+//   return (
+//     <div>
+//       <h2>Informação Headers:</h2>
+//       <pre>{infoData.join(', ')}</pre>
 
-      {infoData.length > 0 && (
-        <select value={selectedInfo} onChange={(e) => handleInfoChange(e.target.value)}>
-          {infoData.map((info) => (
-            <option key={info} value={info}>
-              {info}
-            </option>
-          ))}
-        </select>
-      )}
+//       {infoData.length > 0 && (
+//         <select value={selectedInfo} onChange={(e) => handleInfoChange(e.target.value)}>
+//           {infoData.map((info) => (
+//             <option key={info} value={info}>
+//               {info}
+//             </option>
+//           ))}
+//         </select>
+//       )}
 
-      <BarChart width={1200} height={600} data={dataForRecharts}>
-        <Bar dataKey={selectedInfo} fill={dataColors[selectedInfo]} />
-        <CartesianGrid stroke="#ccc" />
-        <XAxis dataKey="nome" />
-        <YAxis />
-        <Tooltip />
-        <Legend />
-      </BarChart>
-    </div>
-  );
-};
+//       <BarChart width={1200} height={600} data={dataForRecharts}>
+//         <Bar dataKey={selectedInfo} fill={dataColors[selectedInfo]} />
+//         <CartesianGrid stroke="#ccc" />
+//         <XAxis dataKey="nome" />
+//         <YAxis />
+//         <Tooltip />
+//         <Legend />
+//       </BarChart>
+//     </div>
+//   );
+// };
 
 
 
