@@ -3,6 +3,7 @@ import Papa from 'papaparse';
 import randomColor from 'randomcolor';
 import Chart from 'react-apexcharts';
 
+
 const CSVReader = () => {
   const [dataForApexCharts, setDataForApexCharts] = useState([]);
   const [infoData, setInfoData] = useState([]);
@@ -59,6 +60,51 @@ const CSVReader = () => {
     };
   }, []);
 
+  if (!dataForApexCharts.length || !infoData.length) {
+    return <div>Loading...</div>;
+  }
+
+// FAZENDO O GRAFICO EM LINHA 
+// const options = {
+//     chart: {
+//       id: 'line-chart',
+//       toolbar: {
+//         show: false,
+//       },
+//     },
+//     xaxis: {
+//       categories: dataForApexCharts.map((item) => item.nome),
+//     },
+//   };
+
+//   const series = [
+//     {
+//       name: selectedInfo,
+//       data: dataForApexCharts.map((item) => item[selectedInfo]),
+//     },
+//   ];
+
+//   return (
+//     <div>
+//       <h2>Informação Headers:</h2>
+//       <pre>{infoData.join(', ')}</pre>
+
+//       {infoData.length > 0 && (
+//         <select value={selectedInfo} onChange={(e) => handleInfoChange(e.target.value)}>
+//           {dataForApexCharts.map((item) => (
+//             <option key={item.nome} value={item.nome}>
+//               {item.nome}
+//             </option>
+//           ))}
+//         </select>
+//       )}
+
+//       <Chart options={options} series={series} type="line" height={600} />
+//     </div>
+//   );
+
+  
+// FAZENDO O GRAFICO EM BARRA
   const options = {
     xaxis: {
       categories: infoData.filter((header) => header !== 'nome'),
