@@ -14,22 +14,28 @@ const CSVReader = () => {
       complete: (results) => {
         const infoHeaders = results.meta.fields.filter((header) => header !== 'Informação' && header !== 'obs');
         setInfoData(infoHeaders);
-
-        const colors = randomColor({ count: infoHeaders.length, format: 'rgba' });
-
+  
+        // Ajuste a intensidade das cores para torná-las mais fortes
+        const colors = randomColor({
+          count: infoHeaders.length,
+          format: 'rgba',
+          luminosity: 'bright', // Escolhe cores mais brilhantes
+          alpha: 1, // 1 significa opacidade total
+        });
+  
         const colorsMap = {};
         infoHeaders.forEach((header, index) => {
           colorsMap[header] = colors[index];
         });
         setDataColors(colorsMap);
-
+  
         const formattedData = results.data.map((item) => {
           return {
             nome: item.Informação,
             ...Object.fromEntries(infoHeaders.map((header) => [header, parseInt(item[header], 10)])),
           };
         });
-
+  
         setDataForApexCharts(formattedData);
         setSelectedInfo(formattedData[0].nome); // Inicializa com o primeiro valor por padrão
       },
@@ -57,6 +63,7 @@ const CSVReader = () => {
     xaxis: {
       categories: infoData.filter((header) => header !== 'nome'),
     },
+    colors: Object.values(dataColors),
   };
 
   return (
