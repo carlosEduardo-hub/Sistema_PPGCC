@@ -60,18 +60,19 @@ const CSVReader = () => {
     };
   }, []);
 
-  if (!dataForApexCharts.length || !infoData.length) {
-    return <div>Loading...</div>;
-  }
+  // if (!dataForApexCharts.length || !infoData.length || !dataForApexCharts[0][selectedInfo]) {
+  //   return <div>Loading...</div>;
+  // }
 
 // FAZENDO O GRAFICO EM LINHA 
 // const options = {
 //     chart: {
-//       id: 'line-chart',
+//       id: 'line',
 //       toolbar: {
 //         show: false,
 //       },
 //     },
+//     // o erro ta aqui
 //     xaxis: {
 //       categories: dataForApexCharts.map((item) => item.nome),
 //     },
@@ -105,43 +106,76 @@ const CSVReader = () => {
 
   
 // FAZENDO O GRAFICO EM BARRA
-  const options = {
-    xaxis: {
-      categories: infoData.filter((header) => header !== 'nome'),
-    },
-    colors: Object.values(dataColors),
-  };
+  // const options = {
+  //   xaxis: {
+  //     categories: infoData.filter((header) => header !== 'nome'),
+  //   },
+  //   colors: Object.values(dataColors),
+  // };
 
-  return (
-    <div>
-      <h2>Informação Headers:</h2>
-      <pre>{infoData.join(', ')}</pre>
+  // return (
+  //   <div>
+  //     <h2>Informação Headers:</h2>
+  //     <pre>{infoData.join(', ')}</pre>
 
-      {infoData.length > 0 && (
-        <select value={selectedInfo} onChange={(e) => handleInfoChange(e.target.value)}>
-          {dataForApexCharts.map((item) => (
-            <option key={item.nome} value={item.nome}>
-              {item.nome}
-            </option>
-          ))}
-        </select>
-      )}
+  //     {infoData.length > 0 && (
+  //       <select value={selectedInfo} onChange={(e) => handleInfoChange(e.target.value)}>
+  //         {dataForApexCharts.map((item) => (
+  //           <option key={item.nome} value={item.nome}>
+  //             {item.nome}
+  //           </option>
+  //         ))}
+  //       </select>
+  //     )}
 
-      <Chart
-        options={options}
-        series={[
-          {
-            name: selectedInfo,
-            data: infoData
-              .filter((header) => header !== 'nome')
-              .map((year) => dataForApexCharts.find((item) => item.nome === selectedInfo)[year]),
-          },
-        ]}
-        type="bar"
-        height={350}
-      />
-    </div>
-  );
+  //     <Chart
+  //       options={options}
+  //       series={[
+  //         {
+  //           name: selectedInfo,
+  //           data: infoData
+  //             .filter((header) => header !== 'nome')
+  //             .map((year) => dataForApexCharts.find((item) => item.nome === selectedInfo)[year]),
+  //         },
+  //       ]}
+  //       type="bar"
+  //       height={350}
+  //     />
+  //   </div>
+  // );
+
+///GRAFICO EM PIZZA
+const options = {
+  labels: infoData.filter((header) => header !== 'nome'),
+  colors: Object.values(dataColors),
+};
+
+return (
+  <div>
+    <h2>Informação Headers:</h2>
+    <pre>{infoData.join(', ')}</pre>
+
+    {infoData.length > 0 && (
+      <select value={selectedInfo} onChange={(e) => handleInfoChange(e.target.value)}>
+        {dataForApexCharts.map((item) => (
+          <option key={item.nome} value={item.nome}>
+            {item.nome}
+          </option>
+        ))}
+      </select>
+    )}
+
+    <Chart
+      options={options}
+      series={dataForApexCharts.find((item) => item.nome === selectedInfo)
+        ? Object.values(dataForApexCharts.find((item) => item.nome === selectedInfo)).slice(1)
+        : []}
+      type="pie"
+      width="500"
+    />
+  </div>
+);
+
 };
 
 export default CSVReader;
