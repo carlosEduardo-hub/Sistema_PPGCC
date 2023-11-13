@@ -3,49 +3,48 @@ import Papa from 'papaparse';
 import randomColor from 'randomcolor';
 import Chart from 'react-apexcharts';
 
-
 const CSVReader = () => {
   const [dataForApexCharts, setDataForApexCharts] = useState([]);
   const [infoData, setInfoData] = useState([]);
   const [dataColors, setDataColors] = useState({});
-  const [selectedInfo, setSelectedInfo] = useState('');
+  const [selectedInfo, setSelectedInfo] = useState([]);
 
   const handleFileChosen = (file) => {
     Papa.parse(file, {
       complete: (results) => {
         const infoHeaders = results.meta.fields.filter((header) => header !== 'Informação' && header !== 'obs');
         setInfoData(infoHeaders);
-  
-        // Ajuste a intensidade das cores para torná-las mais fortes
+
         const colors = randomColor({
           count: infoHeaders.length,
           format: 'rgba',
-          luminosity: 'bright', // Escolhe cores mais brilhantes
-          alpha: 1, // 1 significa opacidade total
+          luminosity: 'bright',
+          alpha: 1,
         });
-  
+
         const colorsMap = {};
         infoHeaders.forEach((header, index) => {
           colorsMap[header] = colors[index];
         });
         setDataColors(colorsMap);
-  
+
         const formattedData = results.data.map((item) => {
           return {
             nome: item.Informação,
             ...Object.fromEntries(infoHeaders.map((header) => [header, parseInt(item[header], 10)])),
           };
         });
-  
+
         setDataForApexCharts(formattedData);
-        setSelectedInfo(formattedData[0].nome); // Inicializa com o primeiro valor por padrão
+        setSelectedInfo([formattedData[0].nome]); // Inicializa com o primeiro valor por padrão
       },
       header: true,
     });
   };
-
-  const handleInfoChange = (selectedValue) => {
-    setSelectedInfo(selectedValue);
+//ESTA PARA MULTIPLAS ESCOLHAS NECESSARIO MUDAR PARA AS OUTRAS
+  const handleInfoChange = (e) => {
+    const selectedValues = Array.from(e.target.selectedOptions, (option) => option.value);
+    setSelectedInfo(selectedValues || []); // Certifique-se de que selectedInfo seja um array
   };
 
   useEffect(() => {
@@ -63,6 +62,84 @@ const CSVReader = () => {
   // if (!dataForApexCharts.length || !infoData.length || !dataForApexCharts[0][selectedInfo]) {
   //   return <div>Loading...</div>;
   // }
+
+// FAZENDO O GRAFICO EM BARRA
+  // Escolhendo apenas uma info
+      // const options = {
+      //   xaxis: {
+      //     categories: infoData.filter((header) => header !== 'nome'),
+      //   },
+      //   colors: Object.values(dataColors),
+      // };
+
+      // return (
+      //   <div>
+      //     <h2>Informação Headers:</h2>
+      //     <pre>{infoData.join(', ')}</pre>
+
+      //     {infoData.length > 0 && (
+      //       <select value={selectedInfo} onChange={(e) => handleInfoChange(e.target.value)}>
+      //         {dataForApexCharts.map((item) => (
+      //           <option key={item.nome} value={item.nome}>
+      //             {item.nome}
+      //           </option>
+      //         ))}
+      //       </select>
+      //     )}
+
+      //     <Chart
+      //       options={options}
+      //       series={[
+      //         {
+      //           name: selectedInfo,
+      //           data: infoData
+      //             .filter((header) => header !== 'nome')
+      //             .map((year) => dataForApexCharts.find((item) => item.nome === selectedInfo)[year]),
+      //         },
+      //       ]}
+      //       type="bar"
+      //       height={350}
+      //     />
+      //   </div>
+      // );
+  
+
+      // const options = {
+      //   xaxis: {
+      //     categories: infoData.filter((header) => header !== 'nome'),
+      //   },
+      //   colors: Object.values(dataColors),
+      // };
+    
+      // return (
+      //   <div>
+      //     <h2>Informação Headers:</h2>
+      //     <pre>{infoData.join(', ')}</pre>
+    
+      //     {infoData.length > 0 && (
+      //       <select multiple value={selectedInfo} onChange={handleInfoChange}>
+      //         {dataForApexCharts.map((item) => (
+      //           <option key={item.nome} value={item.nome}>
+      //             {item.nome}
+      //           </option>
+      //         ))}
+      //       </select>
+      //     )}
+    
+      //     <Chart
+      //       options={options}
+      //       series={selectedInfo.map((info) => ({
+      //         name: info,
+      //         data: infoData
+      //           .filter((header) => header !== 'nome')
+      //           .map((year) => dataForApexCharts.find((item) => item.nome === info)[year]),
+      //       }))}
+      //       type="bar"
+      //       height={350}
+      //     />
+      //   </div>
+      // );
+
 
 // FAZENDO O GRAFICO EM LINHA 
 const options = {
@@ -106,44 +183,6 @@ return (
 );
 
   
-// FAZENDO O GRAFICO EM BARRA
-  // const options = {
-  //   xaxis: {
-  //     categories: infoData.filter((header) => header !== 'nome'),
-  //   },
-  //   colors: Object.values(dataColors),
-  // };
-
-  // return (
-  //   <div>
-  //     <h2>Informação Headers:</h2>
-  //     <pre>{infoData.join(', ')}</pre>
-
-  //     {infoData.length > 0 && (
-  //       <select value={selectedInfo} onChange={(e) => handleInfoChange(e.target.value)}>
-  //         {dataForApexCharts.map((item) => (
-  //           <option key={item.nome} value={item.nome}>
-  //             {item.nome}
-  //           </option>
-  //         ))}
-  //       </select>
-  //     )}
-
-  //     <Chart
-  //       options={options}
-  //       series={[
-  //         {
-  //           name: selectedInfo,
-  //           data: infoData
-  //             .filter((header) => header !== 'nome')
-  //             .map((year) => dataForApexCharts.find((item) => item.nome === selectedInfo)[year]),
-  //         },
-  //       ]}
-  //       type="bar"
-  //       height={350}
-  //     />
-  //   </div>
-  // );
 
 ///GRAFICO EM PIZZA
 // const options = {
