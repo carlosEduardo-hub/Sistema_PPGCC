@@ -1,12 +1,10 @@
 // App.js
-import React from 'react';
-import CSVReader from './CSVReader';
+import React from "react";
+import InitialPage from "./templates/InitialPage";
 
 const App = () => {
   return (
-    <div className="App">
-      <CSVReader />
-    </div>
+    <InitialPage />
   );
 };
 

@@ -4,7 +4,7 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'rec
 
 const CSVReader = () => {
   const [dataForRecharts, setDataForRecharts] = useState([]);
-  const [selectedKey, setSelectedKey] = useState('Discente - Mestrado - MATRICULADO');
+  const [selectedKey, setSelectedKey] = useState();
 
   const handleFileChosen = (file) => {
     Papa.parse(file, {
@@ -47,7 +47,7 @@ const CSVReader = () => {
     <div>
       <h2>Upload do arquivo CSV</h2>
       <select value={selectedKey} onChange={handleSelectChange}>
-        {dataForRecharts.length > 0 &&
+        {dataForRecharts.length > 0 &&  
           Object.keys(dataForRecharts[0]).map((key, index) => (
             <option key={index} value={key}>
               {key}
