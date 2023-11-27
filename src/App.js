@@ -1,10 +1,10 @@
 // App.js
 import React from "react";
-import InitialPage from "./templates/InitialPage";
+import AppRoutes from "./Routes";
 
 const App = () => {
   return (
-    <InitialPage />
+    <AppRoutes />
   );
 };
 

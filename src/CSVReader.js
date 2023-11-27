@@ -44,25 +44,28 @@ const CSVReader = () => {
   }, []);
 
   return (
-    <div>
-      <h2>Upload do arquivo CSV</h2>
-      <select value={selectedKey} onChange={handleSelectChange}>
-        {dataForRecharts.length > 0 &&  
-          Object.keys(dataForRecharts[0]).map((key, index) => (
-            <option key={index} value={key}>
-              {key}
-            </option>
-          ))}
-      </select>
-      <BarChart width={800} height={400} data={dataForRecharts}>
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="name" />
-        <YAxis />
-        <Tooltip />
-        <Legend />
-        <Bar dataKey={selectedKey} fill="#8884d8" />
-      </BarChart>
-    </div>
+    <>
+      <div className=' h-screen bg-bgcolor'>
+        <h2>Upload do arquivo CSV</h2>
+        <select value={selectedKey} onChange={handleSelectChange}>
+          {dataForRecharts.length > 0 &&
+            Object.keys(dataForRecharts[0]).map((key, index) => (
+              <option key={index} value={key}>
+                {key}
+              </option>
+            ))}
+        </select>
+        <BarChart width={800} height={400} data={dataForRecharts}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="name" />
+          <YAxis />
+          <Tooltip />
+          <Legend />
+          <Bar dataKey={selectedKey} fill="#8884d8" />
+        </BarChart>
+      </div>
+    </>
+
   );
 };
 
