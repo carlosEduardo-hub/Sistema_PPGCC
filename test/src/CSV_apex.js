@@ -9,6 +9,7 @@ const CSVReader = () => {
   const [dataColors, setDataColors] = useState({});
   const [selectedInfo, setSelectedInfo] = useState([]);
   const [selectedYears, setSelectedYears] = useState([]);
+  const [chartType, setChartType] = useState('bar');
 
 
   const handleFileChosen = (file) => {
@@ -70,112 +71,148 @@ const CSVReader = () => {
     };
   }, []);
 
+  const handleChartTypeChange = (e) => {
+    setChartType(e.target.value);
+  };
+
   // if (!dataForApexCharts.length || !infoData.length || !dataForApexCharts[0][selectedInfo]) {
   //   return <div>Loading...</div>;
   // }
 
-  // // FAZENDO O GRAFICO EM BARRA
-  const options = {
-    chart: {
-      type: 'bar',
-      height: 400,
-      zoom: {
-        enabled: true,
-      },
-      selection: {
-        enabled: true,
-      },
-      zoomedArea: {
-        fill: {
-          color: '#90CAF9',
-          opacity: 0.4,
-        },
-        stroke: {
-          color: '#0D47A1',
-          opacity: 0.7,
-          width: 1,
-        },
-      },
-    },
-    plotOptions: {
-      bar: {
-        borderRadius: 5,
-        // borderRadiusApplication: 'end',
-        horizontal: false,
-        columnWidth: '55%',
-        endingShape: 'rounded',
-        dataLabels: {
-          position: 'top', // top, center, bottom
-        },
-      }
-    },
-    dataLabels: {
-      enabled: true,
-      offsetY: -20,
-      style: {
-        fontSize: '12px',
-        colors: ["#304758"]
-      }
-    },
-    stroke: {
-      show: true,
-      width: 4,
-      colors: ['transparent']
-    },
-    xaxis: {
-      categories: infoData.filter((header) => header !== 'nome'),
-    },
-    colors: Object.values(dataColors),
-  };
 
-  const filteredDataForChart = selectedInfo.map((info) => ({
-    name: info,
-    data: selectedYears.map((year) =>
-      dataForApexCharts.find((item) => item.nome === info)[year]
-    ),
-  }));
+
+  // // FAZENDO O GRAFICO EM BARRA
+  // const options = {
+  //   chart: {
+  //     type: 'bar',
+  //     height: 400,
+  //     stacked:true,
+  //     zoom: {
+  //       enabled: true,
+  //     },
+  //     selection: {
+  //       enabled: true,
+  //     },
+  //     zoomedArea: {
+  //       fill: {
+  //         color: '#90CAF9',
+  //         opacity: 0.4,
+  //       },
+  //       stroke: {
+  //         color: '#0D47A1',
+  //         opacity: 0.7,
+  //         width: 1,
+  //       },
+  //     },
+  //   },
+  //   responsive: [{
+  //     breakpoint: 480,
+  //     options: {
+  //       legend: {
+  //         position: 'bottom',
+  //         offsetX: -10,
+  //         offsetY: 0
+  //       }
+  //     }
+  //   }],
+  //   plotOptions: {
+  //     bar: {
+  //       borderRadius: 5,
+  //       // borderRadiusApplication: 'end',
+  //       horizontal: false,
+  //       //columnWidth: '55%',
+  //       //endingShape: 'rounded',
+  //       dataLabels: {
+  //         //position: 'top', // top, center, bottom
+  //         total: {
+  //           enabled: true,
+  //           style: {
+  //             fontSize: '13px',
+  //             fontWeight: 900
+  //           }
+  //         }
+  //       },
+  //     }
+  //   },
+  //   dataLabels: {
+  //     position: 'top',
+  //     enabled: true,
+  //     offsetY: 0,
+  //     style: {
+  //       fontSize: '12px',
+  //       colors: ["#ADD8E6"]
+  //     }
+  //   },
+  //   stroke: {
+  //     show: true,
+  //     width: 4,
+  //     colors: ['transparent']
+  //   },
+  //   xaxis: {
+  //     categories: selectedYears,
+  //   },
+  //   colors: Object.values(dataColors),
+  //   legend: {
+  //     position: 'bottom',
+  //     offsetY: 40
+  //   },
+  //   fill: {
+  //     opacity: 1
+  //   }
+  // };
+
+  // const filteredDataForChart = selectedInfo.map((info) => ({
+  //   name: info,
+  //   data: selectedYears.map((year) =>
+  //     dataForApexCharts.find((item) => item.nome === info)[year]
+  //   ),
+  // }));
   
 
-  return (
-    <div>
-      <h2>Informação Headers:</h2>
-      <pre>{infoData.join(', ')}</pre>
+  // return (
+  //   <div>
+  //     <h2>Informação Headers:</h2>
+  //     <pre>{infoData.join(', ')}</pre>
+      
 
-      {infoData.length > 0 && (
-        <select multiple value={selectedInfo} onChange={handleInfoChange}>
-          {dataForApexCharts.map((item) => (
-            <option key={item.nome} value={item.nome}>
-              {item.nome}
-            </option>
-          ))}
-        </select>
-      )}
+  //     {infoData.length > 0 && (
+  //       <select multiple value={selectedInfo} onChange={handleInfoChange}>
+  //         {dataForApexCharts.map((item) => (
+  //           <option key={item.nome} value={item.nome}>
+  //             {item.nome}
+  //           </option>
+  //         ))}
+  //       </select>
+  //     )}
 
-      {selectedYears.length > 0 && (
-        <select multiple value={selectedYears} onChange={handleYearChange}>
-          {selectedYears.map((year) => (
-            <option key={year} value={year}>
-              {year}
-            </option>
-          ))}
-        </select>
-      )}
+  //     {infoData.length > 0 && (
+  //       <select multiple value={selectedYears} onChange={handleYearChange}>
+  //         {infoData
+  //           .filter((header) => header !== 'nome')
+  //           .map((year) => (
+  //             <option key={year} value={year}>
+  //               {year}
+  //             </option>
+  //           ))}
+  //       </select>
+  //     )}
 
-      <Chart
-        options={options}
-        series={filteredDataForChart}
-        type="bar"
-        height={350}
-      />
-    </div>
-  );
+  //     <Chart
+  //       options={options}
+  //       series={filteredDataForChart}
+  //       type="bar"
+  //       height={350}
+  //       width={500}
+  //     />
+  //   </div>
+  // );
 
 
   // // FAZENDO O GRAFICO EM LINHA 
 
   // const options = {
   //   chart: {
-  //     height: 350,
+  //     height: 100,
   //     type: 'line',
   //     zoom: {
   //       enabled: true,
@@ -190,8 +227,8 @@ const CSVReader = () => {
   //   },
   //   stroke: {
   //     width: 5,
-  //     curve: 'straight', // stepline
-  //     dashArray: 5,
+  //     curve: 'straight', // stepline 
+  //     dashArray: 0,
   //   },
   //   title: {
   //     text: 'Grafico em Linha',
@@ -239,6 +276,7 @@ const CSVReader = () => {
   //       }))}
   //       type="line"
   //       height={350}
+  //       width={500}
   //     />
   //   </div>
   // );
