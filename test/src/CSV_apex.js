@@ -2,6 +2,10 @@ import React, { useEffect, useState } from 'react';
 import Papa from 'papaparse';
 import randomColor from 'randomcolor';
 import Chart from 'react-apexcharts';
+import ColumnChart from './chart-types/column';
+import LineChart from './chart-types/line';
+import AreaChart from './chart-types/area';
+import BarChart from './chart-types/bar';
 
 const CSVReader = () => {
   const [dataForApexCharts, setDataForApexCharts] = useState([]);
@@ -9,7 +13,6 @@ const CSVReader = () => {
   const [dataColors, setDataColors] = useState({});
   const [selectedInfo, setSelectedInfo] = useState([]);
   const [selectedYears, setSelectedYears] = useState([]);
-  const [chartType, setChartType] = useState('bar');
 
 
   const handleFileChosen = (file) => {
@@ -71,213 +74,86 @@ const CSVReader = () => {
     };
   }, []);
 
-  const handleChartTypeChange = (e) => {
-    setChartType(e.target.value);
-  };
-
   // if (!dataForApexCharts.length || !infoData.length || !dataForApexCharts[0][selectedInfo]) {
   //   return <div>Loading...</div>;
   // }
 
+  return (
+    <div className='grafico'>
+      <select id='lang' value={} onChange={}>
+        <option value="line" >Line</option>
+        <option value="area" >Area</option>
+        <option value="bar" >Bar</option>
+        <option value="column" >Column</option>
+      </select>
+    </div>
+  )
 
 
-  // // FAZENDO O GRAFICO EM BARRA
-  // const options = {
-  //   chart: {
-  //     type: 'bar',
-  //     height: 400,
-  //     stacked:true,
-  //     zoom: {
-  //       enabled: true,
-  //     },
-  //     selection: {
-  //       enabled: true,
-  //     },
-  //     zoomedArea: {
-  //       fill: {
-  //         color: '#90CAF9',
-  //         opacity: 0.4,
-  //       },
-  //       stroke: {
-  //         color: '#0D47A1',
-  //         opacity: 0.7,
-  //         width: 1,
-  //       },
-  //     },
-  //   },
-  //   responsive: [{
-  //     breakpoint: 480,
-  //     options: {
-  //       legend: {
-  //         position: 'bottom',
-  //         offsetX: -10,
-  //         offsetY: 0
-  //       }
-  //     }
-  //   }],
-  //   plotOptions: {
-  //     bar: {
-  //       borderRadius: 5,
-  //       // borderRadiusApplication: 'end',
-  //       horizontal: false,
-  //       //columnWidth: '55%',
-  //       //endingShape: 'rounded',
-  //       dataLabels: {
-  //         //position: 'top', // top, center, bottom
-  //         total: {
-  //           enabled: true,
-  //           style: {
-  //             fontSize: '13px',
-  //             fontWeight: 900
-  //           }
-  //         }
-  //       },
-  //     }
-  //   },
-  //   dataLabels: {
-  //     position: 'top',
-  //     enabled: true,
-  //     offsetY: 0,
-  //     style: {
-  //       fontSize: '12px',
-  //       colors: ["#ADD8E6"]
-  //     }
-  //   },
-  //   stroke: {
-  //     show: true,
-  //     width: 4,
-  //     colors: ['transparent']
-  //   },
-  //   xaxis: {
-  //     categories: selectedYears,
-  //   },
-  //   colors: Object.values(dataColors),
-  //   legend: {
-  //     position: 'bottom',
-  //     offsetY: 40
-  //   },
-  //   fill: {
-  //     opacity: 1
-  //   }
-  // };
 
-  // const filteredDataForChart = selectedInfo.map((info) => ({
-  //   name: info,
-  //   data: selectedYears.map((year) =>
-  //     dataForApexCharts.find((item) => item.nome === info)[year]
-  //   ),
-  // }));
-  
+
+  // FAZENDO GRAFICO EM COLUNA
 
   // return (
   //   <div>
-  //     <h2>Informação Headers:</h2>
-  //     <pre>{infoData.join(', ')}</pre>
-      
-
-  //     {infoData.length > 0 && (
-  //       <select multiple value={selectedInfo} onChange={handleInfoChange}>
-  //         {dataForApexCharts.map((item) => (
-  //           <option key={item.nome} value={item.nome}>
-  //             {item.nome}
-  //           </option>
-  //         ))}
-  //       </select>
-  //     )}
-
-  //     {infoData.length > 0 && (
-  //       <select multiple value={selectedYears} onChange={handleYearChange}>
-  //         {infoData
-  //           .filter((header) => header !== 'nome')
-  //           .map((year) => (
-  //             <option key={year} value={year}>
-  //               {year}
-  //             </option>
-  //           ))}
-  //       </select>
-  //     )}
-
-  //     <Chart
-  //       options={options}
-  //       series={filteredDataForChart}
-  //       type="bar"
-  //       height={350}
-  //       width={500}
-  //     />
-  //   </div>
+  //   <ColumnChart
+  //     selectedYears={selectedYears}
+  //     infoData={infoData}
+  //     selectedInfo={selectedInfo}
+  //     handleInfoChange={handleInfoChange}
+  //     handleYearChange={handleYearChange}
+  //     dataForApexCharts={dataForApexCharts}
+  //     dataColors={dataColors}
+  //   />
+  // </div>
   // );
 
 
   // // FAZENDO O GRAFICO EM LINHA 
 
-  // const options = {
-  //   chart: {
-  //     height: 100,
-  //     type: 'line',
-  //     zoom: {
-  //       enabled: true,
-  //     },
-  //     toolbar: {
-  //       autoSelected: 'pan',
-  //       show: true
-  //     }
-  //   },
-  //   dataLabels: {
-  //     enabled: true,
-  //   },
-  //   stroke: {
-  //     width: 5,
-  //     curve: 'straight', // stepline 
-  //     dashArray: 0,
-  //   },
-  //   title: {
-  //     text: 'Grafico em Linha',
-  //     align: 'left',
-  //   },
-  //   grid: {
-  //     row: {
-  //       colors: ['#f3f3f3', 'transparent'],
-  //       opacity: 0.5,
-  //     },
-  //   },
+  // return (
+  //   <div>
+  //     <LineChart
+  //       selectedYears={selectedYears}
+  //       infoData={infoData}
+  //       selectedInfo={selectedInfo}
+  //       handleInfoChange={handleInfoChange}
+  //       handleYearChange={handleYearChange}
+  //       dataForApexCharts={dataForApexCharts}
+  //       dataColors={dataColors}
+  //     />
+  //   </div>
+  // );
 
-  //   markers: {
-  //     size: 0,
-  //     hover: {
-  //       sizeOffset: 6
-  //     }
-  //   },
-  //   xaxis: {
-  //     categories: infoData.filter((header) => header !== 'nome'),
-  //   },
-  //   colors: Object.values(dataColors),
-  // };
+   // FAZENDO UM GRAFICO EM AREA
 
   // return (
   //   <div>
-  //     <h2>Informação Headers:</h2>
-  //     <pre>{infoData.join(', ')}</pre>
+  //      <AreaChart
+  //         selectedYears={selectedYears}
+  //         infoData={infoData}
+  //         selectedInfo={selectedInfo}
+  //         handleInfoChange={handleInfoChange}
+  //         handleYearChange={handleYearChange}
+  //         dataForApexCharts={dataForApexCharts}s
+  //         dataColors={dataColors}
+  //       />
+  //   </div>
+  // );
 
-  //     {infoData.length > 0 && (
-  //       <select multiple value={selectedInfo} onChange={handleInfoChange}>
-  //         {dataForApexCharts.map((item) => (
-  //           <option key={item.nome} value={item.nome}>
-  //             {item.nome}
-  //           </option>
-  //         ))}
-  //       </select>
-  //     )}
+  //  FAZENDO GRAFICO EM BARRA
 
-  //     <Chart
-  //       options={options}
-  //       series={selectedInfo.map((info) => ({
-  //         name: info,
-  //         data: infoData.filter((header) => header !== 'nome').map((year) => dataForApexCharts.find((item) => item.nome === info)[year]),
-  //       }))}
-  //       type="line"
-  //       height={350}
-  //       width={500}
-  //     />
+  // return (
+  //   <div>
+  //      <BarChart
+  //         selectedYears={selectedYears}
+  //         infoData={infoData}
+  //         selectedInfo={selectedInfo}
+  //         handleInfoChange={handleInfoChange}
+  //         handleYearChange={handleYearChange}
+  //         dataForApexCharts={dataForApexCharts}s
+  //         dataColors={dataColors}
+  //       />
   //   </div>
   // );
 
@@ -327,76 +203,7 @@ const CSVReader = () => {
   //   </div>
   // );
 
-  // FAZENDO UM GRAFICO EM AREA
-  // const options = {
-  //   chart: {
-  //     height: 350,
-  //     type: 'area',
-  //     zoom: {
-  //       enabled: true,
-  //     },
-  //     toolbar: {
-  //       autoSelected: 'pan',
-  //       show: true
-  //     }
-  //   },
-  //   dataLabels: {
-  //     enabled: true,
-  //   },
-  //   stroke: {
-  //     width: 5,
-  //     curve: 'straight', // stepline
-  //     //dashArray: 5,
-  //   },
-  //   title: {
-  //     text: 'Grafico em Linha',
-  //     align: 'left',
-  //   },
-  //   grid: {
-  //     row: {
-  //       colors: ['#f3f3f3', 'transparent'],
-  //       opacity: 0.5,
-  //     },
-  //   },
-
-  //   markers: {
-  //     size: 0,
-  //     hover: {
-  //       sizeOffset: 6
-  //     }
-  //   },
-  //   xaxis: {
-  //     categories: infoData.filter((header) => header !== 'nome'),
-  //   },
-  //   colors: Object.values(dataColors),
-  // };
-
-  // return (
-  //   <div>
-  //     <h2>Informação Headers:</h2>
-  //     <pre>{infoData.join(', ')}</pre>
-
-  //     {infoData.length > 0 && (
-  //       <select multiple value={selectedInfo} onChange={handleInfoChange}>
-  //         {dataForApexCharts.map((item) => (
-  //           <option key={item.nome} value={item.nome}>
-  //             {item.nome}
-  //           </option>
-  //         ))}
-  //       </select>
-  //     )}
-
-  //     <Chart
-  //       options={options}
-  //       series={selectedInfo.map((info) => ({
-  //         name: info,
-  //         data: infoData.filter((header) => header !== 'nome').map((year) => dataForApexCharts.find((item) => item.nome === info)[year]),
-  //       }))}
-  //       type="area"
-  //       height={350}
-  //     />
-  //   </div>
-  // );
+ 
 
 };
 
