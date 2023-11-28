@@ -164,12 +164,23 @@ const CSVReader = () => {
   
 
 // ///GRAFICO EM PIZZA
+const getChartData = () => {
+  const seriesData = selectedInfo.map((info) => ({
+    name: info,
+    data: infoData
+      .filter((header) => header !== 'nome')
+      .map((year) => dataForApexCharts.find((item) => item.nome === info)[year]),
+  }));
+
+  return seriesData;
+};
+
 const options = {
   chart: {
     width: 380,
     type: 'pie',
   },
-  labels: selectedInfo,
+  labels: selectedInfo.length > 0 ? selectedInfo : ['Selecione uma opção'],
   responsive: [
     {
       breakpoint: 480,
@@ -201,7 +212,7 @@ return (
     )}
 
     <div id="chart">
-      <Chart options={options} series={dataForApexCharts} type="pie" width={380} />
+      <Chart options={options} series={getChartData()} type="pie" width={380} />
     </div>
     <div id="html-dist"></div>
   </div>
