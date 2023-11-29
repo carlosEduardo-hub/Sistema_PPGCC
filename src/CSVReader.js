@@ -1,36 +1,68 @@
 import React, { useEffect, useState } from 'react';
 import Papa from 'papaparse';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import randomColor from 'randomcolor';
+import ColumnChart from './chart-types/column';
+import LineChart from './chart-types/line';
+import AreaChart from './chart-types/area';
+import BarChart from './chart-types/bar';
+
 
 const CSVReader = () => {
-  const [dataForRecharts, setDataForRecharts] = useState([]);
-  const [selectedKey, setSelectedKey] = useState();
+  const [dataForApexCharts, setDataForApexCharts] = useState([]);
+  const [infoData, setInfoData] = useState([]);
+  const [dataColors, setDataColors] = useState({});
+  const [selectedInfo, setSelectedInfo] = useState([]);
+  const [selectedYears, setSelectedYears] = useState([]);
+  const [selectedChartType, setSelectedChartType] = useState('column');
+
 
   const handleFileChosen = (file) => {
     Papa.parse(file, {
       complete: (results) => {
-        const formattedData = results.data.map((item) => {
-          const formattedItem = { name: item.Informação };
-          for (let key in item) {
-            if (key !== 'Informação' && item[key]) {
-              formattedItem[key] = Number(item[key]);
-            }
-          }
-          return formattedItem;
+        const infoHeaders = results.meta.fields.filter((header) => header !== 'Informação' && header !== 'obs');
+        setInfoData(infoHeaders);
+
+        const colors = randomColor({
+          count: infoHeaders.length,
+          format: 'rgba',
+          luminosity: 'bright',
+          alpha: 1,
         });
-        setDataForRecharts(formattedData);
+
+        const colorsMap = {};
+        infoHeaders.forEach((header, index) => {
+          colorsMap[header] = colors[index];
+        });
+        setDataColors(colorsMap);
+
+        const formattedData = results.data.map((item) => {
+          return {
+            nome: item.Informação,
+            ...Object.fromEntries(infoHeaders.map((header) => [header, parseInt(item[header], 10)])),
+          };
+        });
+
+        setDataForApexCharts(formattedData);
+        setSelectedInfo([formattedData[0].nome]);
+
+        const uniqueYears = Object.keys(formattedData[0]).filter((key) => key !== 'nome');
+        setSelectedYears(uniqueYears);
       },
       header: true,
-      dynamicTyping: true,
-      skipEmptyLines: true,
-      delimiter: ',',
     });
   };
-
-  const handleSelectChange = (event) => {
-    setSelectedKey(event.target.value);
+  // //ESTA PARA MULTIPLAS ESCOLHAS NECESSARIO MUDAR PARA AS OUTRAS
+  const handleInfoChange = (e) => {
+    const selectedValues = Array.from(e.target.selectedOptions, (option) => option.value);
+    setSelectedInfo(selectedValues || []);
   };
 
+  const handleYearChange = (e) => {
+    const selectedYearValues = Array.from(e.target.selectedOptions, (option) => option.value);
+    setSelectedYears(selectedYearValues || []);
+  };
+
+  
   useEffect(() => {
     const input = document.createElement('input');
     input.type = 'file';
@@ -43,30 +75,127 @@ const CSVReader = () => {
     };
   }, []);
 
-  return (
-    <>
-      <div className=' h-screen bg-bgcolor'>
-        <h2>Upload do arquivo CSV</h2>
-        <select value={selectedKey} onChange={handleSelectChange}>
-          {dataForRecharts.length > 0 &&
-            Object.keys(dataForRecharts[0]).map((key, index) => (
-              <option key={index} value={key}>
-                {key}
-              </option>
-            ))}
-        </select>
-        <BarChart width={800} height={400} data={dataForRecharts}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
-          <YAxis />
-          <Tooltip />
-          <Legend />
-          <Bar dataKey={selectedKey} fill="#8884d8" />
-        </BarChart>
-      </div>
-    </>
+  // if (!dataForApexCharts.length || !infoData.length || !dataForApexCharts[0][selectedInfo]) {
+  //   return <div>Loading...</div>;
+  // }
 
+
+  return (
+    <div className='grafico'>
+      <div className='selector'>
+      <select
+        id='chartType'
+        value={selectedChartType}
+        onChange={(e) => setSelectedChartType(e.target.value)}
+      >
+        <option value='line'>Linha</option>
+        <option value='area'>Área</option>
+        <option value='bar'>Barra</option>
+        <option value='column'>Coluna</option>
+      </select>
+      </div>
+      {selectedChartType === 'line' && (
+        <div>
+          <LineChart
+            selectedYears={selectedYears}
+            infoData={infoData}
+            selectedInfo={selectedInfo}
+            handleInfoChange={handleInfoChange}
+            handleYearChange={handleYearChange}
+            dataForApexCharts={dataForApexCharts}
+            dataColors={dataColors}
+          />
+        </div>
+      )}
+      {selectedChartType === 'area' && (
+        <div>
+          <AreaChart
+            selectedYears={selectedYears}
+            infoData={infoData}
+            selectedInfo={selectedInfo}
+            handleInfoChange={handleInfoChange}
+            handleYearChange={handleYearChange}
+            dataForApexCharts={dataForApexCharts}
+            dataColors={dataColors}
+          />
+        </div>
+      )}
+      {selectedChartType === 'bar' && (
+        <div>
+          <BarChart
+            selectedYears={selectedYears}
+            infoData={infoData}
+            selectedInfo={selectedInfo}
+            handleInfoChange={handleInfoChange}
+            handleYearChange={handleYearChange}
+            dataForApexCharts={dataForApexCharts}
+            dataColors={dataColors}
+          />
+        </div>
+      )}
+      {selectedChartType === 'column' && (
+        <div>
+          <ColumnChart
+            selectedYears={selectedYears}
+            infoData={infoData}
+            selectedInfo={selectedInfo}
+            handleInfoChange={handleInfoChange}
+            handleYearChange={handleYearChange}
+            dataForApexCharts={dataForApexCharts}
+            dataColors={dataColors}
+          />
+        </div>
+      )}
+     
+    </div>
   );
+
+
+
+  // ///GRAFICO EM PIZZA
+  // const options = {
+  //   chart: {
+  //     width: 380,
+  //     type: 'pie',
+  //   },
+  //   labels: selectedInfo,
+  //   responsive: [
+  //     {
+  //       breakpoint: 480,
+  //       options: {
+  //         chart: {
+  //           width: 200,
+  //         },
+  //         legend: {
+  //           position: 'bottom',
+  //         },
+  //       },
+  //     },
+  //   ],
+  // };
+
+  // return (
+  //   <div>
+  //     <h2>Informação Headers:</h2>
+  //     <pre>{infoData.join(', ')}</pre>
+
+  //     {infoData.length > 0 && (
+  //       <select multiple value={selectedInfo} onChange={handleInfoChange}>
+  //         {dataForApexCharts.map((item) => (
+  //           <option key={item.nome} value={item.nome}>
+  //             {item.nome}
+  //           </option>
+  //         ))}
+  //       </select>
+  //     )}
+
+  //     <div id="chart">
+  //       <Chart options={options} series={dataForApexCharts} type="pie" width={380} />
+  //     </div>
+  //     <div id="html-dist"></div>
+  //   </div>
+  // );
+
 };
 
 export default CSVReader;
