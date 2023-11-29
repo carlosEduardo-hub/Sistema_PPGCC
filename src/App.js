@@ -1,6 +1,6 @@
 // App.js
 import React from 'react';
-import CSVReader from './CSV_apex';
+import CSVReader from '../src/CSV_apex';
 
 const App = () => {
   return (
