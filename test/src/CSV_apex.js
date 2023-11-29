@@ -202,8 +202,6 @@ const CSVReader = () => {
   //   </div>
   // );
 
- 
-
 };
 
 export default CSVReader;
