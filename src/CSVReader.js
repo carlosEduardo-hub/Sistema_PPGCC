@@ -81,12 +81,13 @@ const CSVReader = () => {
 
 
   return (
-    <div className='grafico'>
-      <div className='selector'>
+    <div className='w-screen h-screen bg-bgcolor flex justify-center items-center flex-col gap-3'>
+      <div>
       <select
         id='chartType'
         value={selectedChartType}
         onChange={(e) => setSelectedChartType(e.target.value)}
+        className='bg-secondbgcolor rounded-lg focus:outline outline-offset-2 outline-2 outline-blue-500'
       >
         <option value='line'>Linha</option>
         <option value='area'>Área</option>

@@ -1,5 +1,6 @@
 import React from 'react';
 import Chart from 'react-apexcharts';
+import '../styles/graphicsTheme.css'
 
 const AreaChart = ({
   selectedYears,
@@ -68,31 +69,34 @@ const AreaChart = ({
   }));
 
   return (
-    <div>
-      <div className='selector-info'>
-        {infoData.length > 0 && (
-          <select multiple value={selectedInfo} onChange={handleInfoChange}>
-            {dataForApexCharts.map((item) => (
-              <option key={item.nome} value={item.nome}>
-                {item.nome}
-              </option>
-            ))}
-          </select>
-        )}
+    <div className='flex gap-3'>
+      <div className='flex'>
+        <div className='selector-info'>
+          {infoData.length > 0 && (
+            <select multiple value={selectedInfo} onChange={handleInfoChange} className='bg-secondbgcolor rounded-l-lg border-solid border-2 border-sky-500'>
+              {dataForApexCharts.map((item) => (
+                <option key={item.nome} value={item.nome} className='hover:bg-hovercolor'>
+                  {item.nome}
+                </option>
+              ))}
+            </select>
+          )}
+        </div>
+        <div className='selector-year'>
+          {infoData.length > 0 && (
+            <select multiple value={selectedYears} onChange={handleYearChange} className='bg-secondbgcolor rounded-r-lg border-solid border-2 border-sky-500'>
+              {infoData
+                .filter((header) => header !== 'nome')
+                .map((year) => (
+                  <option key={year} value={year} className='hover:bg-hovercolor'>
+                    {year}
+                  </option>
+                ))}
+            </select>
+          )}
+        </div>
       </div>
-      <div className='selector-year'>         
-      {infoData.length > 0 && (
-        <select multiple value={selectedYears} onChange={handleYearChange}>
-          {infoData
-            .filter((header) => header !== 'nome')
-            .map((year) => (
-              <option key={year} value={year}>
-                {year}
-              </option>
-            ))}
-        </select>
-      )}
-      </div>   
+
 
       <Chart
         options={options}
