@@ -1,12 +1,10 @@
 // App.js
-import React from 'react';
-import CSVReader from '../src/CSV_apex';
+import React from "react";
+import AppRoutes from "./Routes";
 
 const App = () => {
   return (
-    <div className="App">
-      <CSVReader />
-    </div>
+    <AppRoutes />
   );
 };
 

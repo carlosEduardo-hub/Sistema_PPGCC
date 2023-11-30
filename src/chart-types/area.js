@@ -36,7 +36,7 @@ const AreaChart = ({
     },
     grid: {
       row: {
-        colors: ['#f3f3f3', 'transparent'],
+        colors: ['#f3f3f3', '#f3f3f3'],
         opacity: 0.5,
       },
     },
