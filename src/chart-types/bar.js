@@ -72,6 +72,7 @@ const BarChart = ({
         colors: ["#ADD8E6"]
       }
     },
+    
     stroke: {
       show: true,
       width: 4,
