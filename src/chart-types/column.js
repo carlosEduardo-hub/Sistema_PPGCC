@@ -1,4 +1,4 @@
-import React from 'react';
+// import React, { useState } from 'react';
 import Chart from 'react-apexcharts';
 // import '../grafic.css'
 
@@ -11,6 +11,10 @@ const ColumnChart = ({
   dataForApexCharts,
   dataColors,
 }) => {
+  // const [selectAllInfo, setSelectAllInfo] = useState(false);
+  // const [selectAllYears, setSelectAllYears] = useState(false);
+
+
   const options = {
     chart: {
       type: 'bar',
@@ -94,6 +98,26 @@ const ColumnChart = ({
     }
   };
 
+  // const handleSelectAllInfo = () => {
+  //   setSelectAllInfo(!selectAllInfo);
+  //   const allItems = dataForApexCharts.map((item) => item.nome);
+  //   handleInfoChange({
+  //     target: {
+  //       value: !selectAllInfo ? allItems : [],
+  //     },
+  //   });
+  // };
+
+  // const handleSelectAllYears = () => {
+  //   setSelectAllYears(!selectAllYears);
+  //   const allYears = infoData.filter((header) => header !== 'nome');
+  //   handleYearChange({
+  //     target: {
+  //       value: !selectAllYears ? allYears : [],
+  //     },
+  //   });
+  // };
+
   const filteredDataForChart = selectedInfo.map((info) => ({
     name: info,
     data: selectedYears.map((year) =>
@@ -103,7 +127,7 @@ const ColumnChart = ({
 
   return (
     <div>
-      <div className='selector-info'>
+       <div className='selector-info'>
         {infoData.length > 0 && (
           <select multiple value={selectedInfo} onChange={handleInfoChange}>
             {dataForApexCharts.map((item) => (

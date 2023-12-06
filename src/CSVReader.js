@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Papa from 'papaparse';
 import randomColor from 'randomcolor';
 import ColumnChart from './chart-types/column';
@@ -14,6 +14,7 @@ const CSVReader = () => {
   const [selectedInfo, setSelectedInfo] = useState([]);
   const [selectedYears, setSelectedYears] = useState([]);
   const [selectedChartType, setSelectedChartType] = useState('column');
+  // const [allData, setAllData] = useState([]);
 
 
   const handleFileChosen = (file) => {
@@ -49,6 +50,10 @@ const CSVReader = () => {
           };
         });
 
+        // Merge dos novos dados com os existentes
+        // const mergedData = [...allData, ...newData];
+        // setAllData(mergedData);
+
         setDataForApexCharts(formattedData);
         setSelectedInfo([formattedData[0].nome]);
 
@@ -70,17 +75,17 @@ const CSVReader = () => {
   };
 
   
-  useEffect(() => {
-    const input = document.createElement('input');
-    input.type = 'file';
-    input.accept = '.csv';
-    input.onchange = (e) => handleFileChosen(e.target.files[0]);
-    document.body.appendChild(input);
+  // useEffect(() => {
+  //   const input = document.createElement('input');
+  //   input.type = 'file';
+  //   input.accept = '.csv';
+  //   input.onchange = (e) => handleFileChosen(e.target.files[0]);
+  //   document.body.appendChild(input);
 
-    return () => {
-      document.body.removeChild(input);
-    };
-  }, []);
+  //   return () => {
+  //     document.body.removeChild(input);
+  //   };
+  // }, []);
 
   // if (!dataForApexCharts.length || !infoData.length || !dataForApexCharts[0][selectedInfo]) {
   //   return <div>Loading...</div>;
@@ -153,7 +158,13 @@ const CSVReader = () => {
           />
         </div>
       )}
-      
+       <div className='input-wrapper'>
+      <input
+        type='file'
+        accept='.csv'
+        onChange={(e) => handleFileChosen(e.target.files[0])}
+      />
+    </div>
     </div>
   );
 
@@ -206,3 +217,6 @@ const CSVReader = () => {
 };
 
 export default CSVReader;
+
+
+// npm install react-multiselect-checkboxes
