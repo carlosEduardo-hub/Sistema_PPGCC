@@ -50,7 +50,7 @@ const CSVReader = () => {
           };
         });
 
-        // Merge dos novos dados com os existentes
+
         // const mergedData = [...allData, ...newData];
         // setAllData(mergedData);
 
@@ -63,7 +63,7 @@ const CSVReader = () => {
       header: true,
     });
   };
-  // //ESTA PARA MULTIPLAS ESCOLHAS NECESSARIO MUDAR PARA AS OUTRAS
+
   const handleInfoChange = (e) => {
     const selectedValues = Array.from(e.target.selectedOptions, (option) => option.value);
     setSelectedInfo(selectedValues || []);
