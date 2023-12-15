@@ -18,9 +18,11 @@ const XLSXReader = () => {
         // Aqui removemos as duas primeiras colunas
         let parsedData = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]], { header: 1 });
         parsedData = parsedData.map((row) => row.slice(2));
+        console.log('Parsed Data:', parsedData);
 
         // Ignora a primeira linha e pega os anos
         const years = parsedData[0].slice(1).filter((item) => item !== 'Instituição de Ensino');
+        console.log('Years:', years);
 
         // Transforma os dados para o formato adequado para o ApexCharts
         const formattedData = parsedData.slice(1).map((item) => {
@@ -31,6 +33,7 @@ const XLSXReader = () => {
             ),
           };
         });
+        console.log('Formatted Data:', formattedData);
 
         // Combina os dados do arquivo atual com os dados dos arquivos anteriores
         setAllData((prevData) => [...prevData, ...formattedData]);
@@ -42,11 +45,13 @@ const XLSXReader = () => {
 
   const handleInfoChange = (e) => {
     const selectedValues = Array.from(e.target.selectedOptions, (option) => option.value);
+    console.log('Selected Info:', selectedValues);
     setSelectedInfo(selectedValues || []);
   };
 
   const handleYearChange = (e) => {
     const selectedYearValues = Array.from(e.target.selectedOptions, (option) => option.value);
+    console.log('Selected Years:', selectedYearValues);
     setSelectedYears(selectedYearValues || []);
   };
 
@@ -66,10 +71,15 @@ const XLSXReader = () => {
     },
   };
 
-  const series = selectedInfo.map((info) => ({
-    name: info,
-    data: selectedYears.map((year) => allData.find((item) => item.nome === info)[year]),
-  }));
+  const series = selectedInfo.map((info) => {
+    console.log('Info:', info);
+    const foundData = allData.find((item) => item.nome === info);
+    console.log('Found Data:', foundData);
+    return {
+      name: info,
+      data: selectedYears.map((year) => foundData[year]),
+    };
+  });
 
   return (
     <div>
@@ -97,7 +107,7 @@ const XLSXReader = () => {
               ))
           : null}
       </select>
-      <Chart options={options} series={series} type='line' />
+      <Chart options={options} series={series} type='line' height={500} width={500} />
     </div>
   );
 };

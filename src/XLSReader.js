@@ -29,10 +29,10 @@ const XLSXReader = () => {
 
   const saveAsXLSX = () => {
     if (workbook) {
-      const wbout = XLSX.write(workbook, { type: 'array', bookType: 'xlsx' });
+      const wbout = XLSX.write(workbook, { type: 'array', bookType: 'csv' });
       const file = new Blob([wbout], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
 
-      saveAs(file, 'novo_arquivo.xlsx');
+      saveAs(file, 'novo_arquivo.csv');
     }
   };
 
