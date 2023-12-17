@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import InitialPage from "./templates/InitialPage";
-import CSVReader from "./XLSReader";
+import CSVReader from "./XLXSTest";
 
 
 const AppRoutes = () => {

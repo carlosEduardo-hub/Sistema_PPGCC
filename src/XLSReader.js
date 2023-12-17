@@ -12,11 +12,9 @@ const XLSXReader = () => {
       const data = new Uint8Array(event.target.result);
       const workbook = XLSX.read(data, { type: 'array' });
 
-      // Aqui removemos a primeira e a segunda coluna
       let parsedData = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]], { header: 1 });
       parsedData = parsedData.map((row) => row.slice(2));
 
-      // Construa um novo workbook com os dados processados
       const newWorkbook = XLSX.utils.book_new();
       const newWorksheet = XLSX.utils.aoa_to_sheet(parsedData);
       XLSX.utils.book_append_sheet(newWorkbook, newWorksheet, 'Sheet1');
