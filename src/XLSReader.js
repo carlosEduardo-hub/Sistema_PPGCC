@@ -1,41 +1,57 @@
-import React from 'react';
+import React, { useState } from 'react';
 import * as XLSX from 'xlsx';
+import { saveAs } from 'file-saver';
 
-const XLSXConverter = () => {
-  const convertXLStoXLSX = (file) => {
-    if (!file.name.endsWith('.xls')) {
-      alert('Por favor, selecione um arquivo XLS.');
-      return;
-    }
+const XLSXReader = () => {
+  const [workbook, setWorkbook] = useState(null);
 
+  const handleFileChosen = (file) => {
     const reader = new FileReader();
-    reader.onload = (e) => {
-      const data = new Uint8Array(e.target.result);
+
+    reader.onload = (event) => {
+      const data = new Uint8Array(event.target.result);
       const workbook = XLSX.read(data, { type: 'array' });
-      const newWorkBook = XLSX.utils.book_new();
 
-      workbook.SheetNames.forEach((sheetName) => {
-        const sheet = workbook.Sheets[sheetName];
-        const newSheet = XLSX.utils.aoa_to_sheet(XLSX.utils.sheet_to_json(sheet, { header: 1 }));
-        XLSX.utils.book_append_sheet(newWorkBook, newSheet, sheetName);
-      });
+      // Aqui removemos a primeira e a segunda coluna
+      let parsedData = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]], { header: 1 });
+      parsedData = parsedData.map((row) => row.slice(2));
 
-      XLSX.writeFile(newWorkBook, 'convertedFile.xlsx');
+      // Construa um novo workbook com os dados processados
+      const newWorkbook = XLSX.utils.book_new();
+      const newWorksheet = XLSX.utils.aoa_to_sheet(parsedData);
+      XLSX.utils.book_append_sheet(newWorkbook, newWorksheet, 'Sheet1');
+
+      setWorkbook(newWorkbook);
     };
 
     reader.readAsArrayBuffer(file);
   };
 
-  const handleFileChange = (e) => {
-    const selectedFile = e.target.files[0];
-    convertXLStoXLSX(selectedFile);
+  const saveAsXLSX = () => {
+    if (workbook) {
+      const wbout = XLSX.write(workbook, { type: 'array', bookType: 'xlsx' });
+      const file = new Blob([wbout], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+
+      saveAs(file, 'novo_arquivo.xlsx');
+    }
   };
 
   return (
     <div>
-      <input type="file" accept=".xls" onChange={handleFileChange} />
+      <input
+        type='file'
+        accept='.xlsx, .xls'
+        onChange={(e) => handleFileChosen(e.target.files[0])}
+      />
+      <button onClick={saveAsXLSX}>Salvar como XLSX</button>
     </div>
   );
 };
 
-export default XLSXConverter;
+export default XLSXReader;
+
+
+
+
+// npm install file-saver
+// npm install xlsx 
