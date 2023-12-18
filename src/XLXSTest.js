@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import * as XLSX from 'xlsx';
-import Chart from 'react-apexcharts';
+import ColumnChart from './chart-types/column';
+import LineChart from './chart-types/line';
+import AreaChart from './chart-types/area';
+import BarChart from './chart-types/bar';
 
 const XLSXReader = () => {
   const [allData, setAllData] = useState([]);
@@ -8,9 +11,10 @@ const XLSXReader = () => {
   const [selectedYears, setSelectedYears] = useState([]);
   const [dataMap, setDataMap] = useState({});
   const [allYears, setAllYears] = useState([]);
+  const [selectedChartType, setSelectedChartType] = useState('line');
 
   const handleFileChosen = (files) => {
-    const readers = Array.from(files).map((file) => {
+    const readers = Array.from(files).forEach((file) => {
       const reader = new FileReader();
 
       reader.onload = (event) => {
@@ -70,63 +74,67 @@ const XLSXReader = () => {
     return foundData && foundData[year] !== undefined ? foundData[year] : 0;
   };
 
-  const options = {
-    chart: {
-      height: 350,
-      type: 'line',
-    },
-    dataLabels: {
-      enabled: false,
-    },
-    stroke: {
-      curve: 'smooth',
-    },
-    xaxis: {
-      categories: selectedInfo,
-    },
-    legend: {
-      position: 'top',
-      horizontalAlign: 'center',
-      floating: true,
-      offsetY: 0,
-      offsetX: -50,
-      show: true,
-      showForSingleSeries: false,
-      showForNullSeries: true,
-      showForZeroSeries: true,
-    },
-  };
-
-  const series = selectedYears.map((year) => ({
-    name: year,
-    data: selectedInfo.map((info) => getSelectedInfoData(info, year)),
-  }));
-
   return (
-    <div>
-      <input
-        type='file'
-        accept='.xlsx, .xls'
-        onChange={(e) => handleFileChosen(e.target.files)}
-        multiple
-      />
-      <select multiple value={selectedInfo} onChange={handleInfoChange}>
-        {Object.keys(dataMap).map((item) => (
-          <option key={item} value={item}>
-            {item}
-          </option>
-        ))}
-      </select>
-      <select multiple value={selectedYears} onChange={handleYearChange}>
-        {allYears.map((year) => (
-          <option key={year} value={year}>
-            {year}
-          </option>
-        ))}
-      </select>
-      <Chart options={options} series={series} type='line' height={500} width={500} />
+    <div className='grafico'>
+      <div className='selector'>
+        <input
+          type='file'
+          accept='.xlsx, .xls'
+          onChange={(e) => handleFileChosen(e.target.files)}
+          multiple
+        />
+      </div>
+      <div>
+        <LineChart
+          selectedChartType={selectedChartType}
+          getSelectedInfoData={getSelectedInfoData}
+          selectedYears={selectedYears}
+          allYears={allYears}
+          selectedInfo={selectedInfo}
+          handleInfoChange={handleInfoChange}
+          handleYearChange={handleYearChange}
+          dataMap={dataMap}
+        />
+      </div>
+      <div>
+        <AreaChart
+          selectedChartType={selectedChartType}
+          getSelectedInfoData={getSelectedInfoData}
+          selectedYears={selectedYears}
+          allYears={allYears}
+          selectedInfo={selectedInfo}
+          handleInfoChange={handleInfoChange}
+          handleYearChange={handleYearChange}
+          dataMap={dataMap}
+        />
+      </div>
+      <div>
+        <BarChart
+          selectedChartType={selectedChartType}
+          getSelectedInfoData={getSelectedInfoData}
+          selectedYears={selectedYears}
+          allYears={allYears}
+          selectedInfo={selectedInfo}
+          handleInfoChange={handleInfoChange}
+          handleYearChange={handleYearChange}
+          dataMap={dataMap}
+        />
+      </div>
+      <div>
+        <ColumnChart
+          selectedChartType={selectedChartType}
+          getSelectedInfoData={getSelectedInfoData}
+          selectedYears={selectedYears}
+          allYears={allYears}
+          selectedInfo={selectedInfo}
+          handleInfoChange={handleInfoChange}
+          handleYearChange={handleYearChange}
+          dataMap={dataMap}
+        />
+      </div>
     </div>
   );
+  
 };
 
 export default XLSXReader;

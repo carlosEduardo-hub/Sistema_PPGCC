@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import InitialPage from "./templates/InitialPage";
-import CSVReader from "./XLXSTest";
+import XLSXReader from "./XLXSTest";
 
 
 const AppRoutes = () => {
@@ -9,7 +9,7 @@ const AppRoutes = () => {
         <Router>
             <Routes>
                 <Route path="/" element={<InitialPage />}></Route>
-                <Route path="/graficos" element={<CSVReader/>}></Route>
+                <Route path="/graficos" element={<XLSXReader/>}></Route>
             </Routes>
         </Router>
     )
