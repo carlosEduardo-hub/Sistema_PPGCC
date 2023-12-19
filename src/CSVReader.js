@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Papa from 'papaparse';
 import randomColor from 'randomcolor';
 import ColumnChart from './chart-types/column';
@@ -14,6 +14,7 @@ const CSVReader = () => {
   const [selectedInfo, setSelectedInfo] = useState([]);
   const [selectedYears, setSelectedYears] = useState([]);
   const [selectedChartType, setSelectedChartType] = useState('column');
+  // const [allData, setAllData] = useState([]);
 
 
   const handleFileChosen = (file) => {
@@ -49,6 +50,10 @@ const CSVReader = () => {
           };
         });
 
+
+        // const mergedData = [...allData, ...newData];
+        // setAllData(mergedData);
+
         setDataForApexCharts(formattedData);
         setSelectedInfo([formattedData[0].nome]);
 
@@ -58,7 +63,7 @@ const CSVReader = () => {
       header: true,
     });
   };
-  // //ESTA PARA MULTIPLAS ESCOLHAS NECESSARIO MUDAR PARA AS OUTRAS
+
   const handleInfoChange = (e) => {
     const selectedValues = Array.from(e.target.selectedOptions, (option) => option.value);
     setSelectedInfo(selectedValues || []);
@@ -154,16 +159,13 @@ const CSVReader = () => {
           />
         </div>
       )}
-      <div>
-        <input type='file' accept='.csv' onChange={(e) => handleFileChosen(e.target.files[0])}
-        className='block w-full text-sm text-slate-400
-        file:mr-4 file:py-2 file:px-4
-        file:rounded-full file:border-0
-        file:text-sm file:font-semibold
-        file:bg-violet-50 file:text-violet-700
-        hover:file:bg-violet-200'
-        />
-      </div>
+       <div className='input-wrapper'>
+      <input
+        type='file'
+        accept='.csv'
+        onChange={(e) => handleFileChosen(e.target.files[0])}
+      />
+    </div>
     </div>
   );
 
@@ -216,3 +218,6 @@ const CSVReader = () => {
 };
 
 export default CSVReader;
+
+
+// npm install react-multiselect-checkboxes
