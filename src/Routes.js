@@ -1,11 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import InitialPage from "./templates/InitialPage";
-<<<<<<< HEAD
 import XLSXReader from "./XLSXTest";
-=======
-import CSVReader from "./XLXSTest";
->>>>>>> FerdRosa
 
 
 const AppRoutes = () => {
