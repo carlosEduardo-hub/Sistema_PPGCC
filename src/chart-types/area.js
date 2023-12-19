@@ -59,6 +59,7 @@ const AreaChart = ({
     },
     xaxis: {
       categories: selectedInfo,
+<<<<<<< HEAD
       labels: {
         style: {
           colors: '#B0C4DE',
@@ -75,6 +76,8 @@ const AreaChart = ({
           fontWeight: 'bold',
         },
       },
+=======
+>>>>>>> ff05ecabbcc5b0813b3744b793148166ef80e3bc
     },
     fill: {
       opacity: 1
