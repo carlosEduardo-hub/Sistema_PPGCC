@@ -35,11 +35,21 @@ const LineChart = ({
     title: {
       text: 'Grafico em Linha',
       align: 'left',
+      style: {
+        color: '#B0C4DE',
+        fontSize: '20px',
+        fontWeight: 'bold',
+       },
     },
     grid: {
       row: {
         colors: ['#f3f3f3', 'transparent'],
         opacity: 0.5,
+      },
+    },
+    legend: {
+      labels: {
+        colors: '#B0C4DE',
       },
     },
     markers: {
@@ -52,7 +62,7 @@ const LineChart = ({
       categories: selectedInfo,
       labels: {
         style: {
-          colors: 'white',
+          colors: '#B0C4DE',
           fontSize: '12px',
           fontWeight: 'bold',
         },
@@ -61,7 +71,7 @@ const LineChart = ({
     yaxis: {
       labels: {
         style: {
-          colors: 'white',
+          colors: '#B0C4DE',
           fontSize: '12px',
           fontWeight: 'bold',
         },

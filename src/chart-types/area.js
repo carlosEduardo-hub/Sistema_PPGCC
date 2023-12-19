@@ -34,6 +34,11 @@ const AreaChart = ({
     title: {
       text: 'Grafico em Area',
       align: 'left',
+      style: {
+        color: '#B0C4DE',
+        fontSize: '20px',
+        fontWeight: 'bold',
+       },
     },
     grid: {
       row: {
@@ -41,7 +46,11 @@ const AreaChart = ({
         opacity: 0.5,
       },
     },
-
+    legend: {
+      labels: {
+        colors: '#B0C4DE',
+      },
+    },
     markers: {
       size: 0,
       hover: {
@@ -50,6 +59,22 @@ const AreaChart = ({
     },
     xaxis: {
       categories: selectedInfo,
+      labels: {
+        style: {
+          colors: '#B0C4DE',
+          fontSize: '12px',
+          fontWeight: 'bold',
+        },
+      },
+    },
+    yaxis: {
+      labels: {
+        style: {
+          colors: '#B0C4DE',
+          fontSize: '12px',
+          fontWeight: 'bold',
+        },
+      },
     },
     fill: {
       opacity: 1
