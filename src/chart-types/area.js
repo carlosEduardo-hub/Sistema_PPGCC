@@ -3,12 +3,13 @@ import Chart from 'react-apexcharts';
 
 const AreaChart = ({
   selectedYears,
-  infoData,
+  allYears,
   selectedInfo,
   handleInfoChange,
   handleYearChange,
-  dataForApexCharts,
-  dataColors,
+  dataMap,
+  selectedChartType,
+  getSelectedInfoData,
 }) => {
   const options = {
     chart: {
@@ -48,59 +49,39 @@ const AreaChart = ({
       }
     },
     xaxis: {
-      categories: selectedYears,
-    },
-    colors: Object.values(dataColors),
-    legend: {
-      position: 'bottom',
-      offsetY: 40
+      categories: selectedInfo,
     },
     fill: {
       opacity: 1
     }
   };
 
-  const filteredDataForChart = selectedInfo.map((info) => ({
-    name: info,
-    data: selectedYears.map((year) =>
-      dataForApexCharts.find((item) => item.nome === info)[year]
-    ),
+  const series = selectedYears.map((year) => ({
+    name: year,
+    data: selectedInfo.map((info) => getSelectedInfoData(info, year)),
   }));
 
   return (
     <div>
-      <div className='selector-info'>
-        {infoData.length > 0 && (
-          <select multiple value={selectedInfo} onChange={handleInfoChange}>
-            {dataForApexCharts.map((item) => (
-              <option key={item.nome} value={item.nome}>
-                {item.nome}
-              </option>
-            ))}
-          </select>
-        )}
-      </div>
-      <div className='selector-year'>         
-      {infoData.length > 0 && (
-        <select multiple value={selectedYears} onChange={handleYearChange}>
-          {infoData
-            .filter((header) => header !== 'nome')
-            .map((year) => (
-              <option key={year} value={year}>
-                {year}
-              </option>
-            ))}
-        </select>
-      )}
-      </div>   
-
-      <Chart
-        options={options}
-        series={filteredDataForChart}
-        type="area"
-        height={500}
-        width={500}
-      />
+      {/* <select multiple value={selectedInfo} onChange={handleInfoChange}>
+       {Object.keys(dataMap).map((item) => (
+         <option key={item} value={item}>
+           {item}
+         </option>
+       ))}
+     </select>
+     <select multiple value={selectedYears} onChange={handleYearChange}>
+       {allYears.map((year) => (
+         <option key={year} value={year}>
+           {year}
+         </option>
+       ))}
+     </select> */}
+     <Chart options={options} 
+     series={series} 
+     type="area"
+     height={500} 
+     width={500} />
     </div>
   );
 };

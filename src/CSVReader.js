@@ -69,8 +69,8 @@ const CSVReader = () => {
     setSelectedYears(selectedYearValues || []);
   };
 
-  
-  useEffect(() => {
+
+  /*useEffect(() => {
     const input = document.createElement('input');
     input.type = 'file';
     input.accept = '.csv';
@@ -80,7 +80,7 @@ const CSVReader = () => {
     return () => {
       document.body.removeChild(input);
     };
-  }, []);
+  }, []);*/
 
   // if (!dataForApexCharts.length || !infoData.length || !dataForApexCharts[0][selectedInfo]) {
   //   return <div>Loading...</div>;
@@ -88,18 +88,19 @@ const CSVReader = () => {
 
 
   return (
-    <div className='grafico'>
-      <div className='selector'>
-      <select
-        id='chartType'
-        value={selectedChartType}
-        onChange={(e) => setSelectedChartType(e.target.value)}
-      >
-        <option value='line'>Linha</option>
-        <option value='area'>Área</option>
-        <option value='bar'>Barra</option>
-        <option value='column'>Coluna</option>
-      </select>
+    <div className='w-screen h-screen bg-bgcolor flex justify-center items-center flex-col gap-3'>
+      <div>
+        <select
+          id='chartType'
+          value={selectedChartType}
+          onChange={(e) => setSelectedChartType(e.target.value)}
+          className='bg-secondbgcolor rounded-lg focus:outline outline-offset-2 outline-2 outline-blue-500'
+        >
+          <option value='line'>Linha</option>
+          <option value='area'>Área</option>
+          <option value='bar'>Barra</option>
+          <option value='column'>Coluna</option>
+        </select>
       </div>
       {selectedChartType === 'line' && (
         <div>
@@ -153,7 +154,16 @@ const CSVReader = () => {
           />
         </div>
       )}
-      
+      <div>
+        <input type='file' accept='.csv' onChange={(e) => handleFileChosen(e.target.files[0])}
+        className='block w-full text-sm text-slate-400
+        file:mr-4 file:py-2 file:px-4
+        file:rounded-full file:border-0
+        file:text-sm file:font-semibold
+        file:bg-violet-50 file:text-violet-700
+        hover:file:bg-violet-200'
+        />
+      </div>
     </div>
   );
 
