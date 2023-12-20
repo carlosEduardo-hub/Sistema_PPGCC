@@ -3,12 +3,7 @@ import Chart from 'react-apexcharts';
 
 const BarChart = ({
   selectedYears,
-  allYears,
   selectedInfo,
-  handleInfoChange,
-  handleYearChange,
-  dataMap,
-  selectedChartType,
   getSelectedInfoData,
 }) => {
   const options = {
@@ -122,20 +117,6 @@ const BarChart = ({
 
   return (
     <div>
-      {/* <select multiple value={selectedInfo} onChange={handleInfoChange}>
-       {Object.keys(dataMap).map((item) => (
-         <option key={item} value={item}>
-           {item}
-         </option>
-       ))}
-     </select>
-     <select multiple value={selectedYears} onChange={handleYearChange}>
-       {allYears.map((year) => (
-         <option key={year} value={year}>
-           {year}
-         </option>
-       ))}
-     </select> */}
      <Chart options={options} 
      series={series} 
      type="bar"

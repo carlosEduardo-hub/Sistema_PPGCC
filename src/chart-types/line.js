@@ -4,12 +4,7 @@ import Chart from 'react-apexcharts';
 
 const LineChart = ({
   selectedYears,
-  allYears,
   selectedInfo,
-  handleInfoChange,
-  handleYearChange,
-  dataMap,
-  selectedChartType,
   getSelectedInfoData,
 }) => {
   const options = {

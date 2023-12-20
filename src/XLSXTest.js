@@ -71,8 +71,13 @@ const XLSXReader = () => {
 
   const handleInfoChange = (selectedOptions) => {
     const selectedValues = selectedOptions.map((option) => option.value);
-    setSelectedInfo(selectedValues || []);
+    if (selectedValues.includes('select_all')) {
+      setSelectedInfo(Object.keys(dataMap));
+    } else {
+      setSelectedInfo(selectedValues);
+    }
   };
+
 
   const handleYearChange = (selectedOptions) => {
     const selectedYearValues = selectedOptions.map((option) => option.value);
@@ -107,10 +112,13 @@ const XLSXReader = () => {
             <div className="selector-year" style={{ width: '300px' }}>
               <Select
                 placeholder="Ano..."
-                options={Object.keys(dataMap).map((item) => ({
-                  value: item,
-                  label: item,
-                }))}
+                options={[
+                  { value: 'select_all', label: 'Selecionar todos' },
+                  ...Object.keys(dataMap).map((item) => ({
+                    value: item,
+                    label: item,
+                  }))
+                ]}
                 isMulti
                 value={selectedInfo.map((item) => ({
                   value: item,
@@ -124,6 +132,7 @@ const XLSXReader = () => {
                 menuPortalTarget={document.body}
                 menuPosition={'absolute'}
               />
+
             </div>
             <div className="selector-info" style={{ width: '300px' }}>
               <Select
