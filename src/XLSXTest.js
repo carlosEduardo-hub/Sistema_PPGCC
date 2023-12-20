@@ -1,10 +1,11 @@
-import React, { useState } from "react";
-import * as XLSX from "xlsx";
-import ColumnChart from "./chart-types/column";
-import LineChart from "./chart-types/line";
-import AreaChart from "./chart-types/area";
-import BarChart from "./chart-types/bar";
-import "./styles/graphicsTheme.css";
+import React, { useState } from 'react';
+import Select from 'react-select';
+import * as XLSX from 'xlsx';
+import ColumnChart from './chart-types/column';
+import LineChart from './chart-types/line';
+import AreaChart from './chart-types/area';
+import BarChart from './chart-types/bar';
+import './styles/graphicsTheme.css';
 
 const XLSXReader = () => {
   const [allData, setAllData] = useState([]);
@@ -12,7 +13,7 @@ const XLSXReader = () => {
   const [selectedYears, setSelectedYears] = useState([]);
   const [dataMap, setDataMap] = useState({});
   const [allYears, setAllYears] = useState([]);
-  const [selectedChartType, setSelectedChartType] = useState("line");
+  const [selectedChartType, setSelectedChartType] = useState('line');
 
   const handleFileChosen = (files) => {
     const readers = Array.from(files).forEach((file) => {
@@ -68,21 +69,13 @@ const XLSXReader = () => {
     });
   };
 
-  const handleInfoChange = (e) => {
-    const selectedValues = Array.from(
-      e.target.selectedOptions,
-      (option) => option.value
-    );
-    console.log("Selected Info:", selectedValues);
+  const handleInfoChange = (selectedOptions) => {
+    const selectedValues = selectedOptions.map((option) => option.value);
     setSelectedInfo(selectedValues || []);
   };
 
-  const handleYearChange = (e) => {
-    const selectedYearValues = Array.from(
-      e.target.selectedOptions,
-      (option) => option.value
-    );
-    console.log("Selected Years:", selectedYearValues);
+  const handleYearChange = (selectedOptions) => {
+    const selectedYearValues = selectedOptions.map((option) => option.value);
     setSelectedYears(selectedYearValues || []);
   };
 
@@ -111,44 +104,51 @@ const XLSXReader = () => {
       {Object.keys(dataMap).length > 0 && (
         <div className="flex flex-col items-center w-full overflow-auto mt-4">
           <div className="flex justify-center align-center w-full">
-            <div className="selector-year">
-              <select
-                multiple
-                value={selectedInfo}
+            <div className="selector-year" style={{ width: '300px' }}>
+              <Select
+                placeholder="Ano..."
+                options={Object.keys(dataMap).map((item) => ({
+                  value: item,
+                  label: item,
+                }))}
+                isMulti
+                value={selectedInfo.map((item) => ({
+                  value: item,
+                  label: item,
+                }))}
                 onChange={handleInfoChange}
                 className="bg-secondbgcolor rounded-l-lg border-solid border-2 border-sky-500"
-              >
-                {Object.keys(dataMap).map((item) => (
-                  <option
-                    key={item}
-                    value={item}
-                    className="hover:bg-hovercolor"
-                  >
-                    {item}
-                  </option>
-                ))}
-              </select>
+                closeMenuOnSelect={false}
+                isSearchable
+                hideSelectedOptions={false}
+                menuPortalTarget={document.body}
+                menuPosition={'absolute'}
+              />
             </div>
-            <div className="selector-info">
-              <select
-                multiple
-                value={selectedYears}
+            <div className="selector-info" style={{ width: '300px' }}>
+              <Select
+                placeholder="Informações..."
+                options={allYears
+                  .filter((year) => year !== "nome")
+                  .map((year) => ({
+                    value: year,
+                    label: year.toString(),
+                  }))}
+                isMulti
+                value={selectedYears.map((year) => ({
+                  value: year,
+                  label: year.toString(),
+                }))}
                 onChange={handleYearChange}
                 className="bg-secondbgcolor rounded-r-lg border-solid border-2 border-sky-500"
-              >
-                {allYears
-                  .filter((year) => year !== "nome")
-                  .map((year) => (
-                    <option
-                      key={year}
-                      value={year}
-                      className="hover:bg-hovercolor"
-                    >
-                      {year}
-                    </option>
-                  ))}
-              </select>
+                closeMenuOnSelect={false}
+                isSearchable
+                hideSelectedOptions={false}
+                menuPortalTarget={document.body}
+                menuPosition={'absolute'}
+              />
             </div>
+
 
           </div>
           <div className="grid grid-cols-2 gap-4 mt-4">
