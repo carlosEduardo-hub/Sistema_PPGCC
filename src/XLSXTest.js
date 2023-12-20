@@ -93,6 +93,7 @@ const XLSXReader = () => {
 
   return (
     <div className="min-h-screen bg-bgcolor flex justify-center items-center flex-col gap-3">
+
       <div className="mt-8">
         <h1 className="text-hovercolor mb-4">Selecione arquivo(s)</h1>
         <input
@@ -115,12 +116,13 @@ const XLSXReader = () => {
             value={chartName}
             onChange={(e) => setChartName(e.target.value)}
             placeholder="Nome do gráfico..."
-
+            className='lock w-full text-sm text-slate-400
+            rounded-lg h-7'
           />
         )}
-
-
       </div>
+
+
       {Object.keys(dataMap).length > 0 && (
         <div className="flex flex-col items-center w-full overflow-auto mt-4">
           <div className="flex justify-center align-center w-full">
