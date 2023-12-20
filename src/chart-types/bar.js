@@ -28,6 +28,18 @@ const BarChart = ({
           opacity: 0.7,
           width: 1,
         },
+        toolbar: {
+          show: true,
+          tools: {
+            download: true,
+            selection: false,
+            zoom: false,
+            zoomin: false,
+            zoomout: false,
+            pan: false,
+            reset: false
+          }
+        }
       },
     },
     responsive: [{

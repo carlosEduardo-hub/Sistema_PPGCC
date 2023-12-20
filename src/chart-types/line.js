@@ -16,8 +16,16 @@ const LineChart = ({
         enabled: true,
       },
       toolbar: {
-        autoSelected: 'pan',
-        show: true
+        show: true,
+        tools: {
+          download: true,
+          selection: false,
+          zoom: false,
+          zoomin: false,
+          zoomout: false,
+          pan: false,
+          reset: false
+        }
       }
     },
     dataLabels: {

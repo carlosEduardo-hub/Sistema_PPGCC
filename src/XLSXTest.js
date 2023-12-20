@@ -115,7 +115,7 @@ const XLSXReader = () => {
             value={chartName}
             onChange={(e) => setChartName(e.target.value)}
             placeholder="Nome do gráfico..."
-            
+
           />
         )}
 
@@ -178,53 +178,33 @@ const XLSXReader = () => {
           <div className="grid grid-cols-2 gap-4 mt-4">
             <div className="border-solid border-4 border-graphicsbordercolor rounded-lg">
               <LineChart
-                selectedChartType={selectedChartType}
                 getSelectedInfoData={getSelectedInfoData}
                 selectedYears={selectedYears}
-                allYears={allYears}
                 selectedInfo={selectedInfo}
-                handleInfoChange={handleInfoChange}
-                handleYearChange={handleYearChange}
-                dataMap={dataMap}
                 chartName={chartName}
               />
             </div>
             <div className="border-solid border-4 border-graphicsbordercolor rounded-lg">
               <AreaChart
-                selectedChartType={selectedChartType}
                 getSelectedInfoData={getSelectedInfoData}
                 selectedYears={selectedYears}
-                allYears={allYears}
                 selectedInfo={selectedInfo}
-                handleInfoChange={handleInfoChange}
-                handleYearChange={handleYearChange}
-                dataMap={dataMap}
                 chartName={chartName}
               />
             </div>
             <div className="border-solid border-4 border-graphicsbordercolor rounded-lg">
               <BarChart
-                selectedChartType={selectedChartType}
                 getSelectedInfoData={getSelectedInfoData}
                 selectedYears={selectedYears}
-                allYears={allYears}
                 selectedInfo={selectedInfo}
-                handleInfoChange={handleInfoChange}
-                handleYearChange={handleYearChange}
-                dataMap={dataMap}
                 chartName={chartName}
               />
             </div>
             <div className="border-solid border-4 border-graphicsbordercolor rounded-lg">
               <ColumnChart
-                selectedChartType={selectedChartType}
                 getSelectedInfoData={getSelectedInfoData}
                 selectedYears={selectedYears}
-                allYears={allYears}
                 selectedInfo={selectedInfo}
-                handleInfoChange={handleInfoChange}
-                handleYearChange={handleYearChange}
-                dataMap={dataMap}
                 chartName={chartName}
               />
             </div>
