@@ -41,7 +41,6 @@ const LineChart = ({
         opacity: 0.5,
       },
     },
-
     markers: {
       size: 0,
       hover: {
@@ -50,6 +49,22 @@ const LineChart = ({
     },
     xaxis: {
       categories: selectedInfo,
+      labels: {
+        style: {
+          colors: 'white',
+          fontSize: '12px',
+          fontWeight: 'bold',
+        },
+      },
+    },
+    yaxis: {
+      labels: {
+        style: {
+          colors: 'white',
+          fontSize: '12px',
+          fontWeight: 'bold',
+        },
+      },
     },
     fill: {
       opacity: 1
@@ -63,7 +78,7 @@ const LineChart = ({
 
   return (
     <div>
-      <select multiple value={selectedInfo} onChange={handleInfoChange}>
+      {/* <select multiple value={selectedInfo} onChange={handleInfoChange}>
        {Object.keys(dataMap).map((item) => (
          <option key={item} value={item}>
            {item}
@@ -76,7 +91,7 @@ const LineChart = ({
            {year}
          </option>
        ))}
-     </select>
+     </select> */}
      <Chart options={options} 
      series={series} 
      type="line"

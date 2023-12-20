@@ -11,7 +11,6 @@ const XLSXReader = () => {
   const [selectedYears, setSelectedYears] = useState([]);
   const [dataMap, setDataMap] = useState({});
   const [allYears, setAllYears] = useState([]);
-  const [selectedChartType, setSelectedChartType] = useState('line');
 
   const handleFileChosen = (files) => {
     const readers = Array.from(files).forEach((file) => {
@@ -75,7 +74,7 @@ const XLSXReader = () => {
   };
 
   return (
-    <div className='grafico'>
+    <div className='bg-begolor' >
       <div className='selector'>
         <input
           type='file'
@@ -85,8 +84,25 @@ const XLSXReader = () => {
         />
       </div>
       <div>
+        <select multiple value={selectedInfo} onChange={handleInfoChange}>
+          {Object.keys(dataMap).map((item) => (
+            <option key={item} value={item}>
+              {item}
+            </option>
+          ))}
+        </select>
+        <select multiple value={selectedYears} onChange={handleYearChange}>
+          {allYears
+            .filter((year) => year !== 'nome')
+            .map((year) => (
+              <option key={year} value={year}>
+                {year}
+              </option>
+            ))}
+        </select>
+      </div>
+      <div>
         <LineChart
-          selectedChartType={selectedChartType}
           getSelectedInfoData={getSelectedInfoData}
           selectedYears={selectedYears}
           allYears={allYears}
@@ -98,7 +114,6 @@ const XLSXReader = () => {
       </div>
       <div>
         <AreaChart
-          selectedChartType={selectedChartType}
           getSelectedInfoData={getSelectedInfoData}
           selectedYears={selectedYears}
           allYears={allYears}
@@ -110,7 +125,6 @@ const XLSXReader = () => {
       </div>
       <div>
         <BarChart
-          selectedChartType={selectedChartType}
           getSelectedInfoData={getSelectedInfoData}
           selectedYears={selectedYears}
           allYears={allYears}
@@ -122,7 +136,6 @@ const XLSXReader = () => {
       </div>
       <div>
         <ColumnChart
-          selectedChartType={selectedChartType}
           getSelectedInfoData={getSelectedInfoData}
           selectedYears={selectedYears}
           allYears={allYears}
@@ -134,7 +147,7 @@ const XLSXReader = () => {
       </div>
     </div>
   );
-  
+
 };
 
 export default XLSXReader;
