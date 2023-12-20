@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/Sistema_PPGCC/static/css/main.c6d92e33.css",
-    "main.js": "/Sistema_PPGCC/static/js/main.538e94bd.js",
+    "main.js": "/Sistema_PPGCC/static/js/main.0fedb545.js",
     "static/media/brasao_ufpi.png": "/Sistema_PPGCC/static/media/brasao_ufpi.28f234a8cc0be64b1c85.png",
     "index.html": "/Sistema_PPGCC/index.html",
     "main.c6d92e33.css.map": "/Sistema_PPGCC/static/css/main.c6d92e33.css.map",
-    "main.538e94bd.js.map": "/Sistema_PPGCC/static/js/main.538e94bd.js.map"
+    "main.0fedb545.js.map": "/Sistema_PPGCC/static/js/main.0fedb545.js.map"
   },
   "entrypoints": [
     "static/css/main.c6d92e33.css",
-    "static/js/main.538e94bd.js"
+    "static/js/main.0fedb545.js"
   ]
 }
