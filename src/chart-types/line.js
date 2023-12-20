@@ -6,6 +6,7 @@ const LineChart = ({
   selectedYears,
   selectedInfo,
   getSelectedInfoData,
+  chartName,
 }) => {
   const options = {
     chart: {
@@ -28,7 +29,7 @@ const LineChart = ({
       dashArray: 0,
     },
     title: {
-      text: 'Grafico em Linha',
+      text: chartName,
       align: 'left',
       style: {
         color: '#B0C4DE',

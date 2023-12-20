@@ -5,6 +5,7 @@ const BarChart = ({
   selectedYears,
   selectedInfo,
   getSelectedInfoData,
+  chartName,
 }) => {
   const options = {
     chart: {
@@ -73,7 +74,7 @@ const BarChart = ({
       colors: ['transparent']
     },
     title: {
-      text: 'Grafico em Barra',
+      text: chartName,
       align: 'left',
       style: {
         color: '#B0C4DE',

@@ -14,6 +14,8 @@ const XLSXReader = () => {
   const [dataMap, setDataMap] = useState({});
   const [allYears, setAllYears] = useState([]);
   const [selectedChartType, setSelectedChartType] = useState('line');
+  const [chartName, setChartName] = useState("Grafico");
+
 
   const handleFileChosen = (files) => {
     const readers = Array.from(files).forEach((file) => {
@@ -106,6 +108,19 @@ const XLSXReader = () => {
           hover:file:bg-violet-200"
         />
       </div>
+      <div>
+        {allData.length > 0 && (
+          <input
+            type="text"
+            value={chartName}
+            onChange={(e) => setChartName(e.target.value)}
+            placeholder="Nome do gráfico..."
+            
+          />
+        )}
+
+
+      </div>
       {Object.keys(dataMap).length > 0 && (
         <div className="flex flex-col items-center w-full overflow-auto mt-4">
           <div className="flex justify-center align-center w-full">
@@ -171,6 +186,7 @@ const XLSXReader = () => {
                 handleInfoChange={handleInfoChange}
                 handleYearChange={handleYearChange}
                 dataMap={dataMap}
+                chartName={chartName}
               />
             </div>
             <div className="border-solid border-4 border-graphicsbordercolor rounded-lg">
@@ -183,6 +199,7 @@ const XLSXReader = () => {
                 handleInfoChange={handleInfoChange}
                 handleYearChange={handleYearChange}
                 dataMap={dataMap}
+                chartName={chartName}
               />
             </div>
             <div className="border-solid border-4 border-graphicsbordercolor rounded-lg">
@@ -195,6 +212,7 @@ const XLSXReader = () => {
                 handleInfoChange={handleInfoChange}
                 handleYearChange={handleYearChange}
                 dataMap={dataMap}
+                chartName={chartName}
               />
             </div>
             <div className="border-solid border-4 border-graphicsbordercolor rounded-lg">
@@ -207,6 +225,7 @@ const XLSXReader = () => {
                 handleInfoChange={handleInfoChange}
                 handleYearChange={handleYearChange}
                 dataMap={dataMap}
+                chartName={chartName}
               />
             </div>
           </div>

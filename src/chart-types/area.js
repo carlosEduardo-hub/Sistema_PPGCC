@@ -5,6 +5,7 @@ const AreaChart = ({
   selectedYears,
   selectedInfo,
   getSelectedInfoData,
+  chartName,
 }) => {
   const options = {
     chart: {
@@ -27,7 +28,7 @@ const AreaChart = ({
       //dashArray: 5,
     },
     title: {
-      text: 'Grafico em Area',
+      text: chartName,
       align: 'left',
       style: {
         color: '#B0C4DE',

@@ -5,6 +5,7 @@ const ColumnChart = ({
   selectedYears,
   selectedInfo,
   getSelectedInfoData,
+  chartName,
 }) => { 
   const options = {
     chart: {
@@ -75,7 +76,7 @@ const ColumnChart = ({
       colors: ['transparent']
     },
     title: {
-      text: 'Grafico em Coluna',
+      text: chartName,
       margin: 10,
       align: 'left',
       style: {
