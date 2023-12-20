@@ -10,9 +10,7 @@ const ColumnChart = ({
   dataMap,
   selectedChartType,
   getSelectedInfoData,
-}) => {
-
-
+}) => { 
   const options = {
     chart: {
       type: 'bar',
@@ -58,8 +56,10 @@ const ColumnChart = ({
           total: {
             enabled: true,
             style: {
+              color: '#B0C4DE',
               fontSize: '13px',
-              fontWeight: 900
+              fontWeight: 'bold',
+              
             }
           }
         },
@@ -81,10 +81,37 @@ const ColumnChart = ({
     },
     title: {
       text: 'Grafico em Coluna',
+      margin: 10,
       align: 'left',
+      style: {
+       color: '#B0C4DE',
+       fontSize: '20px',
+       fontWeight: 'bold',
+      },
     },
+    legend: {
+      labels: {
+        colors: '#B0C4DE',
+      },
+    },          
     xaxis: {
       categories: selectedInfo,
+      labels: {
+        style: {
+          colors: '#B0C4DE',
+          fontSize: '12px',
+          fontWeight: 'bold',
+        },
+      },
+    },
+    yaxis: {
+      labels: {
+        style: {
+          colors: '#B0C4DE',
+          fontSize: '12px',
+          fontWeight: 'bold',
+        },
+      },
     },
     fill: {
       opacity: 1

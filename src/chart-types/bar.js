@@ -80,9 +80,35 @@ const BarChart = ({
     title: {
       text: 'Grafico em Barra',
       align: 'left',
+      style: {
+        color: '#B0C4DE',
+        fontSize: '20px',
+        fontWeight: 'bold',
+       },
+    },
+    legend: {
+      labels: {
+        colors: '#B0C4DE',
+      },
     },
     xaxis: {
       categories: selectedInfo,
+      labels: {
+        style: {
+          colors: '#B0C4DE',
+          fontSize: '12px',
+          fontWeight: 'bold',
+        },
+      },
+    },
+    yaxis: {
+      labels: {
+        style: {
+          colors: '#B0C4DE',
+          fontSize: '12px',
+          fontWeight: 'bold',
+        },
+      },
     },
     fill: {
       opacity: 1

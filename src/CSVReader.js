@@ -74,18 +74,18 @@ const CSVReader = () => {
     setSelectedYears(selectedYearValues || []);
   };
 
-  
-  // useEffect(() => {
-  //   const input = document.createElement('input');
-  //   input.type = 'file';
-  //   input.accept = '.csv';
-  //   input.onchange = (e) => handleFileChosen(e.target.files[0]);
-  //   document.body.appendChild(input);
 
-  //   return () => {
-  //     document.body.removeChild(input);
-  //   };
-  // }, []);
+  /*useEffect(() => {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = '.csv';
+    input.onchange = (e) => handleFileChosen(e.target.files[0]);
+    document.body.appendChild(input);
+
+    return () => {
+      document.body.removeChild(input);
+    };
+  }, []);*/
 
   // if (!dataForApexCharts.length || !infoData.length || !dataForApexCharts[0][selectedInfo]) {
   //   return <div>Loading...</div>;
@@ -93,18 +93,19 @@ const CSVReader = () => {
 
 
   return (
-    <div className='grafico'>
-      <div className='selector'>
-      <select
-        id='chartType'
-        value={selectedChartType}
-        onChange={(e) => setSelectedChartType(e.target.value)}
-      >
-        <option value='line'>Linha</option>
-        <option value='area'>Área</option>
-        <option value='bar'>Barra</option>
-        <option value='column'>Coluna</option>
-      </select>
+    <div className='w-screen h-screen bg-bgcolor flex justify-center items-center flex-col gap-3'>
+      <div>
+        <select
+          id='chartType'
+          value={selectedChartType}
+          onChange={(e) => setSelectedChartType(e.target.value)}
+          className='bg-secondbgcolor rounded-lg focus:outline outline-offset-2 outline-2 outline-blue-500'
+        >
+          <option value='line'>Linha</option>
+          <option value='area'>Área</option>
+          <option value='bar'>Barra</option>
+          <option value='column'>Coluna</option>
+        </select>
       </div>
       {selectedChartType === 'line' && (
         <div>

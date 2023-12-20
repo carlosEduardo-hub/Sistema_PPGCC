@@ -1,6 +1,7 @@
 import React from 'react';
 import Chart from 'react-apexcharts';
 
+
 const LineChart = ({
   selectedYears,
   allYears,
@@ -34,11 +35,21 @@ const LineChart = ({
     title: {
       text: 'Grafico em Linha',
       align: 'left',
+      style: {
+        color: '#B0C4DE',
+        fontSize: '20px',
+        fontWeight: 'bold',
+       },
     },
     grid: {
       row: {
         colors: ['#f3f3f3', 'transparent'],
         opacity: 0.5,
+      },
+    },
+    legend: {
+      labels: {
+        colors: '#B0C4DE',
       },
     },
     markers: {
@@ -51,7 +62,7 @@ const LineChart = ({
       categories: selectedInfo,
       labels: {
         style: {
-          colors: 'white',
+          colors: '#B0C4DE',
           fontSize: '12px',
           fontWeight: 'bold',
         },
@@ -61,6 +72,7 @@ const LineChart = ({
       labels: {
         style: {
           colors: 'white',
+          colors: '#B0C4DE',
           fontSize: '12px',
           fontWeight: 'bold',
         },
@@ -74,24 +86,10 @@ const LineChart = ({
   const series = selectedYears.map((year) => ({
     name: year,
     data: selectedInfo.map((info) => getSelectedInfoData(info, year)),
-  }));
+  }))
 
   return (
     <div>
-      {/* <select multiple value={selectedInfo} onChange={handleInfoChange}>
-       {Object.keys(dataMap).map((item) => (
-         <option key={item} value={item}>
-           {item}
-         </option>
-       ))}
-     </select>
-     <select multiple value={selectedYears} onChange={handleYearChange}>
-       {allYears.map((year) => (
-         <option key={year} value={year}>
-           {year}
-         </option>
-       ))}
-     </select> */}
      <Chart options={options} 
      series={series} 
      type="line"

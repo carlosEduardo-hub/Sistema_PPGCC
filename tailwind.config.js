@@ -6,7 +6,8 @@ module.exports = {
       colors: {
         bgcolor: '#404E82',
         secondbgcolor: '#C4D2EB',
-        hovercolor: '#aab2c0'
+        hovercolor: '#aab2c0',
+        graphicsbordercolor: '#D2691E',
       }
     },
   },
