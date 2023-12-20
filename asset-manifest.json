@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/carlosEduardo-hub/Sistema_PPGCC.git/static/css/main.c6d92e33.css",
+    "main.js": "/carlosEduardo-hub/Sistema_PPGCC.git/static/js/main.5cbef4d1.js",
+    "static/media/brasao_ufpi.png": "/carlosEduardo-hub/Sistema_PPGCC.git/static/media/brasao_ufpi.28f234a8cc0be64b1c85.png",
+    "index.html": "/carlosEduardo-hub/Sistema_PPGCC.git/index.html",
+    "main.c6d92e33.css.map": "/carlosEduardo-hub/Sistema_PPGCC.git/static/css/main.c6d92e33.css.map",
+    "main.5cbef4d1.js.map": "/carlosEduardo-hub/Sistema_PPGCC.git/static/js/main.5cbef4d1.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.c6d92e33.css",
+    "static/js/main.5cbef4d1.js"
+  ]
+}
