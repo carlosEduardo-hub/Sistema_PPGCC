@@ -13,8 +13,7 @@ const XLSXReader = () => {
   const [selectedYears, setSelectedYears] = useState([]);
   const [dataMap, setDataMap] = useState({});
   const [allYears, setAllYears] = useState([]);
-  const [selectedChartType, setSelectedChartType] = useState('line');
-  const [chartName, setChartName] = useState("Grafico");
+  const [chartName, setChartName] = useState("");
 
 
   const handleFileChosen = (files) => {

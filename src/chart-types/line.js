@@ -75,7 +75,6 @@ const LineChart = ({
     yaxis: {
       labels: {
         style: {
-          colors: 'white',
           colors: '#B0C4DE',
           fontSize: '12px',
           fontWeight: 'bold',
