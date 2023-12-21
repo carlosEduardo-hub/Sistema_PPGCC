@@ -6,7 +6,7 @@ import XLSXReader from "./XLSXTest";
 
 const AppRoutes = () => {
     return(
-        <Router>
+        <Router basename={process.env.PUBLIC_URL}>
             <Routes>
                 <Route path="/" element={<InitialPage />}></Route>
                 <Route path="/graficos" element={<XLSXReader/>}></Route>

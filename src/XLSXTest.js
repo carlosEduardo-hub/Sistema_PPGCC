@@ -92,34 +92,35 @@ const XLSXReader = () => {
 
   return (
     <div className="min-h-screen bg-bgcolor flex justify-center items-center flex-col gap-3">
-      <div className="mt-8">
-        <h1 className="text-hovercolor mb-4">Selecione arquivo(s)</h1>
-        <input
-          type="file"
-          accept=".xlsx, .xls"
-          onChange={(e) => handleFileChosen(e.target.files)}
-          multiple
-          className="block w-full text-sm text-slate-400
+      <div className='flex flex-col justify-center items-center gap-3'>
+        <div className="mt-8">
+          <h1 className="text-hovercolor mb-4">Selecione arquivo(s)</h1>
+          <input
+            type="file"
+            accept=".xlsx, .xls"
+            onChange={(e) => handleFileChosen(e.target.files)}
+            multiple
+            className="block w-full text-sm text-slate-400
           file:mr-4 file:py-2 file:px-4
           file:rounded-full file:border-0
           file:text-sm file:font-semibold
           file:bg-violet-50 file:text-violet-700
           hover:file:bg-violet-200"
-        />
-      </div>
-      <div>
-        {allData.length > 0 && (
-          <input
-            type="text"
-            value={chartName}
-            onChange={(e) => setChartName(e.target.value)}
-            placeholder="Nome do gráfico..."
-
           />
-        )}
-
-
+        </div>
+        <div>
+          {allData.length > 0 && (
+            <input
+              type="text"
+              value={chartName}
+              onChange={(e) => setChartName(e.target.value)}
+              placeholder="Nome do gráfico..."
+              className='block w-full text-sm rounded-lg h-7 text-slate-500 bg-secondbgcolor border-solid border-2 border-sky-500'
+            />
+          )}
+        </div>
       </div>
+
       {Object.keys(dataMap).length > 0 && (
         <div className="flex flex-col items-center w-full overflow-auto mt-4">
           <div className="flex justify-center align-center w-full">
