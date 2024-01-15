@@ -6,14 +6,16 @@ import LineChart from './chart-types/line';
 import AreaChart from './chart-types/area';
 import BarChart from './chart-types/bar';
 import './styles/graphicsTheme.css';
+import { useNavigate } from 'react-router-dom';
 
 const XLSXReader = () => {
   const [allData, setAllData] = useState([]);
-  const [selectedInfo, setSelectedInfo] = useState([]);
   const [selectedYears, setSelectedYears] = useState([]);
+  const [selectedInfo, setSelectedInfo] = useState([]);
   const [dataMap, setDataMap] = useState({});
   const [allYears, setAllYears] = useState([]);
   const [chartName, setChartName] = useState("");
+  const [savegraphic, setsavegraphic] = useState([])
 
 
   const handleFileChosen = (files) => {
@@ -72,23 +74,44 @@ const XLSXReader = () => {
 
   const handleInfoChange = (selectedOptions) => {
     const selectedValues = selectedOptions.map((option) => option.value);
+    console.log("Select Ano:", selectedValues);
     if (selectedValues.includes('select_all')) {
-      setSelectedInfo(Object.keys(dataMap));
+      setSelectedYears(Object.keys(dataMap));
     } else {
-      setSelectedInfo(selectedValues);
+      setSelectedYears(selectedValues);
     }
   };
 
 
   const handleYearChange = (selectedOptions) => {
     const selectedYearValues = selectedOptions.map((option) => option.value);
-    setSelectedYears(selectedYearValues || []);
+    console.log("Select Info:", selectedYearValues);
+    setSelectedInfo(selectedYearValues || []);
   };
 
-  const getSelectedInfoData = (info, year) => {
+  const getSelectedYearsData = (info, year) => {
     const foundData = dataMap[info];
     return foundData && foundData[year] !== undefined ? foundData[year] : 0;
   };
+
+  const navigate = useNavigate();
+
+ const handleSaveGraphic = () => {
+   const graphicData = {
+     chartName: chartName,
+     selectedYears: selectedYears,
+     selectedInfo: selectedInfo,
+     data: Array.isArray(selectedInfo) && Array.isArray(selectedYears)
+     ? selectedInfo.flatMap(info =>
+         selectedYears.map(year => getSelectedYearsData(info, year))
+       )
+     : [],
+ };
+   setsavegraphic(graphicData);
+
+   // Navegue para a rota do Dashboard e passe o estado savegraphic
+   navigate('/dashboard', { state: { savegraphic: graphicData } });
+ };
 
   return (
     <div className="min-h-screen bg-bgcolor flex justify-center items-center flex-col gap-3">
@@ -135,7 +158,7 @@ const XLSXReader = () => {
                   }))
                 ]}
                 isMulti
-                value={selectedInfo.map((item) => ({
+                value={selectedYears.map((item) => ({
                   value: item,
                   label: item,
                 }))}
@@ -159,7 +182,7 @@ const XLSXReader = () => {
                     label: year.toString(),
                   }))}
                 isMulti
-                value={selectedYears.map((year) => ({
+                value={selectedInfo.map((year) => ({
                   value: year,
                   label: year.toString(),
                 }))}
@@ -178,33 +201,34 @@ const XLSXReader = () => {
           <div className="grid grid-cols-2 gap-4 mt-4">
             <div className="border-solid border-4 border-graphicsbordercolor rounded-lg">
               <LineChart
-                getSelectedInfoData={getSelectedInfoData}
-                selectedYears={selectedYears}
+                getSelectedYearsData={getSelectedYearsData}
                 selectedInfo={selectedInfo}
+                selectedYears={selectedYears}
                 chartName={chartName}
               />
+              <button onClick={handleSaveGraphic}>Save Graphic</button>
             </div>
             <div className="border-solid border-4 border-graphicsbordercolor rounded-lg">
               <AreaChart
-                getSelectedInfoData={getSelectedInfoData}
-                selectedYears={selectedYears}
+                getSelectedYearsData={getSelectedYearsData}
                 selectedInfo={selectedInfo}
+                selectedYears={selectedYears}
                 chartName={chartName}
               />
             </div>
             <div className="border-solid border-4 border-graphicsbordercolor rounded-lg">
               <BarChart
-                getSelectedInfoData={getSelectedInfoData}
-                selectedYears={selectedYears}
+                getSelectedYearsData={getSelectedYearsData}
                 selectedInfo={selectedInfo}
+                selectedYears={selectedYears}
                 chartName={chartName}
               />
             </div>
             <div className="border-solid border-4 border-graphicsbordercolor rounded-lg">
               <ColumnChart
-                getSelectedInfoData={getSelectedInfoData}
-                selectedYears={selectedYears}
+                getSelectedYearsData={getSelectedYearsData}
                 selectedInfo={selectedInfo}
+                selectedYears={selectedYears}
                 chartName={chartName}
               />
             </div>

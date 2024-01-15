@@ -1,7 +1,8 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import InitialPage from "./templates/InitialPage";
-import XLSXReader from "./XLSXTest";
+import XLSXReader from "./XLSXReader";
+import Dashboard from "./templates/Dashboard"
 
 
 const AppRoutes = () => {
@@ -10,6 +11,7 @@ const AppRoutes = () => {
             <Routes>
                 <Route path="/" element={<InitialPage />}></Route>
                 <Route path="/graficos" element={<XLSXReader/>}></Route>
+                <Route path="/Dashboard" element={<Dashboard />}></Route>
             </Routes>
         </Router>
     )

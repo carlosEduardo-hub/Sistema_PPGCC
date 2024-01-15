@@ -2,9 +2,9 @@ import React from 'react';
 import Chart from 'react-apexcharts';
 
 const BarChart = ({
-  selectedYears,
   selectedInfo,
-  getSelectedInfoData,
+  selectedYears,
+  getSelectedYearsData,
   chartName,
 }) => {
   const options = {
@@ -100,7 +100,7 @@ const BarChart = ({
       },
     },
     xaxis: {
-      categories: selectedInfo,
+      categories: selectedYears,
       labels: {
         style: {
           colors: '#B0C4DE',
@@ -123,10 +123,10 @@ const BarChart = ({
     }
   };
 
-  const series = selectedYears.map((year) => ({
+  const series = selectedInfo.map((year) => ({
     name: year,
-    data: selectedInfo.map((info) => getSelectedInfoData(info, year)),
-  }));
+    data: selectedYears.map((info) => getSelectedYearsData(info, year)),
+  }))
 
   return (
     <div>
