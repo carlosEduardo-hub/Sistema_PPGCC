@@ -16,7 +16,7 @@ import search from "../assets/icons/search.svg";
 import user from "../assets/icons/user.svg";
 import wallet from "../assets/icons/wallet.svg";
 import wealth from "../assets/icons/wealth.svg";
-import { FaChartLine } from "react-icons/fa6";
+import chart from "../assets/icons/chart.svg";
 
 // person images
 import person_one from "../assets/images/person_one.jpg";
@@ -25,7 +25,7 @@ import person_three from "../assets/images/person_three.jpg";
 import person_four from "../assets/images/person_four.jpg";
 
 export const iconsImgs = {
-    alert, bell, bills, budget, card, check, empty_check, gears, home, menu, plane, plus, report, search, user, wallet, wealth, FaChartLine
+    alert, bell, bills, budget, card, check, empty_check, gears, home, menu, plane, plus, report, search, user, wallet, wealth, chart
 }
 
 export const personsImgs = {

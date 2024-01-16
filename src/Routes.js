@@ -5,13 +5,14 @@ import XLSXReader from "./XLSXTest";
 import Dashboard from "./dashboard";
 
 
+
 const AppRoutes = () => {
-    return(
+    return (
         <Router basename={process.env.PUBLIC_URL}>
             <Routes>
                 <Route path="/" element={<InitialPage />}></Route>
-                <Route path="/graficos" element={<XLSXReader/>}></Route>
-                <Route path="/dashboard" element={<Dashboard/>}></Route>
+                <Route path="/graficos" element={<XLSXReader />}></Route>
+                <Route path="/dashboard" element={<Dashboard />}></Route>
             </Routes>
         </Router>
     )
