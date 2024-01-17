@@ -6,6 +6,7 @@ import LineChart from './chart-types/line';
 import AreaChart from './chart-types/area';
 import BarChart from './chart-types/bar';
 import './styles/graphicsTheme.css';
+import Sidebar from './layout/Sidebar/Sidebar';
 
 const XLSXReader = () => {
   const [allData, setAllData] = useState([]);
@@ -92,127 +93,133 @@ const XLSXReader = () => {
   };
 
   return (
-    <div className="min-h-screen bg-bgcolor flex justify-center items-center flex-col gap-3">
-      <div className='flex flex-col justify-center items-center gap-3'>
-        <div className="mt-8">
-          <h1 className="text-hovercolor mb-4">Selecione arquivo(s)</h1>
-          <input
-            type="file"
-            accept=".xlsx, .xls"
-            onChange={(e) => handleFileChosen(e.target.files)}
-            multiple
-            className="block w-full text-sm text-slate-400
+    <>
+      <div className='flex'>
+        <Sidebar />
+        <div className="min-h-screen bg-bgcolor flex-1 justify-center items-center flex-col gap-3">
+          <div className='flex flex-col justify-center items-center gap-3'>
+            <div className="mt-8">
+              <h1 className="text-hovercolor mb-4">Selecione arquivo(s)</h1>
+              <input
+                type="file"
+                accept=".xlsx, .xls"
+                onChange={(e) => handleFileChosen(e.target.files)}
+                multiple
+                className="block w-full text-sm text-slate-400
           file:mr-4 file:py-2 file:px-4
           file:rounded-full file:border-0
           file:text-sm file:font-semibold
           file:bg-violet-50 file:text-violet-700
           hover:file:bg-violet-200"
-          />
-        </div>
-        <div>
-          {allData.length > 0 && (
-            <input
-              type="text"
-              value={chartName}
-              onChange={(e) => setChartName(e.target.value)}
-              placeholder="Nome do gráfico..."
-              className='block w-full text-sm rounded-lg h-7 text-slate-500 bg-secondbgcolor border-solid border-2 border-sky-500'
-            />
+              />
+            </div>
+            <div>
+              {allData.length > 0 && (
+                <input
+                  type="text"
+                  value={chartName}
+                  onChange={(e) => setChartName(e.target.value)}
+                  placeholder="Nome do gráfico..."
+                  className='block w-full text-sm rounded-lg h-7 text-slate-500 bg-secondbgcolor border-solid border-2 border-sky-500'
+                />
+              )}
+            </div>
+          </div>
+
+          {Object.keys(dataMap).length > 0 && (
+            <div className="flex flex-col items-center w-full overflow-auto mt-4">
+              <div className="flex justify-center align-center w-full">
+                <div className="selector-year" style={{ width: '300px' }}>
+                  <Select
+                    placeholder="Ano..."
+                    options={[
+                      { value: 'select_all', label: 'Selecionar todos' },
+                      ...Object.keys(dataMap).map((item) => ({
+                        value: item,
+                        label: item,
+                      }))
+                    ]}
+                    isMulti
+                    value={selectedInfo.map((item) => ({
+                      value: item,
+                      label: item,
+                    }))}
+                    onChange={handleInfoChange}
+                    className="bg-secondbgcolor rounded-l-lg border-solid border-2 border-sky-500"
+                    closeMenuOnSelect={false}
+                    isSearchable
+                    hideSelectedOptions={false}
+                    menuPortalTarget={document.body}
+                    menuPosition={'absolute'}
+                  />
+
+                </div>
+                <div className="selector-info" style={{ width: '300px' }}>
+                  <Select
+                    placeholder="Informações..."
+                    options={allYears
+                      .filter((year) => year !== "nome")
+                      .map((year) => ({
+                        value: year,
+                        label: year.toString(),
+                      }))}
+                    isMulti
+                    value={selectedYears.map((year) => ({
+                      value: year,
+                      label: year.toString(),
+                    }))}
+                    onChange={handleYearChange}
+                    className="bg-secondbgcolor rounded-r-lg border-solid border-2 border-sky-500"
+                    closeMenuOnSelect={false}
+                    isSearchable
+                    hideSelectedOptions={false}
+                    menuPortalTarget={document.body}
+                    menuPosition={'absolute'}
+                  />
+                </div>
+
+
+              </div>
+              <div className="grid grid-cols-2 gap-4 mt-4">
+                <div className="border-solid border-4 border-graphicsbordercolor rounded-lg">
+                  <LineChart
+                    getSelectedInfoData={getSelectedInfoData}
+                    selectedYears={selectedYears}
+                    selectedInfo={selectedInfo}
+                    chartName={chartName}
+                  />
+                </div>
+                <div className="border-solid border-4 border-graphicsbordercolor rounded-lg">
+                  <AreaChart
+                    getSelectedInfoData={getSelectedInfoData}
+                    selectedYears={selectedYears}
+                    selectedInfo={selectedInfo}
+                    chartName={chartName}
+                  />
+                </div>
+                <div className="border-solid border-4 border-graphicsbordercolor rounded-lg">
+                  <BarChart
+                    getSelectedInfoData={getSelectedInfoData}
+                    selectedYears={selectedYears}
+                    selectedInfo={selectedInfo}
+                    chartName={chartName}
+                  />
+                </div>
+                <div className="border-solid border-4 border-graphicsbordercolor rounded-lg">
+                  <ColumnChart
+                    getSelectedInfoData={getSelectedInfoData}
+                    selectedYears={selectedYears}
+                    selectedInfo={selectedInfo}
+                    chartName={chartName}
+                  />
+                </div>
+              </div>
+            </div>
           )}
         </div>
       </div>
 
-      {Object.keys(dataMap).length > 0 && (
-        <div className="flex flex-col items-center w-full overflow-auto mt-4">
-          <div className="flex justify-center align-center w-full">
-            <div className="selector-year" style={{ width: '300px' }}>
-              <Select
-                placeholder="Ano..."
-                options={[
-                  { value: 'select_all', label: 'Selecionar todos' },
-                  ...Object.keys(dataMap).map((item) => ({
-                    value: item,
-                    label: item,
-                  }))
-                ]}
-                isMulti
-                value={selectedInfo.map((item) => ({
-                  value: item,
-                  label: item,
-                }))}
-                onChange={handleInfoChange}
-                className="bg-secondbgcolor rounded-l-lg border-solid border-2 border-sky-500"
-                closeMenuOnSelect={false}
-                isSearchable
-                hideSelectedOptions={false}
-                menuPortalTarget={document.body}
-                menuPosition={'absolute'}
-              />
-
-            </div>
-            <div className="selector-info" style={{ width: '300px' }}>
-              <Select
-                placeholder="Informações..."
-                options={allYears
-                  .filter((year) => year !== "nome")
-                  .map((year) => ({
-                    value: year,
-                    label: year.toString(),
-                  }))}
-                isMulti
-                value={selectedYears.map((year) => ({
-                  value: year,
-                  label: year.toString(),
-                }))}
-                onChange={handleYearChange}
-                className="bg-secondbgcolor rounded-r-lg border-solid border-2 border-sky-500"
-                closeMenuOnSelect={false}
-                isSearchable
-                hideSelectedOptions={false}
-                menuPortalTarget={document.body}
-                menuPosition={'absolute'}
-              />
-            </div>
-
-
-          </div>
-          <div className="grid grid-cols-2 gap-4 mt-4">
-            <div className="border-solid border-4 border-graphicsbordercolor rounded-lg">
-              <LineChart
-                getSelectedInfoData={getSelectedInfoData}
-                selectedYears={selectedYears}
-                selectedInfo={selectedInfo}
-                chartName={chartName}
-              />
-            </div>
-            <div className="border-solid border-4 border-graphicsbordercolor rounded-lg">
-              <AreaChart
-                getSelectedInfoData={getSelectedInfoData}
-                selectedYears={selectedYears}
-                selectedInfo={selectedInfo}
-                chartName={chartName}
-              />
-            </div>
-            <div className="border-solid border-4 border-graphicsbordercolor rounded-lg">
-              <BarChart
-                getSelectedInfoData={getSelectedInfoData}
-                selectedYears={selectedYears}
-                selectedInfo={selectedInfo}
-                chartName={chartName}
-              />
-            </div>
-            <div className="border-solid border-4 border-graphicsbordercolor rounded-lg">
-              <ColumnChart
-                getSelectedInfoData={getSelectedInfoData}
-                selectedYears={selectedYears}
-                selectedInfo={selectedInfo}
-                chartName={chartName}
-              />
-            </div>
-          </div>
-        </div>
-      )}
-    </div>
+    </>
   );
 };
 

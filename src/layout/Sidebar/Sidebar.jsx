@@ -4,13 +4,13 @@ import { navigationLinks } from '../../data/data';
 import "./Sidebar.css";
 import { useContext } from 'react';
 import { SidebarContext } from '../../context/sidebarContext';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const Sidebar = () => {
-  const [activeLinkIdx, setActiveLinkIdx] = useState(1);
+  const location = useLocation();
   const [sidebarClass, setSidebarClass] = useState("");
   const { isSidebarOpen } = useContext(SidebarContext);
-
+  
   useEffect(() => {
     if (isSidebarOpen) {
       setSidebarClass('sidebar-change');
@@ -19,7 +19,7 @@ const Sidebar = () => {
     }
   }, [isSidebarOpen]);
 
-  
+
   return (
     <div className={`sidebar ${sidebarClass}`}>
       <div className="user-info">
@@ -32,10 +32,11 @@ const Sidebar = () => {
       <nav className="navigation">
         <ul className="nav-list">
           {
-            navigationLinks.map((navigationLink, index) => (
+            navigationLinks.map((navigationLink) => (
               <li className="nav-item" key={navigationLink.id}>
                 <Link to={navigationLink.path}
-                  className={ `nav-link ${ navigationLink.id === activeLinkIdx ? 'active' : null }` }>
+                  className={`nav-link ${location.pathname === navigationLink.path ? 'active' : ''}`}
+                >
                   <img src={navigationLink.image} className="nav-link-icon" alt={navigationLink.title} />
                   <span className="nav-link-text">{navigationLink.title}</span>
                 </Link>
