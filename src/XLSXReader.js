@@ -6,7 +6,7 @@ import LineChart from './chart-types/line';
 import AreaChart from './chart-types/area';
 import BarChart from './chart-types/bar';
 import './styles/graphicsTheme.css';
-import { useNavigate } from 'react-router-dom';
+
 
 const XLSXReader = () => {
   const [allData, setAllData] = useState([]);
@@ -94,24 +94,7 @@ const XLSXReader = () => {
     return foundData && foundData[year] !== undefined ? foundData[year] : 0;
   };
 
-  const navigate = useNavigate();
-
- const handleSaveGraphic = () => {
-   const graphicData = {
-     chartName: chartName,
-     selectedYears: selectedYears,
-     selectedInfo: selectedInfo,
-     data: Array.isArray(selectedInfo) && Array.isArray(selectedYears)
-     ? selectedInfo.flatMap(info =>
-         selectedYears.map(year => getSelectedYearsData(info, year))
-       )
-     : [],
- };
-   setsavegraphic(graphicData);
-
-   // Navegue para a rota do Dashboard e passe o estado savegraphic
-   navigate('/dashboard', { state: { savegraphic: graphicData } });
- };
+  
 
   return (
     <div className="min-h-screen bg-bgcolor flex justify-center items-center flex-col gap-3">
@@ -206,7 +189,6 @@ const XLSXReader = () => {
                 selectedYears={selectedYears}
                 chartName={chartName}
               />
-              <button onClick={handleSaveGraphic}>Save Graphic</button>
             </div>
             <div className="border-solid border-4 border-graphicsbordercolor rounded-lg">
               <AreaChart
