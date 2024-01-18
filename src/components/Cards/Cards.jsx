@@ -7,46 +7,107 @@ const Cards = () => {
   const chartData = {
     series: [
       {
-        name: "Vendas",
-        data: [30, 40, 35, 50, 49, 21, 70, 51, 49, 62],
+        name: "PRODUCT A",
+        data: [44, 55, 41, 67, 22, 43],
+      },
+      {
+        name: "PRODUCT B",
+        data: [13, 23, 20, 8, 13, 27],
+      },
+      {
+        name: "PRODUCT C",
+        data: [11, 17, 15, 15, 21, 14],
+      },
+      {
+        name: "PRODUCT D",
+        data: [21, 7, 25, 13, 22, 8],
       },
     ],
     options: {
       chart: {
         type: "bar",
         height: 350,
+        stacked: true,
+        toolbar: {
+          show: true,
+        },
+        zoom: {
+          enabled: true,
+        },
       },
+      responsive: [
+        {
+          breakpoint: 480,
+          options: {
+            legend: {
+              position: "bottom",
+              offsetX: -10,
+              offsetY: 0,
+            },
+          },
+        },
+      ],
       plotOptions: {
         bar: {
           horizontal: false,
-          columnWidth: "55%",
-          endingShape: "rounded",
+          borderRadius: 5,
+          dataLabels: {
+            total: {
+              enabled: false,
+              style: {
+                fontSize: "13px",
+                fontWeight: 900,
+              },
+            },
+          },
+        },
+      },
+      xaxis: {
+        categories: [
+          "01/01/2011 GMT",
+          "01/02/2011 GMT",
+          "01/03/2011 GMT",
+          "01/04/2011 GMT",
+          "01/05/2011 GMT",
+          "01/06/2011 GMT",
+        ],
+        labels: {
+            style: {
+              colors: '#B0C4DE',
+              fontSize: '12px',
+              fontWeight: 'bold',
+            },
         },
       },
       dataLabels: {
         enabled: false,
       },
-      stroke: {
-        show: true,
-        width: 2,
-        colors: ["transparent"],
-      },
-      xaxis: {
-        categories: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro"],
-      },
       yaxis: {
         title: {
-          text: "Vendas",
+          text: "Quantidade",
+        },
+        labels: {
+            style: {
+              colors: '#B0C4DE',
+              fontSize: '12px',
+              fontWeight: 'bold',
+            },
+        },
+      },
+      legend: {
+        position: "bottom",
+        offsetY: 10,
+        labels: {
+            colors: 'B0C4DE',
         },
       },
       fill: {
         opacity: 1,
       },
       tooltip: {
-        y: {
-          formatter: function (val) {
-            return val + " unidades";
-          },
+        style: {
+          fontSize: '14px',
+          color: 'red', // Cor do texto da informação do tooltip
         },
       },
     },
