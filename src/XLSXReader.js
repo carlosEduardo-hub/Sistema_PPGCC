@@ -15,7 +15,7 @@ const XLSXReader = () => {
   const [dataMap, setDataMap] = useState({});
   const [allYears, setAllYears] = useState([]);
   const [chartName, setChartName] = useState("");
-  const [savegraphic, setsavegraphic] = useState([])
+
 
 
   const handleFileChosen = (files) => {
