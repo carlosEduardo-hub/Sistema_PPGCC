@@ -84,3 +84,4 @@ async function createTable() {
 
 // Executar a função para criar a tabela
 createTable();
+module.exports = { Client, dbConfig };
