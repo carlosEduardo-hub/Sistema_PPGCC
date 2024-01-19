@@ -7,6 +7,8 @@ import AreaChart from './chart-types/area';
 import BarChart from './chart-types/bar';
 import './styles/graphicsTheme.css';
 
+const { Client } = require('pg');
+
 
 const XLSXReader = () => {
   const [allData, setAllData] = useState([]);
@@ -20,57 +22,115 @@ const XLSXReader = () => {
 
   const handleFileChosen = (files) => {
     const readers = Array.from(files).forEach((file) => {
-      const reader = new FileReader();
-
-      reader.onload = (event) => {
-        const data = new Uint8Array(event.target.result);
-        const workbook = XLSX.read(data, { type: "array" });
-
-        let parsedData = XLSX.utils.sheet_to_json(
-          workbook.Sheets[workbook.SheetNames[0]],
-          { header: 1 }
-        );
-        parsedData = parsedData.map((row) => row.slice(2));
-        console.log("Parsed Data:", parsedData);
-
-        const years = parsedData[0]
-          .slice(1)
-          .filter(
-            (item) => item !== "Instituição de Ensino" && item !== "nome"
-          );
-        console.log("Years:", years);
-
-        const formattedData = parsedData.slice(1).map((item) => {
-          return {
-            nome: item[0],
-            ...Object.fromEntries(
-              years.map((header, index) => [
-                header,
-                parseInt(item[index + 1], 10),
-              ])
-            ),
-          };
-        });
-        console.log("Formatted Data:", formattedData);
-        setAllData((prevData) => [...prevData, ...formattedData]);
-        console.log("Formatted Data2:", formattedData);
-
-        const dataAssocMap = formattedData.reduce((acc, curr) => {
-          acc[curr.nome] = curr;
-          return acc;
-        }, dataMap);
-
-        setDataMap(dataAssocMap);
-
-        const newYears = Object.values(dataAssocMap).reduce((acc, curr) => {
-          return [...acc, ...Object.keys(curr)];
-        }, []);
-        setAllYears(Array.from(new Set(newYears)));
-      };
-
-      reader.readAsArrayBuffer(file);
+     const reader = new FileReader();
+   
+     reader.onload = async (event) => {
+       const data = new Uint8Array(event.target.result);
+       const workbook = XLSX.read(data, { type: "array" });
+   
+       let parsedData = XLSX.utils.sheet_to_json(
+         workbook.Sheets[workbook.SheetNames[0]],
+         { header: 1 }
+       );
+       parsedData = parsedData.map((row) => row.slice(2));
+   
+       const years = parsedData[0]
+         .slice(1)
+         .filter(
+           (item) => item !== "Instituição de Ensino" && item !== "nome"
+         );
+   
+       const formattedData = parsedData.slice(1).map((item) => {
+         return {
+           nome: item[0],
+           ...Object.fromEntries(
+             years.map((header, index) => [
+               header,
+               parseInt(item[index + 1], 10),
+             ])
+           ),
+         };
+       });
+   
+       const client = new Client(dbConfig);
+       try {
+         await client.connect();
+   
+         // Insira cada item de dados na tabela
+         for (const item of formattedData) {
+           // Crie um novo objeto com as chaves na ordem correta
+           const orderedItem = {
+              "Ano Referência": item["Ano Referência"] || 0,
+              "Discente - Mestrado - MATRICULADO": item["Discente - Mestrado - MATRICULADO"] || 0,
+              "Discente - Mestrado - TITULADO": item["Discente - Mestrado - TITULADO"] || 0,
+              "Discente - Mestrado - DESLIGADO": item["Discente - Mestrado - DESLIGADO"] || 0,
+              "Discente - Mestrado - ABANDONOU": item["Discente - Mestrado - ABANDONOU"] || 0,
+              "Discente - Mestrado - MUDANCA DE NÍVEL SEM DEFESA": item["Discente - Mestrado - MUDANCA DE NÍVEL SEM DEFESA"] || 0,
+              "Discente - Mestrado - MUDANCA DE NÍVEL COM DEFESA": item["Discente - Mestrado - MUDANCA DE NÍVEL COM DEFESA"] || 0,
+              "Discente - Mestrado - Total Ativos": item["Discente - Mestrado - Total Ativos"] || 0,
+              "Discente - Mestrado - Total Inativos": item["Discente - Mestrado - Total Inativos"] || 0,
+              "Discente - Mestrado - Total": item["Discente - Mestrado - Total"] || 0,
+              "Discente - Mestrado - Tempo médio de titulação(Meses)": item["Discente - Mestrado - Tempo médio de titulação(Meses)"] || 0,
+              "Docente - Permanente": item["Docente - Permanente"] || 0,
+              "Docente - Colaborador": item["Docente - Colaborador"] || 0,
+              "Docente - Visitante": item["Docente - Visitante"] || 0,
+              "Docente - Total": item["Docente - Total"] || 0,
+              "Participante Externo": item["Participante Externo"] || 0,
+              "Pós-Doc": item["Pós-Doc"] || 0,
+              "Egresso - Mestrado": item["Egresso - Mestrado"] || 0,
+              "Egresso - Total": item["Egresso - Total"] || 0,
+              "Disciplinas": item["Disciplinas"] || 0,
+              "Financiadores": item["Financiadores"] || 0,
+              "Turmas": item["Turmas"] || 0,
+              "Turmas Associadas a Projetos de Cooperação entre Instituições": item["Turmas Associadas a Projetos de Cooperação entre Instituições"] || 0,
+              "Áreas de Concentração": item["Áreas de Concentração"] || 0,
+              "Linhas de Pesquisa": item["Linhas de Pesquisa"] || 0,
+              "Projetos de Pesquisa Em Andamento": item["Projetos de Pesquisa Em Andamento"] || 0,
+              "Projetos de Pesquisa Concluídos": item["Projetos de Pesquisa Concluídos"] || 0,
+              "Produção - ARTÍSTICO-CULTURAL Com participação de discentes": item["Produção - ARTÍSTICO-CULTURAL Com participação de discentes"] || 0,
+              "Produção - ARTÍSTICO-CULTURAL Sem participação de discentes": item["Produção - ARTÍSTICO-CULTURAL Sem participação de discentes"] || 0,
+              "Produção - ARTÍSTICO-CULTURAL Com participação de egressos": item["Produção - ARTÍSTICO-CULTURAL Com participação de egressos"] || 0,
+              "Total de Produções ARTÍSTICO-CULTURAL(S)": item["Total de Produções ARTÍSTICO-CULTURAL(S)"] || 0,
+              "Produção - BIBLIOGRÁFICA Com participação de discentes": item["Produção - BIBLIOGRÁFICA Com participação de discentes"] || 0,
+              "Produção - BIBLIOGRÁFICA Sem participação de discentes": item["Produção - BIBLIOGRÁFICA Sem participação de discentes"] || 0,
+              "Produção - BIBLIOGRÁFICA Com participação de egressos": item["Produção - BIBLIOGRÁFICA Com participação de egressos"] || 0,
+              "Total de Produções BIBLIOGRÁFICA(S)": item["Total de Produções BIBLIOGRÁFICA(S)"] || 0,
+              "Produção - TÉCNICA Com participação de discentes": item["Produção - TÉCNICA Com participação de discentes"] || 0,
+              "Produção - TÉCNICA Sem participação de discentes": item["Produção - TÉCNICA Sem participação de discentes"] || 0,
+              "Produção - TÉCNICA Com participação de egressos": item["Produção - TÉCNICA Com participação de egressos"] || 0,
+              "Total de Produções TÉCNICA(S)": item["Total de Produções TÉCNICA(S)"] || 0,
+              "Trabalhos de Conclusão de Nível Mestrado": item["Trabalhos de Conclusão de Nível Mestrado"] || 0,
+              "Total de Trabalhos de Conclusão": item["Total de Trabalhos de Conclusão"] || 0,
+            };            
+           const values = Object.values(orderedItem);
+           await client.query(query, values);
+         }
+   
+         console.log('Dados inseridos com sucesso.');
+       } catch (error) {
+         console.error('Erro ao inserir dados:', error);
+       } finally {
+         await client.end();
+       }
+   
+       setAllData((prevData) => [...prevData, ...formattedData]);
+       const dataAssocMap = formattedData.reduce((acc, curr) => {
+         acc[curr.nome] = curr;
+         return acc;
+       }, dataMap);
+   
+       setDataMap(dataAssocMap);
+   
+       const newYears = Object.values(dataAssocMap).reduce((acc, curr) => {
+         return [...acc, ...Object.keys(curr)];
+       }, []);
+       setAllYears(Array.from(new Set(newYears)));
+     };
+   
+     reader.readAsArrayBuffer(file);
     });
-  };
+   };
+   
 
   const handleInfoChange = (selectedOptions) => {
     const selectedValues = selectedOptions.map((option) => option.value);
