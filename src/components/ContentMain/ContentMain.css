@@ -10,15 +10,20 @@
 }
 .content-grid-two {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 1fr 2fr;
   column-gap: 16px;
 }
 
-.subgrid-two {
+.content-grid-three{
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  column-gap: 16px;
+}
+/* .subgrid-two {
   display: grid;
   row-gap: 20px;
   height: 100%;
-}
+} */
 
 @media screen and (max-width: 1200px) {
   .content-grid-one,

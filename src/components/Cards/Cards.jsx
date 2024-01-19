@@ -83,9 +83,6 @@ const Cards = () => {
         enabled: false,
       },
       yaxis: {
-        title: {
-          text: "Quantidade",
-        },
         labels: {
             style: {
               colors: '#B0C4DE',
@@ -93,6 +90,9 @@ const Cards = () => {
               fontWeight: 'bold',
             },
         },
+      },
+      title: {
+        text: "Quantidade",
       },
       legend: {
         position: "bottom",
