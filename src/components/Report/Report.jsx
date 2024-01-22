@@ -45,6 +45,7 @@ const Report = () => {
       xaxis: {
         categories: ["Semana 1", "Semana 2", "Semana 3", "Semana 4", "Semana 5", "Semana 6", "Semana 7", "Semana 8", "Semana 9", "Semana 10"],
         labels: {
+          show: false,
           style: {
             colors: '#B0C4DE',
             fontSize: '12px',
@@ -85,7 +86,7 @@ const Report = () => {
         options={chartData.options}
         series={chartData.series}
         type="line"
-        height={350}
+        height={283}
       />
     </div>
   );

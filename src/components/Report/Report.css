@@ -61,6 +61,6 @@
   .grid-c3 {
     grid-column-start: 1;
     grid-column-end: 3;
-    height: 240px;
+    height: 300px;
   }
 }

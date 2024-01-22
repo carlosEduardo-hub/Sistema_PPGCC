@@ -1,4 +1,3 @@
-/* main content holder */
 .main-content-holder {
   display: grid;
   row-gap: 20px;
@@ -10,20 +9,15 @@
 }
 .content-grid-two {
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: repeat(3, 1fr);
   column-gap: 16px;
 }
 
-.content-grid-three{
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  column-gap: 16px;
-}
-/* .subgrid-two {
+.subgrid-two {
   display: grid;
   row-gap: 20px;
   height: 100%;
-} */
+}
 
 @media screen and (max-width: 1200px) {
   .content-grid-one,
@@ -76,6 +70,6 @@
     height: auto;
   }
   .content-grid-two .grid-two-item:nth-child(3) .subgrid-two .subgrid-two-item {
-    height: 220px;
+    height: 300px;
   }
 }

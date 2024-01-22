@@ -71,11 +71,12 @@ const Subscriptions = () => {
           "01/06/2011 GMT",
         ],
         labels: {
-            style: {
-              colors: '#B0C4DE',
-              fontSize: '12px',
-              fontWeight: 'bold',
-            },
+          show: false,
+          style: {
+            colors: '#B0C4DE',
+            fontSize: '12px',
+            fontWeight: 'bold',
+          },
         },
       },
       dataLabels: {
@@ -83,11 +84,11 @@ const Subscriptions = () => {
       },
       yaxis: {
         labels: {
-            style: {
-              colors: '#B0C4DE',
-              fontSize: '12px',
-              fontWeight: 'bold',
-            },
+          style: {
+            colors: '#B0C4DE',
+            fontSize: '12px',
+            fontWeight: 'bold',
+          },
         },
       },
       title: {
@@ -96,8 +97,9 @@ const Subscriptions = () => {
       legend: {
         position: "bottom",
         offsetY: 10,
+        fontSize: '10px',
         labels: {
-            colors: 'B0C4DE',
+          colors: 'B0C4DE',
         },
       },
       fill: {
@@ -114,10 +116,10 @@ const Subscriptions = () => {
   return (
     <div className="subgrid-two-item grid-common grid-c5">
       <ReactApexChart
-      options={chartData.options}
-      series={chartData.series}
-      type="bar"
-      height={350}
+        options={chartData.options}
+        series={chartData.series}
+        type="bar"
+        height={235.5}
       />
     </div>
   )

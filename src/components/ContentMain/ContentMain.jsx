@@ -18,17 +18,19 @@ const ContentMain = () => {
         </div>
         <div className="content-grid-two">
             <Budget />
-            <Subscriptions />
-            {/* <div className="grid-two-item">
+            <div className="grid-two-item">
+              <div className="subgrid-two">
+                <Subscriptions />
+                <Savings />
+              </div>
+            </div>
+
+            <div className="grid-two-item">
               <div className="subgrid-two">
                 <Loans />
                 <Financial />
               </div>
-            </div> */}
-        </div>
-        <div className="content-grid-three">
-            <Loans />
-            <Savings />
+            </div>
         </div>
     </div>
   )

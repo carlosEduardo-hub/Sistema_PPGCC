@@ -83,7 +83,7 @@ const Transactions = () => {
         options={chartData.options}
         series={chartData.series}
         type="bar"
-        height={350}
+        height={283}
       />
     </div>
   );

@@ -71,6 +71,7 @@ const Savings = () => {
           "01/06/2011 GMT",
         ],
         labels: {
+          show: false,
           style: {
             colors: '#B0C4DE',
             fontSize: '12px',
@@ -96,6 +97,7 @@ const Savings = () => {
       legend: {
         position: "bottom",
         offsetY: 10,
+        fontSize: '10px',
         labels: {
           colors: 'B0C4DE',
         },
@@ -117,7 +119,7 @@ const Savings = () => {
         options={chartData.options}
         series={chartData.series}
         type="bar"
-        height={350}
+        height={235.5}
       />
     </div>
   )

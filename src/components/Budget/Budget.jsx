@@ -94,7 +94,7 @@ const Budget = () => {
         options={chartData.options}
         series={chartData.series}
         type="area"
-        height={350}
+        height={550}
       />
     </div>
   );

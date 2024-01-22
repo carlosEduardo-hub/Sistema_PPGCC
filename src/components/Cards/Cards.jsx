@@ -72,11 +72,12 @@ const Cards = () => {
           "01/06/2011 GMT",
         ],
         labels: {
-            style: {
-              colors: '#B0C4DE',
-              fontSize: '12px',
-              fontWeight: 'bold',
-            },
+          show: false,
+          style: {
+            colors: '#B0C4DE',
+            fontSize: '12px',
+            fontWeight: 'bold',
+          },
         },
       },
       dataLabels: {
@@ -84,11 +85,11 @@ const Cards = () => {
       },
       yaxis: {
         labels: {
-            style: {
-              colors: '#B0C4DE',
-              fontSize: '12px',
-              fontWeight: 'bold',
-            },
+          style: {
+            colors: '#B0C4DE',
+            fontSize: '12px',
+            fontWeight: 'bold',
+          },
         },
       },
       title: {
@@ -97,8 +98,9 @@ const Cards = () => {
       legend: {
         position: "bottom",
         offsetY: 10,
+        fontSize: '10px',
         labels: {
-            colors: 'B0C4DE',
+          colors: 'B0C4DE',
         },
       },
       fill: {
@@ -119,7 +121,7 @@ const Cards = () => {
         options={chartData.options}
         series={chartData.series}
         type="bar"
-        height={350}
+        height={283}
       />
     </div>
   );

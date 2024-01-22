@@ -92,7 +92,7 @@ const Loans = () => {
         options={chartData.options}
         series={chartData.series}
         type="area"
-        height={350}
+        height={235.5}
       />
     </div>
   )
