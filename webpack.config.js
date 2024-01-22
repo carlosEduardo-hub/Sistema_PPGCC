@@ -1,6 +1,6 @@
 const path = require('path');
 
-const node = { fs:'empty'}
+
 
 module.exports = {
   mode: 'development',
@@ -9,7 +9,6 @@ module.exports = {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
   },
-  node: node,
   resolve: {
     fallback: {
       assert: require.resolve('assert/'),
