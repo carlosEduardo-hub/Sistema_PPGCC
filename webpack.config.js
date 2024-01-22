@@ -1,11 +1,15 @@
 const path = require('path');
 
+const node = { fs:'empty'}
+
 module.exports = {
+  mode: 'development',
   entry: './src/XLSXReader.js', // Substitua pelo caminho do seu arquivo principal
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
   },
+  node: node,
   resolve: {
     fallback: {
       assert: require.resolve('assert/'),
@@ -20,18 +24,22 @@ module.exports = {
       dns: false,
     },
   },
-  module: {
-    rules: [
-      // Adicione aqui suas regras para transpilar o código (por exemplo, Babel para JavaScript)
-      {
-        test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-        },
-      },
-      // Adicione outras regras conforme necessário
-    ],
-  },
-  // Adicione plugins e outras configurações conforme necessário
-};
+    module: {
+       rules: [
+         // Adicione aqui suas regras para transpilar o código (por exemplo, Babel para JavaScript) 
+         {
+           test: /\.(js|jsx)$/,
+           exclude: /node_modules/,
+           use: {
+             loader: 'babel-loader',
+           },
+         },
+         // Regra para arquivos CSS
+         {
+           test: /\.css$/,
+           use: ['style-loader', 'css-loader'],
+         },
+       ],
+    },
+   };
+   
