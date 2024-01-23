@@ -6,7 +6,8 @@ import LineChart from './chart-types/line';
 import AreaChart from './chart-types/area';
 import BarChart from './chart-types/bar';
 import './styles/graphicsTheme.css';
-import { Client, dbConfig } from './db_app.js';
+import { collection, addDoc } from "firebase/firestore";
+
 
 const XLSXReader = () => {
   const [allData, setAllData] = useState([]);
@@ -16,34 +17,63 @@ const XLSXReader = () => {
   const [allYears, setAllYears] = useState([]);
   const [chartName, setChartName] = useState('');
 
-  // Função para inserir dados na tabela
-  async function insertDataIntoTable(data) {
-    const client = new Client(dbConfig);
 
+  const addDataToFirestore = async (data) => {
     try {
-      await client.connect();
-
-      for (const row of data) {
-        const keys = Object.keys(row);
-        const values = keys.map((key) => row[key]);
-
-        const result = await client.query(`
-          INSERT INTO tabela_programa (${keys.join(', ')})
-          VALUES (${values.map((_, index) => `$${index + 1}`).join(', ')})
-          ON CONFLICT ("Ano Referência") DO NOTHING;
-        `, values);
-
-        console.log(`Linhas afetadas: ${result.rowCount}`);
-      }
-
-      console.log('Dados inseridos com sucesso.');
-    } catch (error) {
-      console.error('Erro ao inserir dados na tabela:', error);
-    } finally {
-      await client.end();
+      const formattedDataForFirestore = data.map((item) => {
+        return {
+          "Ano Referência": item["nome"],
+          "Discente - Mestrado - MATRICULADO": item["Discente - Mestrado - MATRICULADO"],
+          "Discente - Mestrado - TITULADO": item["Discente - Mestrado - TITULADO"],
+          "Discente - Mestrado - DESLIGADO": item["Discente - Mestrado - DESLIGADO"],
+          "Discente - Mestrado - ABANDONOU": item["Discente - Mestrado - ABANDONOU"],
+          "Discente - Mestrado - MUDANCA DE NÍVEL SEM DEFESA": item["Discente - Mestrado - MUDANCA DE NÍVEL SEM DEFESA"],
+          "Discente - Mestrado - MUDANCA DE NÍVEL COM DEFESA": item["Discente - Mestrado - MUDANCA DE NÍVEL COM DEFESA"],
+          "Discente - Mestrado - Total Ativos": item["Discente - Mestrado - Total Ativos"],
+          "Discente - Mestrado - Total Inativos": item["Discente - Mestrado - Total Inativos"],
+          "Discente - Mestrado - Total": item["Discente - Mestrado - Total"],
+          "Discente - Mestrado - Tempo médio de titulação(Meses)": item["Discente - Mestrado - Tempo médio de titulação(Meses)"],
+          "Docente - Permanente": item["Docente - Permanente"],
+          "Docente - Colaborador": item["Docente - Colaborador"],
+          "Docente - Visitante": item["Docente - Visitante"],
+          "Docente - Total": item["Docente - Total"],
+          "Participante Externo": item["Participante Externo"],
+          "Pós-Doc": item["Pós-Doc"],
+          "Egresso - Mestrado": item["Egresso - Mestrado"],
+          "Egresso - Total": item["Egresso - Total"],
+          "Disciplinas": item["Disciplinas"],
+          "Financiadores": item["Financiadores"],
+          "Turmas": item["Turmas"],
+          "Turmas Associadas a Projetos de Cooperação entre Instituições": item["Turmas Associadas a Projetos de Cooperação entre Instituições"],
+          "Áreas de Concentração": item["Áreas de Concentração"],
+          "Linhas de Pesquisa": item["Linhas de Pesquisa"],
+          "Projetos de Pesquisa Em Andamento": item["Projetos de Pesquisa Em Andamento"],
+          "Projetos de Pesquisa Concluídos": item["Projetos de Pesquisa Concluídos"],
+          "Produção - ARTÍSTICO-CULTURAL Com participação de discentes": item["Produção - ARTÍSTICO-CULTURAL Com participação de discentes"],
+          "Produção - ARTÍSTICO-CULTURAL Sem participação de discentes": item["Produção - ARTÍSTICO-CULTURAL Sem participação de discentes"],
+          "Produção - ARTÍSTICO-CULTURAL Com participação de egressos": item["Produção - ARTÍSTICO-CULTURAL Com participação de egressos"],
+          "Total de Produções ARTÍSTICO-CULTURAL(S)": item["Total de Produções ARTÍSTICO-CULTURAL(S)"],
+          "Produção - BIBLIOGRÁFICA Com participação de discentes": item["Produção - BIBLIOGRÁFICA Com participação de discentes"],
+          "Produção - BIBLIOGRÁFICA Sem participação de discentes": item["Produção - BIBLIOGRÁFICA Sem participação de discentes"],
+          "Produção - BIBLIOGRÁFICA Com participação de egressos": item["Produção - BIBLIOGRÁFICA Com participação de egressos"],
+          "Total de Produções BIBLIOGRÁFICA(S)": item["Total de Produções BIBLIOGRÁFICA(S)"],
+          "Produção - TÉCNICA Com participação de discentes": item["Produção - TÉCNICA Com participação de discentes"],
+          "Produção - TÉCNICA Sem participação de discentes": item["Produção - TÉCNICA Sem participação de discentes"],
+          "Produção - TÉCNICA Com participação de egressos": item["Produção - TÉCNICA Com participação de egressos"],
+          "Total de Produções TÉCNICA(S)": item["Total de Produções TÉCNICA(S)"],
+          "Trabalhos de Conclusão de Nível Mestrado": item["Trabalhos de Conclusão de Nível Mestrado"],
+          "Total de Trabalhos de Conclusão": item["Total de Trabalhos de Conclusão"],
+        };
+      });
+  
+      const docRef = await addDoc(collection(app, "suaColecao"), formattedDataForFirestore);
+      console.log("Documento escrito com ID: ", docRef.id);
+    } catch (e) {
+      console.error("Erro ao adicionar documento: ", e);
     }
   }
-
+   
+ 
 
   const handleFileChosen = (files) => {
     const readers = Array.from(files).forEach((file) => {
@@ -59,7 +89,6 @@ const XLSXReader = () => {
        );
        parsedData = parsedData.map((row) => row.slice(2));
 
-       insertDataIntoTable(parsedData);
    
        const years = parsedData[0]
          .slice(1)
@@ -78,6 +107,8 @@ const XLSXReader = () => {
            ),
          };
        });
+
+       addDataToFirestore(formattedData);
    
        setAllData((prevData) => [...prevData, ...formattedData]);
        const dataAssocMap = formattedData.reduce((acc, curr) => {
