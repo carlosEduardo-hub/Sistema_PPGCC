@@ -7,7 +7,10 @@ import AreaChart from './chart-types/area';
 import BarChart from './chart-types/bar';
 import './styles/graphicsTheme.css';
 import { collection, addDoc } from "firebase/firestore";
+import { initializeApp } from 'firebase/app';
+import { firebaseConfig } from './firebase';  
 
+const app = initializeApp(firebaseConfig);
 
 const XLSXReader = () => {
   const [allData, setAllData] = useState([]);
