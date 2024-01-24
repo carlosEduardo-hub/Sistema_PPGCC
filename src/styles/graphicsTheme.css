@@ -1,8 +1,15 @@
-* { font-family: Verdana, Geneva, sans-serif; font-size: 15px; font-style: normal; font-variant: normal; font-weight: 500; line-height: 26.4px; }
+* {
+    font-family: Verdana, Geneva, sans-serif;
+    font-size: 15px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 500;
+    line-height: 26.4px;
+}
 
 
 /* Estilo da barra de rolagem */
-.selector-info >select {
+.selector-info>select {
     /* Adicionando uma altura e largura máxima para a div com a barra de rolagem */
     max-height: 300px;
     max-width: 500px;
@@ -15,19 +22,19 @@
 }
 
 /* Personalizando a aparência da barra de rolagem */
-.selector-info >select::-webkit-scrollbar {
+.selector-info>select::-webkit-scrollbar {
     width: 8px;
     /* Largura da barra de rolagem para navegadores WebKit (Chrome, Safari, etc.) */
 }
 
-.selector-info >select::-webkit-scrollbar-thumb {
+.selector-info>select::-webkit-scrollbar-thumb {
     background-color: #4a5568;
     /* Cor do polegar (thumb) da barra de rolagem */
     border-radius: 8px;
     /* Borda arredondada para o polegar */
 }
 
-.selector-info >select::-webkit-scrollbar-track {
+.selector-info>select::-webkit-scrollbar-track {
     background-color: #cbd5e0;
     /* Cor da trilha da barra de rolagem */
     border-radius: 8px;
@@ -35,7 +42,7 @@
 }
 
 
-.selector-year >select {
+.selector-year>select {
     /* Adicionando uma altura e largura máxima para a div com a barra de rolagem */
     max-height: 300px;
     max-width: 500px;
@@ -48,19 +55,19 @@
 }
 
 /* Personalizando a aparência da barra de rolagem */
-.selector-year >select::-webkit-scrollbar {
+.selector-year>select::-webkit-scrollbar {
     width: 8px;
     /* Largura da barra de rolagem para navegadores WebKit (Chrome, Safari, etc.) */
 }
 
-.selector-year >select::-webkit-scrollbar-thumb {
+.selector-year>select::-webkit-scrollbar-thumb {
     background-color: #4a5568;
     /* Cor do polegar (thumb) da barra de rolagem */
     border-radius: 8px;
     /* Borda arredondada para o polegar */
 }
 
-.selector-year >select::-webkit-scrollbar-track {
+.selector-year>select::-webkit-scrollbar-track {
     background-color: #cbd5e0;
     /* Cor da trilha da barra de rolagem */
     border-radius: 8px;

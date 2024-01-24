@@ -14,7 +14,7 @@ const InitialPage = () => {
                     <h1 className="text-5xl">Sistema PPGCC</h1>
                 </div>
                 <div className="w-screen h-7 flex justify-center">
-                    <button className="bg-secondbgcolor hover:bg-hovercolor w-20 rounded-lg font-bold"><Link to="/dashboard">Entrar</Link></button>
+                    <button className="bg-secondbgcolor hover:bg-hovercolor w-20 rounded-lg font-bold"><Link className="text-black" to="/dashboard">Entrar</Link></button>
                 </div>
             </div>
         </>

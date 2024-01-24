@@ -73,7 +73,7 @@ const BarChart = ({
     },
     dataLabels: {
       position: 'top',
-      enabled: true,
+      enabled: false,
       offsetY: 0,
       style: {
         fontSize: '12px',
@@ -134,7 +134,7 @@ const BarChart = ({
      series={series} 
      type="bar"
      height={500} 
-     width={500} />
+     width={470} />
     </div>
   );
 };

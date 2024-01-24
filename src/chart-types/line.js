@@ -45,12 +45,12 @@ const LineChart = ({
         fontWeight: 'bold',
        },
     },
-    grid: {
-      row: {
-        colors: ['#f3f3f3', 'transparent'],
-        opacity: 0.5,
-      },
-    },
+    // grid: {
+    //   row: {
+    //     colors: ['#f3f3f3', 'transparent'],
+    //     opacity: 0.5,
+    //   },
+    // },
     legend: {
       labels: {
         colors: '#B0C4DE',
@@ -98,7 +98,7 @@ const LineChart = ({
      series={series} 
      type="line"
      height={500} 
-     width={500} />
+     width={470} />
    </div>
   );
 };

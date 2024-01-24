@@ -44,12 +44,12 @@ const AreaChart = ({
         fontWeight: 'bold',
        },
     },
-    grid: {
-      row: {
-        colors: ['#f3f3f3', '#f3f3f3'],
-        opacity: 0.5,
-      },
-    },
+    // grid: {
+    //   row: {
+    //     colors: ['#f3f3f3', '#f3f3f3'],
+    //     opacity: 0.5,
+    //   },
+    // },
     legend: {
       labels: {
         colors: '#B0C4DE',
@@ -96,7 +96,7 @@ const AreaChart = ({
      series={series} 
      type="area"
      height={500} 
-     width={500} />
+     width={470} />
     </div>
   );
 };

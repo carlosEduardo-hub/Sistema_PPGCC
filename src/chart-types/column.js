@@ -62,7 +62,7 @@ const ColumnChart = ({
         dataLabels: {
           //position: 'top', // top, center, bottom
           total: {
-            enabled: true,
+            enabled: false,
             style: {
               color: '#B0C4DE',
               fontSize: '13px',
@@ -138,7 +138,7 @@ const ColumnChart = ({
         series={series}
         type="bar"
         height={500}
-        width={500}
+        width={470}
       />
     </div>
   );

@@ -109,7 +109,7 @@ const Cards = () => {
       tooltip: {
         style: {
           fontSize: '14px',
-          color: 'red', // Cor do texto da informação do tooltip
+          color: 'red',
         },
       },
     },
