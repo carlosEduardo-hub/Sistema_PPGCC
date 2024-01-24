@@ -1,5 +1,5 @@
 const { initializeApp } = require("firebase/app");
-const { getFirestore, collection, addDoc } = require("firebase/firestore");
+const { getFirestore, collection, addDoc, doc, setDoc, getDocs } = require("firebase/firestore");
 
 const firebaseConfig = {
   apiKey: "AIzaSyBRVKg3wEq1mhNTLdBU8VGVaSM0ZOIy0kE",
@@ -14,35 +14,35 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// Function to add data to the Firestore collection
-const addData = async (collectionName, data) => {
+const addDataToFirestore = async (year, data) => {
   try {
-    const docRef = await addDoc(collection(db, collectionName), data);
-    console.log("Documento escrito com ID: ", docRef.id);
+    const docRef = doc(db, 'anos', year);
+    const firstObject = data[0];
+
+    // Garantindo que temos um objeto antes de chamar setDoc
+    if (typeof firstObject === 'object' && firstObject !== null) {
+      await setDoc(docRef, firstObject);
+      console.log("Documento escrito com ID: ", docRef.id);
+    } else {
+      console.error("Erro: os dados não estão no formato esperado");
+    }
   } catch (e) {
     console.error("Erro ao adicionar documento: ", e);
   }
 };
 
-// Example data
-const exampleData = {
-  "Ano Referência": "2022",
-  "Discente - Mestrado - MATRICULADO": "10",
-  // ... outras propriedades correspondentes às outras colunas
+const getAllDataFromFirestore = async () => {
+  try {
+    const querySnapshot = await getDocs(collection(db, 'anos'));
+    const allData = [];
+    querySnapshot.forEach((doc) => {
+      allData.push({ id: doc.id, ...doc.data() });
+    });
+    return allData;
+  } catch (e) {
+    console.error("Erro ao obter dados: ", e);
+    return [];
+  }
 };
 
-// Call the function with the example data
-addData('suaColecao', exampleData); // Substitua 'suaColecao' pelo nome da sua coleção
-
-const addExampleUser = async () => {
-  const userData = {
-    nome: 'Pedro',
-    email: 'pedro@gmail.com',
-  };
-
-  // Chame a função addData para adicionar o usuário à coleção 'users'
-  await addData('users', userData);
-};
-
-// Chame a função para adicionar o usuário de exemplo
-addExampleUser();
+module.exports = { db, addDataToFirestore, firebaseConfig, getAllDataFromFirestore };

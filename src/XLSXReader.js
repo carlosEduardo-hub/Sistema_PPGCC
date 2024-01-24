@@ -6,11 +6,7 @@ import LineChart from './chart-types/line';
 import AreaChart from './chart-types/area';
 import BarChart from './chart-types/bar';
 import './styles/graphicsTheme.css';
-import { collection, addDoc } from "firebase/firestore";
-import { initializeApp } from 'firebase/app';
-import { firebaseConfig } from './firebase';  
-
-const app = initializeApp(firebaseConfig);
+import { db, addDataToFirestore, firebaseConfig , getAllDataFromFirestore} from './firebase';
 
 const XLSXReader = () => {
   const [allData, setAllData] = useState([]);
@@ -19,64 +15,12 @@ const XLSXReader = () => {
   const [dataMap, setDataMap] = useState({});
   const [allYears, setAllYears] = useState([]);
   const [chartName, setChartName] = useState('');
-
-
-  const addDataToFirestore = async (data) => {
-    try {
-      const formattedDataForFirestore = data.map((item) => {
-        return {
-          "Ano Referência": item["nome"],
-          "Discente - Mestrado - MATRICULADO": item["Discente - Mestrado - MATRICULADO"],
-          "Discente - Mestrado - TITULADO": item["Discente - Mestrado - TITULADO"],
-          "Discente - Mestrado - DESLIGADO": item["Discente - Mestrado - DESLIGADO"],
-          "Discente - Mestrado - ABANDONOU": item["Discente - Mestrado - ABANDONOU"],
-          "Discente - Mestrado - MUDANCA DE NÍVEL SEM DEFESA": item["Discente - Mestrado - MUDANCA DE NÍVEL SEM DEFESA"],
-          "Discente - Mestrado - MUDANCA DE NÍVEL COM DEFESA": item["Discente - Mestrado - MUDANCA DE NÍVEL COM DEFESA"],
-          "Discente - Mestrado - Total Ativos": item["Discente - Mestrado - Total Ativos"],
-          "Discente - Mestrado - Total Inativos": item["Discente - Mestrado - Total Inativos"],
-          "Discente - Mestrado - Total": item["Discente - Mestrado - Total"],
-          "Discente - Mestrado - Tempo médio de titulação(Meses)": item["Discente - Mestrado - Tempo médio de titulação(Meses)"],
-          "Docente - Permanente": item["Docente - Permanente"],
-          "Docente - Colaborador": item["Docente - Colaborador"],
-          "Docente - Visitante": item["Docente - Visitante"],
-          "Docente - Total": item["Docente - Total"],
-          "Participante Externo": item["Participante Externo"],
-          "Pós-Doc": item["Pós-Doc"],
-          "Egresso - Mestrado": item["Egresso - Mestrado"],
-          "Egresso - Total": item["Egresso - Total"],
-          "Disciplinas": item["Disciplinas"],
-          "Financiadores": item["Financiadores"],
-          "Turmas": item["Turmas"],
-          "Turmas Associadas a Projetos de Cooperação entre Instituições": item["Turmas Associadas a Projetos de Cooperação entre Instituições"],
-          "Áreas de Concentração": item["Áreas de Concentração"],
-          "Linhas de Pesquisa": item["Linhas de Pesquisa"],
-          "Projetos de Pesquisa Em Andamento": item["Projetos de Pesquisa Em Andamento"],
-          "Projetos de Pesquisa Concluídos": item["Projetos de Pesquisa Concluídos"],
-          "Produção - ARTÍSTICO-CULTURAL Com participação de discentes": item["Produção - ARTÍSTICO-CULTURAL Com participação de discentes"],
-          "Produção - ARTÍSTICO-CULTURAL Sem participação de discentes": item["Produção - ARTÍSTICO-CULTURAL Sem participação de discentes"],
-          "Produção - ARTÍSTICO-CULTURAL Com participação de egressos": item["Produção - ARTÍSTICO-CULTURAL Com participação de egressos"],
-          "Total de Produções ARTÍSTICO-CULTURAL(S)": item["Total de Produções ARTÍSTICO-CULTURAL(S)"],
-          "Produção - BIBLIOGRÁFICA Com participação de discentes": item["Produção - BIBLIOGRÁFICA Com participação de discentes"],
-          "Produção - BIBLIOGRÁFICA Sem participação de discentes": item["Produção - BIBLIOGRÁFICA Sem participação de discentes"],
-          "Produção - BIBLIOGRÁFICA Com participação de egressos": item["Produção - BIBLIOGRÁFICA Com participação de egressos"],
-          "Total de Produções BIBLIOGRÁFICA(S)": item["Total de Produções BIBLIOGRÁFICA(S)"],
-          "Produção - TÉCNICA Com participação de discentes": item["Produção - TÉCNICA Com participação de discentes"],
-          "Produção - TÉCNICA Sem participação de discentes": item["Produção - TÉCNICA Sem participação de discentes"],
-          "Produção - TÉCNICA Com participação de egressos": item["Produção - TÉCNICA Com participação de egressos"],
-          "Total de Produções TÉCNICA(S)": item["Total de Produções TÉCNICA(S)"],
-          "Trabalhos de Conclusão de Nível Mestrado": item["Trabalhos de Conclusão de Nível Mestrado"],
-          "Total de Trabalhos de Conclusão": item["Total de Trabalhos de Conclusão"],
-        };
-      });
-  
-      const docRef = await addDoc(collection(app, "suaColecao"), formattedDataForFirestore);
-      console.log("Documento escrito com ID: ", docRef.id);
-    } catch (e) {
-      console.error("Erro ao adicionar documento: ", e);
-    }
-  }
    
- 
+  const fetchDataFromFirestore = async () => {
+    const dataFromFirestore = await getAllDataFromFirestore();
+    console.log("Dados obtidos do Firestore:", dataFromFirestore);
+    // Faça o que for necessário com os dados obtidos do Firestore
+  };
 
   const handleFileChosen = (files) => {
     const readers = Array.from(files).forEach((file) => {
@@ -111,8 +55,13 @@ const XLSXReader = () => {
          };
        });
 
-       addDataToFirestore(formattedData);
-   
+       console.log("Dados formatados:", formattedData); // Adicione este log para verificar os dados
+
+        await addDataToFirestore(parsedData[1][0].toString(), formattedData);
+
+        console.log("Dados enviados para o Firestore"); // Adicione este log para verificar o envio
+
+
        setAllData((prevData) => [...prevData, ...formattedData]);
        const dataAssocMap = formattedData.reduce((acc, curr) => {
          acc[curr.nome] = curr;
@@ -125,11 +74,14 @@ const XLSXReader = () => {
          return [...acc, ...Object.keys(curr)];
        }, []);
        setAllYears(Array.from(new Set(newYears)));
+       fetchDataFromFirestore();
      };
    
      reader.readAsArrayBuffer(file);
     });
    };
+
+
    
 
   const handleInfoChange = (selectedOptions) => {
