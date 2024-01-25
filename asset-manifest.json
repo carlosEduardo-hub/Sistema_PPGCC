@@ -1,14 +1,36 @@
 {
   "files": {
-    "main.css": "/Sistema_PPGCC/static/css/main.40236f39.css",
-    "main.js": "/Sistema_PPGCC/static/js/main.df608965.js",
+    "main.css": "/Sistema_PPGCC/static/css/main.4ea72cc6.css",
+    "main.js": "/Sistema_PPGCC/static/js/main.42dfdc6d.js",
     "static/media/brasao_ufpi.png": "/Sistema_PPGCC/static/media/brasao_ufpi.28f234a8cc0be64b1c85.png",
+    "static/media/person_two.jpg": "/Sistema_PPGCC/static/media/person_two.348b2fcc3bf8c629eea7.jpg",
+    "static/media/person_four.jpg": "/Sistema_PPGCC/static/media/person_four.dcc4b73631cb58bf3f0e.jpg",
+    "static/media/person_three.jpg": "/Sistema_PPGCC/static/media/person_three.de2b26eaa2ee890243cb.jpg",
+    "static/media/person_one.jpg": "/Sistema_PPGCC/static/media/person_one.cff9fc4c871ef770de92.jpg",
+    "static/media/home.svg": "/Sistema_PPGCC/static/media/home.6a010444d9f73b8bd246e786cab2b0ed.svg",
+    "static/media/alert.svg": "/Sistema_PPGCC/static/media/alert.7cf5b706d365f5bab23f4b7465236625.svg",
+    "static/media/budget.svg": "/Sistema_PPGCC/static/media/budget.8f59aecbb991e19ed3eb2b7d809e4a1a.svg",
+    "static/media/wealth.svg": "/Sistema_PPGCC/static/media/wealth.afbf7b58be1000f5f6a2d5e9035276cc.svg",
+    "static/media/gears.svg": "/Sistema_PPGCC/static/media/gears.faeb1bd7e139a12671d6bd7a1033be7a.svg",
+    "static/media/bills.svg": "/Sistema_PPGCC/static/media/bills.b65278884e02daa1a0c23e9dd5196313.svg",
+    "static/media/report.svg": "/Sistema_PPGCC/static/media/report.bec4dbc8da4bd1f44185c41929787c18.svg",
+    "static/media/card.svg": "/Sistema_PPGCC/static/media/card.c84746e8b1ded50c00c4cd356d25170d.svg",
+    "static/media/check.svg": "/Sistema_PPGCC/static/media/check.e2c7708db016a9d192c7694291b928b3.svg",
+    "static/media/search.svg": "/Sistema_PPGCC/static/media/search.cb186e31bd38c0846379da653341568e.svg",
+    "static/media/wallet.svg": "/Sistema_PPGCC/static/media/wallet.f884b6080725ced88912231a3b9f50e7.svg",
+    "static/media/bell.svg": "/Sistema_PPGCC/static/media/bell.9b75bdce5b3606cba543e5756ff39a22.svg",
     "index.html": "/Sistema_PPGCC/index.html",
-    "main.40236f39.css.map": "/Sistema_PPGCC/static/css/main.40236f39.css.map",
-    "main.df608965.js.map": "/Sistema_PPGCC/static/js/main.df608965.js.map"
+    "static/media/user.svg": "/Sistema_PPGCC/static/media/user.958766a26a84a1ef6fbb7dfed43f2783.svg",
+    "static/media/plane.svg": "/Sistema_PPGCC/static/media/plane.a8f4b3d91e5a720df5de7214b5f5b88e.svg",
+    "static/media/empty_check.svg": "/Sistema_PPGCC/static/media/empty_check.c46f0842f2cf6a609ec1120dc5198a3e.svg",
+    "static/media/plus.svg": "/Sistema_PPGCC/static/media/plus.8bfd972e86c4c89d68312868b23be5be.svg",
+    "static/media/chart.svg": "/Sistema_PPGCC/static/media/chart.eaa7970dcc3680ece0e812a425cdcc0f.svg",
+    "static/media/menu.svg": "/Sistema_PPGCC/static/media/menu.671405f9050c951365cbfaf9273aadc7.svg",
+    "main.4ea72cc6.css.map": "/Sistema_PPGCC/static/css/main.4ea72cc6.css.map",
+    "main.42dfdc6d.js.map": "/Sistema_PPGCC/static/js/main.42dfdc6d.js.map"
   },
   "entrypoints": [
-    "static/css/main.40236f39.css",
-    "static/js/main.df608965.js"
+    "static/css/main.4ea72cc6.css",
+    "static/js/main.42dfdc6d.js"
   ]
 }
