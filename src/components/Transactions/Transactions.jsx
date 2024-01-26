@@ -7,12 +7,8 @@ const Transactions = () => {
   const chartData = {
     series: [
       {
-        name: "Receitas",
-        data: [150, 200, 250, 180, 300],
-      },
-      {
-        name: "Despesas",
-        data: [120, 170, 220, 150, 200],
+        name: "Tempo Médio de Titulação",
+        data: [0, 0, 25, 27, 27, 27, 26, 28, 26, 28, 28],
       },
     ],
     options: {
@@ -28,7 +24,12 @@ const Transactions = () => {
         },
       },
       dataLabels: {
-        enabled: false,
+        enabled: true,
+        style: {
+          colors: ['#B0C4DE'],
+          fontSize: '12px',
+          fontWeight: 'bold',
+        },
       },
       stroke: {
         show: true,
@@ -36,7 +37,7 @@ const Transactions = () => {
         colors: ["transparent"],
       },
       xaxis: {
-        categories: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio"],
+        categories: ["2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022"],
         labels: {
           style: {
             colors: '#B0C4DE',
@@ -55,7 +56,7 @@ const Transactions = () => {
         },
       },
       title: {
-        text: "Valores",
+        text: "Tempo Médio de Titulação",
       },
       legend: {
         position: "top",

@@ -7,20 +7,20 @@ const Cards = () => {
   const chartData = {
     series: [
       {
-        name: "PRODUCT A",
-        data: [44, 55, 41, 67, 22, 43],
+        name: "Matriculado",
+        data: [9, 20, 27, 33, 36, 37, 37, 33, 38, 33, 21],
       },
       {
-        name: "PRODUCT B",
-        data: [13, 23, 20, 8, 13, 27],
+        name: "Titulado",
+        data: [0, 0, 8, 8, 18, 13, 20, 15, 16, 14, 18],
       },
       {
-        name: "PRODUCT C",
-        data: [11, 17, 15, 15, 21, 14],
+        name: "Desligado",
+        data: [1, 0, 3, 0, 0, 2, 4, 3, 0, 4, 7],
       },
       {
-        name: "PRODUCT D",
-        data: [21, 7, 25, 13, 22, 8],
+        name: "Abandonou",
+        data: [0, 0, 1, 1, 1, 1, 0, 2, 2, 1, 0],
       },
     ],
     options: {
@@ -53,8 +53,9 @@ const Cards = () => {
           borderRadius: 5,
           dataLabels: {
             total: {
-              enabled: false,
+              enabled: true,
               style: {
+                color: '#B0C4DE',
                 fontSize: "13px",
                 fontWeight: 900,
               },
@@ -64,12 +65,17 @@ const Cards = () => {
       },
       xaxis: {
         categories: [
-          "01/01/2011 GMT",
-          "01/02/2011 GMT",
-          "01/03/2011 GMT",
-          "01/04/2011 GMT",
-          "01/05/2011 GMT",
-          "01/06/2011 GMT",
+          "2012",
+          "2013",
+          "2014",
+          "2015",
+          "2016",
+          "2017",
+          "2018",
+          "2019",
+          "2020",
+          "2021",
+          "2022"
         ],
         labels: {
           show: false,
@@ -84,6 +90,7 @@ const Cards = () => {
         enabled: false,
       },
       yaxis: {
+        stepSize: 10,
         labels: {
           style: {
             colors: '#B0C4DE',
@@ -93,7 +100,7 @@ const Cards = () => {
         },
       },
       title: {
-        text: "Quantidade",
+        text: "Discentes-Mestrado",
       },
       legend: {
         position: "bottom",
@@ -121,7 +128,7 @@ const Cards = () => {
         options={chartData.options}
         series={chartData.series}
         type="bar"
-        height={283}
+        height={300}
       />
     </div>
   );
