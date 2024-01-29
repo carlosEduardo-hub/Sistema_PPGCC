@@ -7,16 +7,16 @@ const Budget = () => {
   const chartData = {
     series: [
       {
-        name: "Despesas A",
-        data: [10, 20, 15, 25, 18, 30, 22],
+        name: "Docente-Permanente",
+        data: [10, 9, 9, 10, 10, 13, 14, 14, 17, 17, 18],
       },
       {
-        name: "Despesas B",
-        data: [15, 25, 20, 30, 23, 35, 27],
+        name: "Docente-Colaborador",
+        data: [1, 1, 2, 2, 2, 1, 1, 1, 0, 0, 0],
       },
       {
-        name: "Despesas C",
-        data: [12, 22, 17, 27, 20, 32, 24],
+        name: "Docente-Visitante",
+        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       },
     ],
     options: {
@@ -43,7 +43,7 @@ const Budget = () => {
         curve: "smooth",
       },
       xaxis: {
-        categories: ["Jan", "Fev", "Mar", "Abr", "Maio", "Jun", "Jul"],
+        categories: ["2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022"],
         labels: {
           style: {
             colors: '#B0C4DE',
@@ -62,7 +62,7 @@ const Budget = () => {
         },
       },
       title: {
-        text: "Despesas",
+        text: "Docentes",
       },
       legend: {
         position: "top",

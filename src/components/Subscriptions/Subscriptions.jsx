@@ -6,20 +6,12 @@ const Subscriptions = () => {
   const chartData = {
     series: [
       {
-        name: "PRODUCT A",
-        data: [44, 55, 41, 67, 22, 43],
+        name: "Projetos de Pesquisa em Andamento",
+        data: [13, 13, 16, 15, 15, 12, 13, 23, 24, 29, 32],
       },
       {
-        name: "PRODUCT B",
-        data: [13, 23, 20, 8, 13, 27],
-      },
-      {
-        name: "PRODUCT C",
-        data: [11, 17, 15, 15, 21, 14],
-      },
-      {
-        name: "PRODUCT D",
-        data: [21, 7, 25, 13, 22, 8],
+        name: "Projetos de Pesquisa Concluídos",
+        data: [9, 2, 3, 2, 1, 4, 2, 0, 4, 5, 5],
       },
     ],
     options: {
@@ -48,7 +40,7 @@ const Subscriptions = () => {
       ],
       plotOptions: {
         bar: {
-          horizontal: false,
+          horizontal: true,
           borderRadius: 5,
           dataLabels: {
             total: {
@@ -63,24 +55,34 @@ const Subscriptions = () => {
       },
       xaxis: {
         categories: [
-          "01/01/2011 GMT",
-          "01/02/2011 GMT",
-          "01/03/2011 GMT",
-          "01/04/2011 GMT",
-          "01/05/2011 GMT",
-          "01/06/2011 GMT",
+          "2012",
+          "2013",
+          "2014",
+          "2015",
+          "2016",
+          "2017",
+          "2018",
+          "2019",
+          "2020",
+          "2021",
+          "2022"
         ],
         labels: {
           show: false,
           style: {
             colors: '#B0C4DE',
-            fontSize: '12px',
+            fontSize: '8px',
             fontWeight: 'bold',
           },
         },
       },
       dataLabels: {
-        enabled: false,
+        enabled: true,
+        style: {
+          colors: ['#B0C4DE'],
+          fontSize: '12px',
+          fontWeight: 'bold',
+        },
       },
       yaxis: {
         labels: {
@@ -92,7 +94,7 @@ const Subscriptions = () => {
         },
       },
       title: {
-        text: "Quantidade",
+        text: "Projetos de Pesquisa",
       },
       legend: {
         position: "bottom",
@@ -100,10 +102,12 @@ const Subscriptions = () => {
         fontSize: '10px',
         labels: {
           colors: 'B0C4DE',
+          useSeriesColors: false,
         },
       },
       fill: {
         opacity: 1,
+        colors: ['#D2691E', '#006400']
       },
       tooltip: {
         style: {
@@ -119,7 +123,7 @@ const Subscriptions = () => {
         options={chartData.options}
         series={chartData.series}
         type="bar"
-        height={235.5}
+        height={283}
       />
     </div>
   )

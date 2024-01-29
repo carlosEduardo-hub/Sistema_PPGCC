@@ -7,53 +7,79 @@ const Report = () => {
   const chartData = {
     series: [
       {
-        name: "Produção A",
-        data: [50, 70, 60, 80, 75, 90, 85, 100, 95, 110],
-      },
-      {
-        name: "Produção B",
-        data: [40, 60, 50, 70, 65, 80, 75, 90, 85, 100],
-      },
-      {
-        name: "Produção C",
-        data: [60, 80, 70, 90, 85, 100, 95, 110, 105, 120],
+        name: "Turmas Ofertadas",
+        data: [0, 23, 26, 24, 23, 27, 19, 21, 25, 25, 20],
       },
     ],
     options: {
       chart: {
-        type: "line",
+        type: "bar",
         height: 350,
+        stacked: true,
         toolbar: {
           show: true,
-          tools: {
-            download: true,
-            selection: false,
-            zoom: false,
-            zoomin: false,
-            zoomout: false,
-            pan: false,
-            reset: false
-          }
+        },
+        zoom: {
+          enabled: true,
+        },
+      },
+      responsive: [
+        {
+          breakpoint: 480,
+          options: {
+            legend: {
+              position: "bottom",
+              offsetX: -10,
+              offsetY: 0,
+            },
+          },
+        },
+      ],
+      plotOptions: {
+        bar: {
+          horizontal: false,
+          borderRadius: 5,
+          dataLabels: {
+            total: {
+              enabled: true,
+              style: {
+                color: '#B0C4DE',
+                fontSize: "13px",
+                fontWeight: 900,
+              },
+            },
+          },
+        },
+      },
+      xaxis: {
+        categories: [
+          "2012",
+          "2013",
+          "2014",
+          "2015",
+          "2016",
+          "2017",
+          "2018",
+          "2019",
+          "2020",
+          "2021",
+          "2022"
+        ],
+        labels: {
+          show: true,
+          style: {
+            colors: '#B0C4DE',
+            fontSize: '9px',
+            fontWeight: 'bold',
+            cssClass: 'apexcharts-xaxis-label',
+          },
         },
       },
       dataLabels: {
         enabled: false,
       },
-      stroke: {
-        curve: "smooth",
-      },
-      xaxis: {
-        categories: ["Semana 1", "Semana 2", "Semana 3", "Semana 4", "Semana 5", "Semana 6", "Semana 7", "Semana 8", "Semana 9", "Semana 10"],
-        labels: {
-          show: false,
-          style: {
-            colors: '#B0C4DE',
-            fontSize: '12px',
-            fontWeight: 'bold',
-          },
-        },
-      },
       yaxis: {
+        stepSize: 10,
         labels: {
           style: {
             colors: '#B0C4DE',
@@ -63,29 +89,36 @@ const Report = () => {
         },
       },
       title: {
-        text: "Produção",
+        text: "Turmas Ofertadas",
       },
       legend: {
         position: "bottom",
-        offsetY: 0,
+        offsetY: 10,
+        fontSize: '10px',
         labels: {
           colors: 'B0C4DE',
         },
       },
+      fill: {
+        opacity: 1,
+        colors: ['#DAA520'],
+      },
       tooltip: {
-        x: {
-          format: "dd/MM",
+        style: {
+          fontSize: '14px',
+          color: 'red',
         },
       },
     },
   };
+
 
   return (
     <div className="grid-one-item grid-common grid-c3">
       <ReactApexChart
         options={chartData.options}
         series={chartData.series}
-        type="line"
+        type="bar"
         height={283}
       />
     </div>
