@@ -6,93 +6,127 @@ const Loans = () => {
   const chartData = {
     series: [
       {
-        name: "Despesas A",
-        data: [10, 20, 15, 25, 18, 30, 22],
+        name: "Com participação de discentes",
+        data: [0, 0, 4, 0, 3, 3, 1, 0, 0, 1, 0],
       },
       {
-        name: "Despesas B",
-        data: [15, 25, 20, 30, 23, 35, 27],
-      },
-      {
-        name: "Despesas C",
-        data: [12, 22, 17, 27, 20, 32, 24],
+        name: "Sem participação de discentes",
+        data: [0, 2, 4, 5, 4, 2, 5, 8, 1, 3, 6],
       },
     ],
     options: {
       chart: {
-        type: "area",
+        type: "bar",
         height: 350,
+        stacked: true,
         toolbar: {
           show: true,
-          tools: {
-            download: true,
-            selection: false,
-            zoom: false,
-            zoomin: false,
-            zoomout: false,
-            pan: false,
-            reset: false
-          }
+        },
+        zoom: {
+          enabled: true,
+        },
+      },
+      responsive: [
+        {
+          breakpoint: 480,
+          options: {
+            legend: {
+              position: "bottom",
+              offsetX: -10,
+              offsetY: 0,
+            },
+          },
+        },
+      ],
+      plotOptions: {
+        bar: {
+          horizontal: false,
+          borderRadius: 5,
+          dataLabels: {
+            total: {
+              enabled: true,
+              style: {
+                fontSize: "13px",
+                fontWeight: 900,
+                color: '#B0C4DE',
+              },
+            },
+          },
+        },
+      },
+      xaxis: {
+        categories: [
+          "2012",
+          "2013",
+          "2014",
+          "2015",
+          "2016",
+          "2017",
+          "2018",
+          "2019",
+          "2020",
+          "2021",
+          "2022"
+        ],
+        labels: {
+          show: false,
+          style: {
+            colors: '#B0C4DE',
+            fontSize: '8px',
+            fontWeight: 'bold',
+          },
         },
       },
       dataLabels: {
-        enabled: false,
-      },
-      stroke: {
-        curve: "smooth",
-      },
-      xaxis: {
-        categories: ["Jan", "Fev", "Mar", "Abr", "Maio", "Jun", "Jul"],
-        labels: {
-          style: {
-            colors: '#B0C4DE',
-            fontSize: '10px',
-            fontWeight: 'bold',
-          },
+        enabled: true,
+        style: {
+          colors: ['#B0C4DE'],
+          fontSize: '12px',
+          fontWeight: 'bold',
         },
       },
       yaxis: {
         labels: {
           style: {
             colors: '#B0C4DE',
-            fontSize: '10px',
+            fontSize: '12px',
             fontWeight: 'bold',
           },
         },
       },
       title: {
-        text: "Despesas",
+        text: "Produção - Técnica",
       },
       legend: {
-        position: "top",
-        offsetY: 0,
+        position: "bottom",
+        offsetY: 10,
+        fontSize: '10px',
         labels: {
           colors: 'B0C4DE',
         },
+        markers: {
+          fillColors: ['#D2691E' , '#006400']
+        }
       },
       fill: {
-        type: "gradient",
-        gradient: {
-          shadeIntensity: 1,
-          opacityFrom: 0.7,
-          opacityTo: 0.9,
-          stops: [0, 100],
-        },
+        opacity: 1,
+        colors: ['#D2691E', '#006400']
       },
       tooltip: {
-        x: {
-          format: "dd/MM",
+        style: {
+          fontSize: '14px',
+          color: 'red', // Cor do texto da informação do tooltip
         },
       },
     },
   };
   return (
-    <div className="subgrid-two-item grid-common grid-c7">
+    <div className="subgrid-two-item grid-common grid-c5">
       <ReactApexChart
         options={chartData.options}
         series={chartData.series}
-        type="area"
-        height={235.5}
+        type="bar"
+        height={283}
       />
     </div>
   )

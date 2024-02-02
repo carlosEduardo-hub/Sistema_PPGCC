@@ -44,10 +44,11 @@ const Subscriptions = () => {
           borderRadius: 5,
           dataLabels: {
             total: {
-              enabled: false,
+              enabled: true,
               style: {
                 fontSize: "13px",
                 fontWeight: 900,
+                color: '#B0C4DE',
               },
             },
           },
@@ -102,8 +103,10 @@ const Subscriptions = () => {
         fontSize: '10px',
         labels: {
           colors: 'B0C4DE',
-          useSeriesColors: false,
         },
+        markers: {
+          fillColors: ['#D2691E' , '#006400']
+        }
       },
       fill: {
         opacity: 1,
