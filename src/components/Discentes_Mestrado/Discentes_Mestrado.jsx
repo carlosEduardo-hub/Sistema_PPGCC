@@ -1,8 +1,8 @@
 import React from "react";
 import ReactApexChart from "react-apexcharts";
-import "./Cards.css";
+import "./Discentes_Mestrado.css";
 
-const Cards = () => {
+const Discentes_Mestrado = () => {
   // Dados fictícios para o gráfico de coluna
   const chartData = {
     series: [
@@ -134,4 +134,4 @@ const Cards = () => {
   );
 };
 
-export default Cards;
+export default Discentes_Mestrado;

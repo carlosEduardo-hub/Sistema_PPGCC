@@ -125,4 +125,4 @@ const Savings = () => {
   )
 }
 
-export default Savings
+export default Savings;

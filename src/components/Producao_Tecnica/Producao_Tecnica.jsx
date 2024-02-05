@@ -1,17 +1,17 @@
 import React from "react";
 import ReactApexChart from "react-apexcharts";
-import "./Subscriptions.css";
+import "./Producao_Tecnica.css";
 
-const Subscriptions = () => {
+const Producao_Tecnica = () => {
   const chartData = {
     series: [
       {
-        name: "Projetos de Pesquisa em Andamento",
-        data: [13, 13, 16, 15, 15, 12, 13, 23, 24, 29, 32],
+        name: "Com participação de discentes",
+        data: [0, 0, 4, 0, 3, 3, 1, 0, 0, 1, 0],
       },
       {
-        name: "Projetos de Pesquisa Concluídos",
-        data: [9, 2, 3, 2, 1, 4, 2, 0, 4, 5, 5],
+        name: "Sem participação de discentes",
+        data: [0, 2, 4, 5, 4, 2, 5, 8, 1, 3, 6],
       },
     ],
     options: {
@@ -40,7 +40,7 @@ const Subscriptions = () => {
       ],
       plotOptions: {
         bar: {
-          horizontal: true,
+          horizontal: false,
           borderRadius: 5,
           dataLabels: {
             total: {
@@ -95,7 +95,7 @@ const Subscriptions = () => {
         },
       },
       title: {
-        text: "Projetos de Pesquisa",
+        text: "Produção - Técnica",
       },
       legend: {
         position: "bottom",
@@ -132,4 +132,4 @@ const Subscriptions = () => {
   )
 }
 
-export default Subscriptions
+export default Producao_Tecnica;

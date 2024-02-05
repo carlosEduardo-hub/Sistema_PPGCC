@@ -1,14 +1,17 @@
 import React from "react";
 import ReactApexChart from "react-apexcharts";
-import "./Report.css";
+import "./Projetos_Pesquisa.css";
 
-const Report = () => {
-  // Dados fictícios para o gráfico de linha
+const Projetos_Pesquisa = () => {
   const chartData = {
     series: [
       {
-        name: "Turmas Ofertadas",
-        data: [0, 23, 26, 24, 23, 27, 19, 21, 25, 25, 20],
+        name: "Projetos de Pesquisa em Andamento",
+        data: [13, 13, 16, 15, 15, 12, 13, 23, 24, 29, 32],
+      },
+      {
+        name: "Projetos de Pesquisa Concluídos",
+        data: [9, 2, 3, 2, 1, 4, 2, 0, 4, 5, 5],
       },
     ],
     options: {
@@ -37,15 +40,15 @@ const Report = () => {
       ],
       plotOptions: {
         bar: {
-          horizontal: false,
+          horizontal: true,
           borderRadius: 5,
           dataLabels: {
             total: {
               enabled: true,
               style: {
-                color: '#B0C4DE',
                 fontSize: "13px",
                 fontWeight: 900,
+                color: '#B0C4DE',
               },
             },
           },
@@ -66,20 +69,23 @@ const Report = () => {
           "2022"
         ],
         labels: {
-          show: true,
+          show: false,
           style: {
             colors: '#B0C4DE',
-            fontSize: '9px',
+            fontSize: '8px',
             fontWeight: 'bold',
-            cssClass: 'apexcharts-xaxis-label',
           },
         },
       },
       dataLabels: {
-        enabled: false,
+        enabled: true,
+        style: {
+          colors: ['#B0C4DE'],
+          fontSize: '12px',
+          fontWeight: 'bold',
+        },
       },
       yaxis: {
-        stepSize: 10,
         labels: {
           style: {
             colors: '#B0C4DE',
@@ -89,7 +95,7 @@ const Report = () => {
         },
       },
       title: {
-        text: "Turmas Ofertadas",
+        text: "Projetos de Pesquisa",
       },
       legend: {
         position: "bottom",
@@ -98,23 +104,24 @@ const Report = () => {
         labels: {
           colors: 'B0C4DE',
         },
+        markers: {
+          fillColors: ['#D2691E' , '#006400']
+        }
       },
       fill: {
         opacity: 1,
-        colors: ['#DAA520'],
+        colors: ['#D2691E', '#006400']
       },
       tooltip: {
         style: {
           fontSize: '14px',
-          color: 'red',
+          color: 'red', // Cor do texto da informação do tooltip
         },
       },
     },
   };
-
-
   return (
-    <div className="grid-one-item grid-common grid-c3">
+    <div className="subgrid-two-item grid-common grid-c5">
       <ReactApexChart
         options={chartData.options}
         series={chartData.series}
@@ -122,7 +129,7 @@ const Report = () => {
         height={283}
       />
     </div>
-  );
+  )
 }
 
-export default Report;
+export default Projetos_Pesquisa;

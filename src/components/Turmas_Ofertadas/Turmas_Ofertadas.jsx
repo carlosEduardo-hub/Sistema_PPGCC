@@ -1,17 +1,14 @@
 import React from "react";
 import ReactApexChart from "react-apexcharts";
-import "./Loans.css";
+import "./Turmas_Ofertadas.css";
 
-const Loans = () => {
+const Turmas_Ofertadas = () => {
+  // Dados fictícios para o gráfico de linha
   const chartData = {
     series: [
       {
-        name: "Com participação de discentes",
-        data: [0, 0, 4, 0, 3, 3, 1, 0, 0, 1, 0],
-      },
-      {
-        name: "Sem participação de discentes",
-        data: [0, 2, 4, 5, 4, 2, 5, 8, 1, 3, 6],
+        name: "Turmas Ofertadas",
+        data: [0, 23, 26, 24, 23, 27, 19, 21, 25, 25, 20],
       },
     ],
     options: {
@@ -46,9 +43,9 @@ const Loans = () => {
             total: {
               enabled: true,
               style: {
+                color: '#B0C4DE',
                 fontSize: "13px",
                 fontWeight: 900,
-                color: '#B0C4DE',
               },
             },
           },
@@ -69,23 +66,20 @@ const Loans = () => {
           "2022"
         ],
         labels: {
-          show: false,
+          show: true,
           style: {
             colors: '#B0C4DE',
-            fontSize: '8px',
+            fontSize: '9px',
             fontWeight: 'bold',
+            cssClass: 'apexcharts-xaxis-label',
           },
         },
       },
       dataLabels: {
-        enabled: true,
-        style: {
-          colors: ['#B0C4DE'],
-          fontSize: '12px',
-          fontWeight: 'bold',
-        },
+        enabled: false,
       },
       yaxis: {
+        stepSize: 10,
         labels: {
           style: {
             colors: '#B0C4DE',
@@ -95,7 +89,7 @@ const Loans = () => {
         },
       },
       title: {
-        text: "Produção - Técnica",
+        text: "Turmas Ofertadas",
       },
       legend: {
         position: "bottom",
@@ -104,24 +98,23 @@ const Loans = () => {
         labels: {
           colors: 'B0C4DE',
         },
-        markers: {
-          fillColors: ['#D2691E' , '#006400']
-        }
       },
       fill: {
         opacity: 1,
-        colors: ['#D2691E', '#006400']
+        colors: ['#DAA520'],
       },
       tooltip: {
         style: {
           fontSize: '14px',
-          color: 'red', // Cor do texto da informação do tooltip
+          color: 'red',
         },
       },
     },
   };
+
+
   return (
-    <div className="subgrid-two-item grid-common grid-c5">
+    <div className="grid-one-item grid-common grid-c3">
       <ReactApexChart
         options={chartData.options}
         series={chartData.series}
@@ -129,7 +122,7 @@ const Loans = () => {
         height={283}
       />
     </div>
-  )
+  );
 }
 
-export default Loans
+export default Turmas_Ofertadas;

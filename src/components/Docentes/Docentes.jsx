@@ -1,8 +1,8 @@
 import React from "react";
 import ReactApexChart from "react-apexcharts";
-import "./Budget.css";
+import "./Docentes.css";
 
-const Budget = () => {
+const Docentes = () => {
   // Dados fictícios para o gráfico de área
   const chartData = {
     series: [
@@ -100,5 +100,5 @@ const Budget = () => {
   );
 }
 
-export default Budget;
+export default Docentes;
 

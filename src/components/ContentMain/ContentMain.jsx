@@ -1,33 +1,33 @@
 import "./ContentMain.css";
-import Cards from "../Cards/Cards";
-import Transactions from "../Transactions/Transactions";
-import Report from "../Report/Report";
-import Budget from "../Budget/Budget";
-import Subscriptions from "../Subscriptions/Subscriptions";
+import Discentes_Mestrado from "../Discentes_Mestrado/Discentes_Mestrado";
+import Tempo_Medio_Titulacao from "../Tempo_Medio_Titulacao/Tempo_Medio_Titulacao";
+import Turmas_Ofertadas from "../Turmas_Ofertadas/Turmas_Ofertadas";
+import Docentes from "../Docentes/Docentes";
+import Projetos_Pesquisa from "../Projetos_Pesquisa/Projetos_Pesquisa";
 import Savings from "../Savings/Savings";
-import Loans from "../Loans/Loans";
+import Producao_Tecnica from "../Producao_Tecnica/Producao_Tecnica";
 import Financial from "../Financial/Financial";
 
 const ContentMain = () => {
   return (
     <div className="main-content-holder">
         <div className="content-grid-one">
-            <Cards />
-            <Transactions />
-            <Report />
+            <Discentes_Mestrado />
+            <Tempo_Medio_Titulacao />
+            <Turmas_Ofertadas />
         </div>
         <div className="content-grid-two">
-            <Budget />
+            <Docentes />
             <div className="grid-two-item">
               <div className="subgrid-two">
-                <Subscriptions />
+                <Projetos_Pesquisa />
                 <Savings />
               </div>
             </div>
 
             <div className="grid-two-item">
               <div className="subgrid-two">
-                <Loans />
+                <Producao_Tecnica />
                 <Financial />
               </div>
             </div>

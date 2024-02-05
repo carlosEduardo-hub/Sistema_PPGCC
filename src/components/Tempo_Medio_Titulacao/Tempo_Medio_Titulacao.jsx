@@ -1,8 +1,8 @@
 import React from "react";
 import ReactApexChart from "react-apexcharts";
-import "./Transactions.css";
+import "./Tempo_Medio_Titulacao.css";
 
-const Transactions = () => {
+const Tempo_Medio_Titulacao = () => {
   // Dados fictícios para o gráfico de barras
   const chartData = {
     series: [
@@ -90,4 +90,4 @@ const Transactions = () => {
   );
 }
 
-export default Transactions;
+export default Tempo_Medio_Titulacao;
