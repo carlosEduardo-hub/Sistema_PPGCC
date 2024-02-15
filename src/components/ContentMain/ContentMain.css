@@ -44,7 +44,7 @@
   }
   .content-grid-two .grid-two-item:nth-child(3) .subgrid-two {
     grid-template-columns: repeat(2, 1fr);
-    height: 220px;
+    height: 400px;
     column-gap: 12px;
   }
   .content-grid-two {
@@ -70,6 +70,6 @@
     height: auto;
   }
   .content-grid-two .grid-two-item:nth-child(3) .subgrid-two .subgrid-two-item {
-    height: 300px;
+    height: 400px;
   }
 }

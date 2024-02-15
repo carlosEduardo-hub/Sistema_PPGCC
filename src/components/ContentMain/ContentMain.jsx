@@ -21,14 +21,14 @@ const ContentMain = () => {
             <div className="grid-two-item">
               <div className="subgrid-two">
                 <Projetos_Pesquisa />
-                <Savings />
+                {/* <Savings /> */}
               </div>
             </div>
 
             <div className="grid-two-item">
               <div className="subgrid-two">
                 <Producao_Tecnica />
-                <Financial />
+                {/* <Financial /> */}
               </div>
             </div>
         </div>

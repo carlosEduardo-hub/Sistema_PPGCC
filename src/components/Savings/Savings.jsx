@@ -6,120 +6,98 @@ const Savings = () => {
   const chartData = {
     series: [
       {
-        name: "PRODUCT A",
-        data: [44, 55, 41, 67, 22, 43],
+        name: "Com participação de discentes ",
+        data: [0, 23, 21, 36, 50, 52, 34, 35, 23, 21, 20],
       },
       {
-        name: "PRODUCT B",
-        data: [13, 23, 20, 8, 13, 27],
+        name: "Com participação de egressos",
+        data: [0, 0, 0, 0, 0, 0, 0, 21, 21, 33, 29],
       },
       {
-        name: "PRODUCT C",
-        data: [11, 17, 15, 15, 21, 14],
+        name: "Sem participação de discentes",
+        data: [0, 16, 17, 24, 23, 25, 27, 43, 52, 71, 52],
       },
       {
-        name: "PRODUCT D",
-        data: [21, 7, 25, 13, 22, 8],
+        name: "Total de Produções",
+        data: [0, 39, 38, 60, 73, 77, 61, 78, 75, 92, 72],
       },
     ],
     options: {
       chart: {
-        type: "bar",
+        type: "area",
         height: 350,
-        stacked: true,
         toolbar: {
           show: true,
-        },
-        zoom: {
-          enabled: true,
-        },
-      },
-      responsive: [
-        {
-          breakpoint: 480,
-          options: {
-            legend: {
-              position: "bottom",
-              offsetX: -10,
-              offsetY: 0,
-            },
-          },
-        },
-      ],
-      plotOptions: {
-        bar: {
-          horizontal: false,
-          borderRadius: 5,
-          dataLabels: {
-            total: {
-              enabled: false,
-              style: {
-                fontSize: "13px",
-                fontWeight: 900,
-              },
-            },
-          },
-        },
-      },
-      xaxis: {
-        categories: [
-          "01/01/2011 GMT",
-          "01/02/2011 GMT",
-          "01/03/2011 GMT",
-          "01/04/2011 GMT",
-          "01/05/2011 GMT",
-          "01/06/2011 GMT",
-        ],
-        labels: {
-          show: false,
-          style: {
-            colors: '#B0C4DE',
-            fontSize: '12px',
-            fontWeight: 'bold',
-          },
+          tools: {
+            download: true,
+            selection: false,
+            zoom: false,
+            zoomin: false,
+            zoomout: false,
+            pan: false,
+            reset: false
+          }
         },
       },
       dataLabels: {
         enabled: false,
       },
+      stroke: {
+        curve: "smooth",
+      },
+      xaxis: {
+        categories: ["2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022"],
+        labels: {
+          style: {
+            colors: '#B0C4DE',
+            fontSize: '10px',
+            fontWeight: 'bold',
+          },
+        },
+      },
       yaxis: {
         labels: {
           style: {
             colors: '#B0C4DE',
-            fontSize: '12px',
+            fontSize: '8px',
             fontWeight: 'bold',
           },
         },
       },
       title: {
-        text: "Quantidade",
+        text: "Produção-Bibliográfica",
       },
       legend: {
         position: "bottom",
-        offsetY: 10,
-        fontSize: '10px',
+        offsetY: 0,
         labels: {
           colors: 'B0C4DE',
         },
       },
       fill: {
-        opacity: 1,
+        type: "gradient",
+        gradient: {
+          shadeIntensity: 1,
+          opacityFrom: 0.7,
+          opacityTo: 0.9,
+          stops: [0, 100],
+        },
       },
       tooltip: {
-        style: {
-          fontSize: '14px',
-          color: 'red', // Cor do texto da informação do tooltip
+        x: {
+          format: "dd/MM",
         },
       },
     },
   };
+
   return (
     <div className="subgrid-two-item grid-common grid-c6">
       <ReactApexChart
         options={chartData.options}
         series={chartData.series}
         type="bar"
-        height={235.5}
+        height={283}
       />
     </div>
   )

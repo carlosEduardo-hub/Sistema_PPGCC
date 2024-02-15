@@ -126,7 +126,7 @@ const Projetos_Pesquisa = () => {
         options={chartData.options}
         series={chartData.series}
         type="bar"
-        height={283}
+        height={350}
       />
     </div>
   )

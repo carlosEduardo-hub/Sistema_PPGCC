@@ -3,7 +3,6 @@ import ReactApexChart from "react-apexcharts";
 import "./Docentes.css";
 
 const Docentes = () => {
-  // Dados fictícios para o gráfico de área
   const chartData = {
     series: [
       {
@@ -94,7 +93,7 @@ const Docentes = () => {
         options={chartData.options}
         series={chartData.series}
         type="area"
-        height={550}
+        height={350}
       />
     </div>
   );
