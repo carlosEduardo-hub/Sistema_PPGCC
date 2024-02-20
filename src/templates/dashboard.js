@@ -1,6 +1,6 @@
 import './dashboard.css'
-import Sidebar from './layout/Sidebar/Sidebar';
-import Content from './layout/Content/Content';
+import Sidebar from '../layout/Sidebar/Sidebar';
+import Content from '../layout/Content/Content';
 
 function Dashboard() {
   return (

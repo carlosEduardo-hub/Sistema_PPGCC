@@ -2,13 +2,13 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import InitialPage from "./templates/InitialPage";
 import XLSXReader from "./XLSXTest";
-import Dashboard from "./dashboard";
+import Dashboard from "./templates/dashboard";
 
 
 
 const AppRoutes = () => {
     return (
-        <Router basename={process.env.PUBLIC_URL}>
+        <Router basename="/Sistema_PPGCC">
             <Routes>
                 <Route path="/" element={<InitialPage />}></Route>
                 <Route path="/graficos" element={<XLSXReader />}></Route>
