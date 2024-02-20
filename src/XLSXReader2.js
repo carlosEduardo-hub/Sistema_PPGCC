@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { XLSXReaderComponent } from 'xlsx-reader-component'; // Substitua pelo nome correto da sua biblioteca
 
-import { inserirDadosDocentes } from './caminho/para/postgres'; // Substitua pelo caminho correto
+import { inserirDadosDocentes } from './postgres'; // Substitua pelo caminho correto
 
 const XLSXReader2 = () => {
   const navigate = useNavigate();
